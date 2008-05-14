@@ -132,106 +132,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener,
 	}
 
 	private void fillTradeEventPart() {
-		/*
-		 * tblEvents.removeAll();
-		 * 
-		 * 
-		 * 
-		 * 
-		 * List<TradeEvent> list = trade.getAllEvents(); for (int i = 0; i <
-		 * list.size(); i++) { TradeEvent te = list.get(i); TableItem ti = new
-		 * TableItem(tblEvents,SWT.BORDER); ti.setText(0, "" + te.getID());
-		 * if(te.getEventDate() != null)
-		 * ti.setText(1,te.getEventDate().toString());
-		 * ti.setText(2,te.getTradeEventType().getName());
-		 * if(te.getDescription() != null) ti.setText(3,te.getDescription());
-		 * ti.setText(4,"" +te.getEventorder()); List<TradeEventImage> imglist =
-		 * te.getAllImages();
-		 * 
-		 * 
-		 * 
-		 * if(imglist.size() > 0 && imglist.get(0) != null){ TradeEventImage ei =
-		 * imglist.get(0); Image img = ei.getImage();
-		 * 
-		 * ti.setImage(5, new
-		 * Image(img.getDevice(),img.getImageData().scaledTo(50,30))); }else{
-		 * ti.setText(5,"upload"); }
-		 * 
-		 * if(imglist.size() > 1 && imglist.get(1) != null){ TradeEventImage ei2 =
-		 * imglist.get(1);
-		 * 
-		 * 
-		 * Image img = ei2.getImage();
-		 * 
-		 * ti.setImage(6, new
-		 * Image(img.getDevice(),img.getImageData().scaledTo(50,30))); }else{
-		 * ti.setText(6,"upload"); }
-		 * 
-		 * if(imglist.size() > 2 && imglist.get(2) != null){ TradeEventImage ei3 =
-		 * imglist.get(2);
-		 * 
-		 * Image img = ei3.getImage();
-		 * 
-		 * ti.setImage(7, new
-		 * Image(img.getDevice(),img.getImageData().scaledTo(50,30))); }else{
-		 * ti.setText(7,"upload"); }
-		 *  }
-		 */
-		/*
-		 * 
-		 * Button btnupload = new Button(composite,SWT.PUSH);
-		 * btnupload.setText("Upload"); btnupload.setData(te);
-		 * btnupload.addSelectionListener(new SelectionListener(){
-		 * 
-		 * @Override public void widgetDefaultSelected(SelectionEvent e) { //
-		 * TODO Auto-generated method stub
-		 *  }
-		 * 
-		 * @Override public void widgetSelected(SelectionEvent e) {
-		 * 
-		 * FileDialog fileDialog = new FileDialog(new Shell());
-		 * 
-		 * String selected = fileDialog.open(); TradeEvent te =
-		 * (TradeEvent)e.widget.getData(); te.addImage(selected); }
-		 * 
-		 * });
-		 * 
-		 * 
-		 * 
-		 * Button btnRemove = new Button(composite,SWT.PUSH);
-		 * btnRemove.setText("Remove"); btnRemove.setData(new
-		 * Integer(te.getID())); btnRemove.addSelectionListener(new
-		 * SelectionListener(){
-		 * 
-		 * @Override public void widgetDefaultSelected(SelectionEvent e) { //
-		 * TODO Auto-generated method stub
-		 *  }
-		 * 
-		 * @Override public void widgetSelected(SelectionEvent e) { Widget w =
-		 * e.widget;
-		 * 
-		 * Integer id = (Integer) w.getData(); TradeEvent.remove(id.intValue());
-		 * fillTradeEventPart(); }
-		 * 
-		 * });
-		 */
-
-		/*
-		 * table.addSelectionListener(new SelectionAdapter() { public void
-		 * widgetSelected(SelectionEvent e) { // Clean up any previous editor
-		 * control Control oldEditor = editor.getEditor(); if (oldEditor !=
-		 * null) oldEditor.dispose();
-		 *  // Identify the selected row TableItem item = (TableItem)e.item; if
-		 * (item == null) return;
-		 *  // The control that will be the editor must be a child of the Table
-		 * Text newEditor = new Text(table, SWT.NONE);
-		 * newEditor.setText(item.getText(EDITABLECOLUMN));
-		 * newEditor.addModifyListener(new ModifyListener() { public void
-		 * modifyText(ModifyEvent me) { Text text = (Text)editor.getEditor();
-		 * editor.getItem().setText(EDITABLECOLUMN, text.getText()); } });
-		 * newEditor.selectAll(); newEditor.setFocus();
-		 * editor.setEditor(newEditor, item, EDITABLECOLUMN); } });
-		 */
+		
 
 		tblEvents.addListener(SWT.MouseDown, new Listener() {
 			public void handleEvent(Event event) {
@@ -244,7 +145,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener,
 					for (int i = 0; i < tblEvents.getColumnCount(); i++) {
 						Rectangle rect = item.getBounds(i);
 						if (rect.contains(selectedPoint)) {
-							// System.out.println ("Item " + index + "-" + i);
+							
 							EDITABLECOLUMN = i;
 						}
 						if (!visible && rect.intersects(clientArea)) {
@@ -279,7 +180,8 @@ public class TradeEditor extends EditorPart implements ISelectionListener,
 				case 8:
 					TradeEvent te = (TradeEvent) item.getData();
 					TradeEvent.remove(te.getID());
-					break;
+					refresh();
+					return;
 				}
 
 				// The control that will be the editor must be a child of the
@@ -301,15 +203,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener,
 		});
 		refresh();
 		
-		/*tblColID.pack();
-		tblColDescription.pack();
-		tblColEventDate.pack();
-		tblColEventType.pack();
-		tblColImg1.pack();
-		tblColIMG2.pack();
-		tblIMG3.pack();
-		tblEvents.pack();
-		*/
+
 
 	}
 
@@ -344,7 +238,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener,
 			composite1Layout.makeColumnsEqualWidth = true;
 			composite1.setLayout(composite1Layout);
 			composite1.setLayoutData(composite1LData);
-			composite1.setBounds(3,30, 500, 400);
+			//composite1.setBounds(3,30, 500, 400);
 			{
 				
 				tblViewer = new TableViewer(composite1, SWT.FULL_SELECTION | SWT.SINGLE | SWT.V_SCROLL);
@@ -353,11 +247,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener,
 	
 	
 				tblViewer.setLabelProvider(new TradeEventLabelProvider());
-				
-
-				
-				
-				
+			
 				tblEvents = tblViewer.getTable();
 			
 				tblEvents.setLinesVisible(true);
@@ -382,7 +272,8 @@ public class TradeEditor extends EditorPart implements ISelectionListener,
 				{
 					tblColDescription = new TableColumn(tblEvents, SWT.NONE);
 					tblColDescription.setText("Description");
-					tblColDescription.setWidth(120);
+					tblColDescription.setWidth(400);
+					
 				}
 				{
 					tblColOrder = new TableColumn(tblEvents, SWT.NONE);
