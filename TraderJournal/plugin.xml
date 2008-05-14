@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="tradetrack.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RCP Perspective"
+            class="tradetrack.Perspective"
+            id="TradeTrack.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="TradeTrack.actionSet1"
+            label="label">
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="TradeTrack"
+            name="TradeTrack Category">
+      </category>
+      <view
+            category="TradeTrack"
+            class="tradetrack.views.TradeListView"
+            icon="icons/sample.gif"
+            id="tradetrack.views.TradeListView"
+            name="Trade List View">
+      </view>
+      <view
+            category="TradeTrack"
+            class="tradetrack.views.ImageViewPart"
+            icon="icons/sample.gif"
+            id="tradetrack.views.ImageViewPart"
+            name="ImageViewPart">
+      </view>
+      <view
+            category="TradeTrack"
+            class="tradetrack.views.TradeDetailView"
+            id="tradetrack.views.TradeDetailView"
+            name="TradeDetailView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.ui.resourcePerspective">
+         <view
+               id="tradetrack.views.AccountListView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.TaskList">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="tradetrack.editors.TradeEditor"
+            default="false"
+            icon="icons/alt_window_16.gif"
+            id="TradeTrack.editors.TradeEditor"
+            name="TradeTrack.editors.TradeEditor">
+      </editor>
+   </extension>
+
+</plugin>
