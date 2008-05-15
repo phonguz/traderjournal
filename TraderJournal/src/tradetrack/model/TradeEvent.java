@@ -160,8 +160,8 @@ public class TradeEvent {
 	}
 
 	public void addNew(int tradeid) {
-		String sql = "insert into tradeevent (id,tradeid) values ((select (max(id) +1)  from tradeevent),"
-				+ tradeid + ")";
+		String sql = "insert into tradeevent (id,tradeid,eventorder) values ((select (max(id) +1)  from tradeevent),"
+				+ tradeid + ",(select max(eventorder) + 1 from tradeevent where tradeid = "+tradeid+"))";
 
 		Connection conn = null;
 		Statement stmt = null;
@@ -211,9 +211,16 @@ public class TradeEvent {
 					.getConnection("jdbc:apache:commons:dbcp:tradetrack");
 
 			stmt = conn.prepareStatement(sql);
-			stmt.setDate(1, new java.sql.Date(getEventDate().getTime()));
+			if(getEventDate() != null)
+				stmt.setDate(1, new java.sql.Date(getEventDate().getTime()));
+			else
+				stmt.setDate(1,null);
 			stmt.setInt(2, getEventtype());
+			if(getDescription() != null)
 			stmt.setString(3, getDescription());
+			else
+				stmt.setString(3, "");
+				
 			stmt.setInt(4, getEventorder());
 			stmt.setInt(5, getTradeid());
 			System.out.println(sql);
