@@ -1,9 +1,13 @@
 package tradetrack.editors;
 
+import java.text.SimpleDateFormat;
+
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
 
+import tradetrack.Activator;
 import tradetrack.model.TradeEvent;
 import tradetrack.model.TradeEventImage;
 
@@ -48,25 +52,12 @@ public class TradeEventLabelProvider implements ITableLabelProvider {
 			}
 			break;
 
-		case 6: // / img2
-			if (te.getAllImages() != null && te.getAllImages().size() > 1
-					&& te.getAllImages().get(1) != null) {
-				TradeEventImage ei = te.getAllImages().get(1);
-				Image img = ei.getImage();
-				return new Image(img.getDevice(), img.getImageData().scaledTo(
-						50, 30));
-			}
-			break;
+		
+		case 8:
 
-		case 7: // / img3
-			if (te.getAllImages() != null && te.getAllImages().size() > 2
-					&& te.getAllImages().get(2) != null) {
-				TradeEventImage ei = te.getAllImages().get(2);
-				Image img = ei.getImage();
-				return new Image(img.getDevice(), img.getImageData().scaledTo(
-						50, 30));
-			}
-			break;
+			ImageDescriptor id = Activator.getImageDescriptor("icons/delete.gif");
+			return new Image(Activator.getDefault().getWorkbench().getDisplay(), id.getImageData().scaledTo(
+					16, 16));
 
 		}
 		return null;
@@ -81,8 +72,10 @@ public class TradeEventLabelProvider implements ITableLabelProvider {
 				return "" + te.getID();
 
 			case 1: // date
-				if(te.getEventDate() != null)
-				return te.getEventDate().toString();
+				if(te.getEventDate() != null){
+					SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+					return sd.format(te.getEventDate());
+				}
 				else
 					return "";
 			case 2: // type
@@ -95,28 +88,15 @@ public class TradeEventLabelProvider implements ITableLabelProvider {
 			case 4: // order
 				return "" + te.getEventorder();
 			case 5: // / img1
-				if (te.getAllImages() != null && te.getAllImages().size() > 0
-						&& te.getAllImages().get(0) != null)
-					return null;
-
-				else
+//				if (te.getAllImages() != null && te.getAllImages().size() > 0
+//						&& te.getAllImages().get(0) != null)
+//					return null;
+//
+//				else
 					return "add";
-			case 6: // / img2
-				if (te.getAllImages() != null && te.getAllImages().size() > 1
-						&& te.getAllImages().get(1) != null)
-					return null;
 
-				else
-					return "add";
-			case 7: // / img3
-				if (te.getAllImages() != null && te.getAllImages().size() > 2
-						&& te.getAllImages().get(2) != null)
-					return null;
-
-				else
-					return "add";
 			case 8:
-				return "r";
+				return null;
 			}
 		}
 		return null;

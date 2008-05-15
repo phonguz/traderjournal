@@ -1,41 +1,40 @@
 package tradetrack.views;
 
-import org.eclipse.ui.ISelectionListener;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.part.ViewPart;
+import java.util.List;
+
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.part.ViewPart;
 
+import tradetrack.Activator;
 import tradetrack.editors.TradeEditor;
+import tradetrack.model.TradeEvent;
 import tradetrack.model.TradeEventImage;
 
-/**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
+
 public class ImageViewPart extends ViewPart implements ISelectionListener{
     public static final String ID_VIEW =
         "tradetrack.views.ImageViewPart"; //$NON-NLS-1$
-        private Canvas canvasIMGDisplay;
+        private CTabFolder cTabFolder;
+        private CTabItem cTabItem1;
+        
 
-    Composite composite1;
-    TradeEventImage eventImage;
     
+    TradeEventImage eventImage;
+    TradeEvent tradeEvent;
+    Composite parentComposite;
     /**
      * 
      */
@@ -48,22 +47,33 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
      * @see org.eclipse.ui.IWorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
      */
     public void createPartControl(Composite parent) {
+    	parentComposite = parent;
     	getSite().getPage().addSelectionListener(TradeEditor.ID,
 				(ISelectionListener) this);
-        composite1 = new Composite(parent, SWT.NULL);
-        
-        composite1.setLayout(new GridLayout(4, false));
+
         {
-        	GridData canvasIMGDisplayLData = new GridData();
-        	canvasIMGDisplayLData.grabExcessHorizontalSpace = true;
-        	canvasIMGDisplayLData.grabExcessVerticalSpace = true;
-        	canvasIMGDisplayLData.horizontalAlignment = GridData.FILL;
-        	canvasIMGDisplayLData.verticalAlignment = GridData.FILL;
-        	canvasIMGDisplay = new Canvas(composite1, SWT.NONE);
-        	canvasIMGDisplay.setLayoutData(canvasIMGDisplayLData);
+
+        	{
+        		cTabFolder = new CTabFolder(parent, SWT.CLOSE | SWT.TOP);
+        		cTabFolder.setBorderVisible(true);
+        		cTabFolder.setSimple(false);
+        		GridData gd = new GridData(GridData.FILL_BOTH );
+        		cTabFolder.setTabPosition(SWT.TOP);
+        		cTabFolder.setTabHeight(30);
+        		cTabFolder.setSingle(true);
+        		cTabFolder.setLayoutData(gd);
+        		
+        		
+        		
+        		{
+
+        		}
+        		cTabFolder.setSelection(0);
+        	}
         }
         
         parent.pack();
+        parent.setSize(644, 216);
         parent.redraw();
     }
 
@@ -84,7 +94,43 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 	
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-		// TODO Auto-generated method stub
+		System.out.println(selection.toString());
+		if(selection.isEmpty())
+			return;
+		StructuredSelection sl = (StructuredSelection)selection;
+		tradeEvent= (TradeEvent)sl.getFirstElement();
+	
+		
+		Control [] arc = cTabFolder.getChildren();
+		for(int j =0; j < arc.length; j++){
+			arc[j].dispose();
+			arc[j] = null;
+			
+		}
+		
+		
+		
+		
+		List<TradeEventImage> imglist = tradeEvent.getAllImages();
+		int i = 1;
+		for(TradeEventImage ti : imglist){
+			CTabItem cti = new CTabItem(cTabFolder,SWT.NONE);
+			
+			cti.setText("Image : " + i);
+			GridData gData = new GridData(GridData.FILL_BOTH);
+			Composite cmp = new Composite(cTabFolder,SWT.NONE);
+			cmp.setLayoutData(gData);
+			
+			cmp.setBackgroundImage(ti.getImage());
+			cti.setControl(cmp);
+			i++;
+		}
+		
+		
+	
+		parentComposite.pack();
+		
+		
 		
 	}
     
