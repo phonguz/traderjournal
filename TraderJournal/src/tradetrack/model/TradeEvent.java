@@ -18,6 +18,8 @@ import java.util.List;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.internal.Workbench;
 
+import tradetrack.Activator;
+
 
 
 public class TradeEvent {
@@ -258,7 +260,7 @@ public class TradeEvent {
 	}
 
 	public List<TradeEventImage> getAllImages() {
-		String sql = "select id,img,event_id from tradeeventimage ";
+		String sql = "select id,img,event_id,description from tradeeventimage ";
 		sql += " where event_id = " + getID();
 		imgList = new ArrayList<TradeEventImage>();
 		Connection conn = null;
@@ -274,9 +276,12 @@ public class TradeEvent {
 			while(rs.next()){
 				TradeEventImage ti = new TradeEventImage();
 				ti.setId(rs.getInt(1));
-				Image img = new Image(Workbench.getInstance().getDisplay(),rs.getBinaryStream(2));
+				Image img = new Image(Activator.getDefault().getWorkbench().getDisplay(),rs.getBinaryStream(2));
 				ti.setImage(img);
 				ti.setTradeEventId(getID());
+				
+				ti.setDescription(rs.getString(4));
+				
 				imgList.add(ti);
 			}
 			
