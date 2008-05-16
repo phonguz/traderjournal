@@ -14,9 +14,9 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="RCP Perspective"
+            name="TradePerspective"
             class="tradetrack.Perspective"
-            id="TradeTrack.perspective">
+            id="TradeTrack.tradePerspective">
       </perspective>
       <perspective
             class="tradetrack.AccountPerspective"
@@ -27,8 +27,29 @@
    <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
-            id="TradeTrack.actionSet1"
-            label="label">
+            description="PerspectivesActionSet"
+            id="TradeTrack.actionSetPerspectives"
+            label="PerspectivesActionSet"
+            visible="true">
+         <menu
+               id="perspectivesMenu"
+               label="Perspectives">
+            <separator
+                  name="perspectives">
+            </separator>
+         </menu>
+         <action
+               class="tradetrack.actions.OpenAccountPerspectiveAction"
+               id="TraderJournal.openAccountPerspectiveAction"
+               label="AccountPerspective"
+               menubarPath="perspectivesMenu/perspectives">
+         </action>
+         <action
+               class="tradetrack.actions.OpenTradePerspectiveAction"
+               id="TraderJournal.openTradePerspectiveAction"
+               label="TradePerspective"
+               menubarPath="perspectivesMenu/perspectives">
+         </action>
       </actionSet>
    </extension>
    <extension
@@ -74,7 +95,8 @@
                id="tradetrack.views.AccountListView"
                ratio="0.5"
                relationship="right"
-               relative="org.eclipse.ui.views.TaskList">
+               relative="org.eclipse.ui.views.TaskList"
+               showTitle="true">
          </view>
       </perspectiveExtension>
    </extension>

@@ -9,7 +9,7 @@ import tradetrack.views.TradeDetailView;
 import tradetrack.views.TradeListView;
 
 public class AccountPerspective implements IPerspectiveFactory {
-
+	public final static String ID = "TraderJournal.AccountPerspective";
 	@Override
 	public void createInitialLayout(IPageLayout layout) {
 		defineActions(layout);

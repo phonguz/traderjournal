@@ -6,7 +6,7 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
 public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 
-	private static final String PERSPECTIVE_ID = "TradeTrack.perspective";
+	private static final String PERSPECTIVE_ID = Perspective.ID;
 
     public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
         return new ApplicationWorkbenchWindowAdvisor(configurer);
