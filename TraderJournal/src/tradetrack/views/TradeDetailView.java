@@ -41,6 +41,13 @@ import tradetrack.model.Trade;
 public class TradeDetailView extends ViewPart implements ISelectionListener {
     public static final String ID_VIEW =
         "tradetrack.views.TradeDetailView"; //$NON-NLS-1$
+        private Label label8;
+        private Text text2;
+        private Label label7;
+        private Text text1;
+        private Label label6;
+        private Label label5;
+        private Label label4;
         private Label label3;
         private Text txtQty;
         private Button btnRemove;
@@ -48,6 +55,12 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
         private Label label2;
         private Text txtClose;
         private Text txtOpenDate;
+        private Text text7;
+        private Label label9;
+        private Text text6;
+        private Text text5;
+        private Text text4;
+        private Text text3;
         private Button btnSave;
         private Text txtCloseDate;
         private Text txtTP;
@@ -76,113 +89,178 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
 		getSite().getPage().addSelectionListener(TradeListView.ID,
 				(ISelectionListener) this);
     	{
-	    	parent.setSize(109, 209);
+	    	parent.setSize(109, 256);
+	    	{
+	    		composite1 = new Composite(parent, SWT.NULL);
+	    		composite1.setLayout(null);
+	    		{
+	    			txtOpenPrice = new Text(composite1, SWT.NONE);
+	    			txtOpenPrice.setBounds(39, 11, 70, 13);
+	    		}
+	    		{
+	    			lblOpen = new Label(composite1, SWT.NONE);
+	    			lblOpen.setText("Open");
+	    			lblOpen.setBounds(5, 11, 28, 11);
+	    		}
+	    		{
+	    			lblSL = new Label(composite1, SWT.NONE);
+	    			lblSL.setText("SL");
+	    			lblSL.setBounds(5, 49, 28, 11);
+	    		}
+	    		{
+	    			txtSL = new Text(composite1, SWT.NONE);
+	    			txtSL.setBounds(39, 49, 70, 13);
+	    		}
+	    		{
+	    			label1 = new Label(composite1, SWT.NONE);
+	    			label1.setText("TP");
+	    			label1.setBounds(5, 66, 28, 11);
+	    		}
+	    		{
+	    			txtTP = new Text(composite1, SWT.NONE);
+	    			txtTP.setBounds(39, 66, 70, 13);
+	    		}
+	    		{
+	    			txtClose = new Text(composite1, SWT.NONE);
+	    			txtClose.setBounds(39, 107, 70, 13);
+	    		}
+	    		{
+	    			label2 = new Label(composite1, SWT.NONE);
+	    			label2.setText("Close");
+	    			label2.setBounds(5, 105, 28, 11);
+	    		}
+	    		{
+	    			txtOpenDate = new Text(composite1, SWT.NONE);
+	    			txtOpenDate.setBounds(39, 30, 70, 13);
+	    		}
+	    		{
+	    			txtCloseDate = new Text(composite1, SWT.NONE);
+	    			txtCloseDate.setBounds(39, 126, 70, 13);
+	    		}
+	    		{
+	    			btnSave = new Button(composite1, SWT.PUSH | SWT.CENTER);
+	    			btnSave.setText("Save");
+	    			btnSave.setBounds(0, 204, 48, 20);
+	    			btnSave.addSelectionListener(new SelectionAdapter() {
+	    				public void widgetSelected(SelectionEvent evt) {
+	    					trade.setTradeOpen(Double.parseDouble(txtOpenPrice.getText()));
+	    					trade.setTradeClose(Double.parseDouble(txtClose.getText()));
+	    					trade.setStoploss(Double.parseDouble(txtSL.getText()));
+	    					trade.setTp(Double.parseDouble(txtTP.getText()));
+	    					trade.setQty(Integer.parseInt(txtQty.getText()));
+	    					DateFormat df =  new SimpleDateFormat("yyyy-MM-dd");
+	    					try {
+	    						trade.setTradeOpenDate(df.parse(txtOpenDate.getText()) );
+	    					} catch (ParseException e) {
+	    						
+	    						e.printStackTrace();
+	    					}
+	    					
+	    					trade.update();
+	    					Trade.notifyTradeListChangeListeners();
+	    				}
+	    			});
+	    		}
+	    		{
+	    			btnAdd = new Button(composite1, SWT.PUSH | SWT.CENTER);
+	    			btnAdd.setText("Add");
+	    			btnAdd.setBounds(54, 204, 48, 20);
+	    			btnAdd.addSelectionListener(new SelectionAdapter() {
+	    				public void widgetSelected(SelectionEvent evt) {
+	    					trade.addNewTrade();
+	    					Trade.notifyTradeListChangeListeners();
+	    					
+	    					;        		}
+	    			});
+	    		}
+	    		{
+	    			btnRemove = new Button(composite1, SWT.PUSH | SWT.CENTER);
+	    			btnRemove.setText("Remove");
+	    			btnRemove.setBounds(28, 236, 48, 20);
+	    			btnRemove.addSelectionListener(new SelectionAdapter() {
+	    				public void widgetSelected(SelectionEvent evt) {
+	    					trade.delete();
+	    					Trade.notifyTradeListChangeListeners();
+	    				}
+	    			});
+	    		}
+	    		{
+	    			txtQty = new Text(composite1, SWT.NONE);
+	    			txtQty.setText("" + trade.getTp());
+	    			txtQty.setBounds(39, 88, 70, 13);
+	    		}
+	    		{
+	    			label3 = new Label(composite1, SWT.NONE);
+	    			label3.setText("QTY");
+	    			label3.setBounds(5, 88, 28, 11);
+	    		}
+	    		{
+	    			label4 = new Label(composite1, SWT.NONE);
+	    			label4.setText("ODate");
+	    			label4.setBounds(4, 29, 29, 13);
+	    		}
+	    		{
+	    			label5 = new Label(composite1, SWT.NONE);
+	    			label5.setText("CDate");
+	    			label5.setBounds(5, 126, 28, 11);
+	    		}
+	    		{
+	    			label6 = new Label(composite1, SWT.NONE);
+	    			label6.setText("ODate");
+	    			label6.setBounds(4, 29, 29, 13);
+	    		}
+	    		{
+	    			text1 = new Text(composite1, SWT.NONE);
+	    			text1.setBounds(39, 30, 70, 13);
+	    		}
+	    		{
+	    			label7 = new Label(composite1, SWT.NONE);
+	    			label7.setText("Open");
+	    			label7.setBounds(5, 11, 28, 11);
+	    		}
+	    		{
+	    			text2 = new Text(composite1, SWT.NONE);
+	    			text2.setText("" + trade.getTradeOpen());
+	    			text2.setBounds(39, 11, 70, 13);
+	    		}
+	    		{
+	    			label8 = new Label(composite1, SWT.NONE);
+	    			label8.setText("ODate");
+	    			label8.setBounds(4, 29, 29, 13);
+	    		}
+	    		{
+	    			text3 = new Text(composite1, SWT.NONE);
+	    			text3.setText("" + trade.getQty());
+	    			text3.setBounds(39, 88, 70, 13);
+	    		}
+	    		{
+	    			text4 = new Text(composite1, SWT.NONE);
+	    			text4.setBounds(39, 30, 70, 13);
+	    		}
+	    		{
+	    			text5 = new Text(composite1, SWT.NONE);
+	    			text5.setText("" + trade.getTp());
+	    			text5.setBounds(39, 66, 70, 13);
+	    		}
+	    		{
+	    			text6 = new Text(composite1, SWT.NONE);
+	    			text6.setText("" + trade.getStoploss());
+	    			text6.setBounds(39, 49, 70, 13);
+	    		}
+	    		{
+	    			label9 = new Label(composite1, SWT.NONE);
+	    			label9.setText("Open");
+	    			label9.setBounds(5, 11, 28, 11);
+	    		}
+	    		{
+	    			text7 = new Text(composite1, SWT.NONE);
+	    			text7.setText("" + trade.getTradeOpen());
+	    			text7.setBounds(39, 11, 70, 13);
+	    		}
+	    	}
     	}
     	{
     	}
-        composite1 = new Composite(parent, SWT.NULL);
-        composite1.setLayout(null);
-        {
-        	txtOpenPrice = new Text(composite1, SWT.NONE);
-        	txtOpenPrice.setBounds(39, 12, 70, 13);
-        }
-        {
-        	lblOpen = new Label(composite1, SWT.NONE);
-        	lblOpen.setText("Open");
-        	lblOpen.setBounds(5, 12, 28, 11);
-        }
-        {
-        	lblSL = new Label(composite1, SWT.NONE);
-        	lblSL.setText("SL");
-        	lblSL.setBounds(5, 49, 28, 11);
-        }
-        {
-        	txtSL = new Text(composite1, SWT.NONE);
-        	txtSL.setBounds(39, 49, 70, 13);
-        }
-        {
-        	label1 = new Label(composite1, SWT.NONE);
-        	label1.setText("TP");
-        	label1.setBounds(5, 66, 28, 11);
-        }
-        {
-        	txtTP = new Text(composite1, SWT.NONE);
-        	txtTP.setBounds(39, 66, 70, 13);
-        }
-        {
-        	txtClose = new Text(composite1, SWT.NONE);
-        	txtClose.setBounds(39, 107, 70, 13);
-        }
-        {
-        	label2 = new Label(composite1, SWT.NONE);
-        	label2.setText("Close");
-        	label2.setBounds(5, 105, 28, 11);
-        }
-        {
-        	txtOpenDate = new Text(composite1, SWT.NONE);
-        	txtOpenDate.setBounds(39, 30, 70, 13);
-        }
-        {
-        	txtCloseDate = new Text(composite1, SWT.NONE);
-        	txtCloseDate.setBounds(39, 126, 70, 13);
-        }
-        {
-        	btnSave = new Button(composite1, SWT.PUSH | SWT.CENTER);
-        	btnSave.setText("Save");
-        	btnSave.setBounds(7, 145, 48, 20);
-        	btnSave.addSelectionListener(new SelectionAdapter() {
-        		public void widgetSelected(SelectionEvent evt) {
-        			trade.setTradeOpen(Double.parseDouble(txtOpenPrice.getText()));
-        			trade.setTradeClose(Double.parseDouble(txtClose.getText()));
-        			trade.setStoploss(Double.parseDouble(txtSL.getText()));
-        			trade.setTp(Double.parseDouble(txtTP.getText()));
-        			trade.setQty(Integer.parseInt(txtQty.getText()));
-        			DateFormat df =  new SimpleDateFormat("yyyy-MM-dd");
-        			try {
-						trade.setTradeOpenDate(df.parse(txtOpenDate.getText()) );
-					} catch (ParseException e) {
-						
-						e.printStackTrace();
-					}
-        			
-        			trade.update();
-        			Trade.notifyTradeListChangeListeners();
-        		}
-        	});
-        }
-        {
-        	btnAdd = new Button(composite1, SWT.PUSH | SWT.CENTER);
-        	btnAdd.setText("Add");
-        	btnAdd.setBounds(61, 145, 48, 20);
-        	btnAdd.addSelectionListener(new SelectionAdapter() {
-        		public void widgetSelected(SelectionEvent evt) {
-        			trade.addNewTrade();
-        			Trade.notifyTradeListChangeListeners();
-        			
-;        		}
-        	});
-        }
-        {
-        	btnRemove = new Button(composite1, SWT.PUSH | SWT.CENTER);
-        	btnRemove.setText("Remove");
-        	btnRemove.setBounds(35, 177, 48, 20);
-        	btnRemove.addSelectionListener(new SelectionAdapter() {
-        		public void widgetSelected(SelectionEvent evt) {
-        			trade.delete();
-        			Trade.notifyTradeListChangeListeners();
-        		}
-        	});
-        }
-        {
-        	txtQty = new Text(composite1, SWT.NONE);
-        	txtQty.setText("" + trade.getTp());
-        	txtQty.setBounds(39, 88, 70, 13);
-        }
-        {
-        	label3 = new Label(composite1, SWT.NONE);
-        	label3.setText("QTY");
-        	label3.setBounds(5, 88, 28, 11);
-        }
     }
 
     /* (non-Javadoc)

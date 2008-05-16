@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Trade {
 
-	private static List<ITradeListChanged> listChangeListeners = new ArrayList();
+	private static List<ITradeListChanged> listChangeListeners = new ArrayList<ITradeListChanged>();
 
 	private int id;
 	private Date tradeOpenDate;
@@ -22,7 +22,14 @@ public class Trade {
 	private double stoploss;
 	private double tp;
 	private int qty;
-
+	private String instrument;
+	private double entrycoms;
+	private double exitcoms;
+	private double entryfee;
+	private double exitfee;
+	private double pl;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -95,7 +102,7 @@ public class Trade {
 	}
 
 	public static List<Trade> getAllTrades() {
-		List<Trade> trades = new ArrayList();
+		List<Trade> trades = new ArrayList<Trade>();
 
 		String sql = "Select * from trade";
 		Connection conn = null;
@@ -121,6 +128,12 @@ public class Trade {
 				t.setTradeOpenDate(rset.getDate("Open_trade_Date"));
 				t.setTradeCloseDate(rset.getDate("Close_trade_Date"));
 				t.setQty(rset.getInt("Qty"));
+				t.setInstrument(rset.getString("instrument"));
+				t.setEntrycoms(rset.getDouble("entrycoms"));
+				t.setExitcoms(rset.getDouble("exitcoms"));
+				t.setEntryfee(rset.getDouble("entryfee"));
+				t.setExitfee(rset.getDouble("exitfee"));
+				t.setPl(rset.getDouble("pl"));
 				trades.add(t);
 			}
 		} catch (SQLException e) {
@@ -149,7 +162,8 @@ public class Trade {
 	public void update(){
 		
 		String sql = "update trade set openprice = ?, closeprice = ?, qty = ?, " +
-				"stoploss =?, tp = ?,open_trade_date =?,close_trade_date=? ";
+				"stoploss =?, tp = ?,open_trade_date =?,close_trade_date=?," +
+				"instrument=?,entrycoms=?,exitcoms=?,entryfee=?,exitfee=?,pl=? ";
 		
 		sql += " where id = " +getId();
         Connection conn = null;
@@ -174,8 +188,17 @@ public class Trade {
             	stmt.setDate(7, new java.sql.Date(getTradeCloseDate().getTime()));
             else
             	stmt.setDate(7, null);
+            if(getInstrument() != null)
+            	stmt.setString(8,getInstrument());
+            else
+            	stmt.setString(8, null);
             
-            System.out.println(sql);
+            stmt.setDouble(9, getEntrycoms());
+            stmt.setDouble(10, getExitcoms());
+            stmt.setDouble(11, getEntryfee());
+            stmt.setDouble(12, getExitfee());
+            stmt.setDouble(13, getPl());
+            
             stmt.executeUpdate();
            
         } catch(SQLException e) {
@@ -277,6 +300,54 @@ public class Trade {
 			}
 		}
 		
+	}
+
+	public String getInstrument() {
+		return instrument;
+	}
+
+	public void setInstrument(String instrument) {
+		this.instrument = instrument;
+	}
+
+	public double getEntrycoms() {
+		return entrycoms;
+	}
+
+	public void setEntrycoms(double entrycoms) {
+		this.entrycoms = entrycoms;
+	}
+
+	public double getExitcoms() {
+		return exitcoms;
+	}
+
+	public void setExitcoms(double exitcoms) {
+		this.exitcoms = exitcoms;
+	}
+
+	public double getEntryfee() {
+		return entryfee;
+	}
+
+	public void setEntryfee(double entryfee) {
+		this.entryfee = entryfee;
+	}
+
+	public double getExitfee() {
+		return exitfee;
+	}
+
+	public void setExitfee(double exitfee) {
+		this.exitfee = exitfee;
+	}
+
+	public double getPl() {
+		return pl;
+	}
+
+	public void setPl(double pl) {
+		this.pl = pl;
 	}
 
 }
