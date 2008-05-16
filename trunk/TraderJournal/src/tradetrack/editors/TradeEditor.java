@@ -359,9 +359,10 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 				gridData.grabExcessVerticalSpace = true;
 				gridData.horizontalSpan = 3;
 				tblEvents.setLayoutData(gridData);
+				
 
 				{
-					tblColID = new TableColumn(tblEvents, SWT.NONE);
+					tblColID = new TableColumn(tblEvents, SWT.LEFT);
 					tblColID.setText("ID");
 					tblColID.setWidth(20);
 					tblColID.addSelectionListener(new SelectionAdapter() {
@@ -373,9 +374,9 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 					});
 				}
 				{
-					tblColEventDate = new TableColumn(tblEvents, SWT.NONE);
+					tblColEventDate = new TableColumn(tblEvents, SWT.LEFT);
 					tblColEventDate.setText("Date");
-					tblColEventDate.setWidth(60);
+					tblColEventDate.setWidth(100);
 					tblColEventDate
 							.addSelectionListener(new SelectionAdapter() {
 
@@ -386,20 +387,20 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 							});
 				}
 				{
-					tblColEventType = new TableColumn(tblEvents, SWT.NONE);
+					tblColEventType = new TableColumn(tblEvents, SWT.LEFT);
 					tblColEventType.setText("EventType");
 					tblColEventType.setWidth(60);
 				}
 				{
-					tblColDescription = new TableColumn(tblEvents, SWT.NONE);
+					tblColDescription = new TableColumn(tblEvents, SWT.LEFT);
 					tblColDescription.setText("Description");
 					tblColDescription.setWidth(400);
 
 				}
 				{
-					tblColOrder = new TableColumn(tblEvents, SWT.NONE);
+					tblColOrder = new TableColumn(tblEvents, SWT.LEFT);
 					tblColOrder.setText("Order");
-					tblColOrder.setWidth(60);
+					tblColOrder.setWidth(20);
 					tblColOrder.addSelectionListener(new SelectionAdapter() {
 
 						public void widgetSelected(SelectionEvent e) {
@@ -410,14 +411,14 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 
 				}
 				{
-					tblColImg1 = new TableColumn(tblEvents, SWT.NONE);
+					tblColImg1 = new TableColumn(tblEvents, SWT.LEFT);
 					tblColImg1.setText("IMG1");
 					tblColImg1.setWidth(60);
 				}
 
 				{
-					tblColRemove = new TableColumn(tblEvents, SWT.NONE);
-					tblColRemove.setText("Remove");
+					tblColRemove = new TableColumn(tblEvents, SWT.LEFT);
+					tblColRemove.setText("R");
 					tblColRemove.setWidth(30);
 				}
 			}
