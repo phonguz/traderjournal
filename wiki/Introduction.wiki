@@ -1,4 +1,6 @@
+#summary Open Source Trader Journal software
 #labels Featured
+
 The need for accurate records is probably the most crucial part of any traders journey in both self discovery and towards success as a trader.
 
 =Books=
