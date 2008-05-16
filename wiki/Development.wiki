@@ -1,0 +1,12 @@
+#summary Development support required
+
+= Eclipse =
+
+I use Eclipse, download the eclipse version that supports plugin / rcp development, find it [http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/europa/winter/eclipse-rcp-europa-winter-win32.zip here]
+
+= plugins =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
