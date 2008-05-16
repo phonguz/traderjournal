@@ -16,7 +16,7 @@ public class TradeLabelProvider implements ILabelProvider {
 	public String getText(Object element) {
 		Trade t = (Trade)element;
 		
-		return t.getId() + "-" + t.getTradeOpenDate();
+		return t.getId() + ":" + t.getInstrument() + ":" + t.getTradeOpenDate();
 	}
 
 	@Override
