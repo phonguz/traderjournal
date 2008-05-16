@@ -2,13 +2,9 @@ package tradetrack.editors;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
@@ -50,7 +46,7 @@ import tradetrack.views.TradeListView;
 
 public class TradeEditor extends EditorPart implements ISelectionListener {
 	public static final String ID = "TradeTrack.editors.TradeEditor";
-	private boolean changed = false;
+	
 	private Trade trade;
 	private TableColumn tblColEventDate;
 
@@ -68,7 +64,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 	Composite rightComposite;
 
 	public TradeEditor() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override
@@ -82,7 +78,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 
 	@Override
 	public void doSaveAs() {
-		// TODO Auto-generated method stub
+		
 
 	}
 

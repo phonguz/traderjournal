@@ -9,14 +9,19 @@ import org.apache.commons.dbcp.PoolingDriver;
 import org.apache.commons.pool.ObjectPool;
 import org.apache.commons.pool.impl.GenericObjectPool;
 
+import tradetrack.Activator;
+import tradetrack.preferences.DBURLListEditor;
+import tradetrack.preferences.PreferenceConstants;
+
 public class DBUtils {
 	
 	public static void setupHSQLDB(){
 		try {
 			Class.forName("org.hsqldb.jdbcDriver");
 	
-		
-		setupDriver("jdbc:hsqldb:hsql://localhost/TradeTrack");
+			String urllist = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.P_DBURLLIST);
+			String url = DBURLListEditor.getFirstDBURL(urllist);
+		setupDriver(url);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -25,6 +30,9 @@ public class DBUtils {
 			e.printStackTrace();
 		}
 	}
+
+	
+	
 	
 	 public static void setupDriver(String connectURI) throws Exception {
 	        //
