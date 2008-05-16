@@ -487,8 +487,11 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 		for (int i = 0, n = tblEvents.getColumnCount(); i < n; i++) {
 			//tblEvents.getColumn(i).pack();
 		}
+		
 		tblEvents.redraw();
 		rightComposite.pack();
+		tblEvents.select(0);
+		tblEvents.showSelection();
 	}
 
 	public void dispose() {

@@ -72,9 +72,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		// File Menu
 		helpMenu.add(iExitAction);
 		
-		MenuManager layoutMenu = new MenuManager("Layout", "layout");
+		MenuManager layoutMenu = new MenuManager("Configuration", "window");
 		
-		layoutMenu.add(perspectivesMenu);
+		//layoutMenu.add(perspectivesMenu);
 		
 		layoutMenu.add(preferenceAction);
 		menuBar.add(layoutMenu);
