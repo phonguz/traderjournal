@@ -18,6 +18,11 @@
             class="tradetrack.Perspective"
             id="TradeTrack.perspective">
       </perspective>
+      <perspective
+            class="tradetrack.AccountPerspective"
+            id="TraderJournal.AccountPerspective"
+            name="AccountPerspective">
+      </perspective>
    </extension>
    <extension
          point="org.eclipse.ui.actionSets">
@@ -51,6 +56,14 @@
             class="tradetrack.views.TradeDetailView"
             id="tradetrack.views.TradeDetailView"
             name="TradeDetailView">
+      </view>
+      <view
+            allowMultiple="false"
+            category="TradeTrack"
+            class="tradetrack.views.AccountListView"
+            icon="icons/alt_window_32.gif"
+            id="tradetrack.views.AccountListView"
+            name="AccountListView">
       </view>
    </extension>
    <extension

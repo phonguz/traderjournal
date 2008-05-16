@@ -8,18 +8,29 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
 
-import tradetrack.Activator;
 import tradetrack.editors.TradeEditor;
 import tradetrack.model.TradeEvent;
 import tradetrack.model.TradeEventImage;
@@ -93,7 +104,7 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 	
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-		System.out.println(selection.toString());
+		
 		if(selection.isEmpty())
 			return;
 		StructuredSelection sl = (StructuredSelection)selection;
@@ -120,20 +131,114 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 		int i = 1;
 		for(TradeEventImage ti : imglist){
 			CTabItem cti = new CTabItem(cTabFolder,SWT.NONE);
+			cti.addListener(SWT.MouseDown,new Listener(){
+
+				@Override
+				public void handleEvent(Event event) {
+					System.out.println(event.toString());
+				}});
 			
-			cti.setText("Image : " + i);
+			
 			GridData gData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 			Composite cmp = new Composite(cTabFolder,SWT.NONE);
 			cmp.setLayoutData(gData);
+			cmp.setLayout(new GridLayout(4,false));
+			Label lbl = new Label(cmp,SWT.NONE);
+			lbl.setText("Description");
+			Text txt = new Text(cmp,SWT.NONE);
+			txt.setSize(new Point(200,10));
+			if (ti.getDescription() != null) {
+				
 			
-			cmp.setBackgroundImage(ti.getImage());
+				txt.setText(ti.getDescription());
+				cti.setText("Image : " + i + " : " + ti.getDescription());
+			}else{
+				cti.setText("Image : " + i);
+			}
+			txt.setData(ti);
+			txt.addModifyListener(new ModifyListener(){
+
+
+				@Override
+				public void modifyText(ModifyEvent e) {
+					TradeEventImage it = (TradeEventImage)e.widget.getData();
+					
+					it.setDescription(((Text)e.widget).getText());
+					System.out.println(it.getDescription());
+					
+					
+				}});
+			Button btnSAVE = new Button(cmp,SWT.PUSH);
+			btnSAVE.setText("SAVE");
+			btnSAVE.setData(ti);
+			btnSAVE.addSelectionListener(new SelectionListener(){
+
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					TradeEventImage it = (TradeEventImage)e.widget.getData();
+
+					it.save();
+					
+				}});
+
+			
+			
+			Button btnREMOVE = new Button(cmp,SWT.PUSH);
+			btnREMOVE.setText("DELETE");
+			btnREMOVE.setData(ti);
+			btnREMOVE.addSelectionListener(new SelectionListener(){
+
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					TradeEventImage it = (TradeEventImage)e.widget.getData();
+					it.remove();
+					cTabFolder.redraw();
+					
+				}});
+			
+			Canvas cv = new Canvas(cmp,SWT.NONE);
+			GridData gridData = new GridData(GridData.FILL_BOTH
+					| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
+			gridData.grabExcessVerticalSpace = true;
+			gridData.horizontalSpan =4;
+			
+			cv.setLayoutData(gridData);
+			cv.setData(ti);
+			cv.addPaintListener(new PaintListener(){
+
+				@Override
+				public void paintControl(PaintEvent e) {
+					
+					GC gc = e.gc;
+					TradeEventImage ti = (TradeEventImage)e.widget.getData();
+					gc.drawImage(ti.getImage(), 0, 0);
+				}
+				
+			});
+			cv.setFocus();
+			cv.redraw();
 			cti.setControl(cmp);
+			cmp.redraw();
 			cTabItemList.add(cti);
 			i++;
+			cTabFolder.setSelection(i);
 		}
 		
 		cTabFolder.setSelection(0);
 		cTabFolder.redraw();
+		
 		
 		
 		
