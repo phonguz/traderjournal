@@ -9,7 +9,7 @@ import tradetrack.views.TradeDetailView;
 import tradetrack.views.TradeListView;
 
 public class Perspective implements IPerspectiveFactory {
-
+	public static final String ID = "TradeTrack.tradePerspective";
 	public void createInitialLayout(IPageLayout layout) {
 		defineActions(layout);
 		String editorArea = layout.getEditorArea();
