@@ -53,7 +53,7 @@ public class TradeEventLabelProvider implements ITableLabelProvider {
 			break;
 
 		
-		case 8:
+		case 6:
 
 			ImageDescriptor id = Activator.getImageDescriptor("icons/delete.gif");
 			return new Image(Activator.getDefault().getWorkbench().getDisplay(), id.getImageData().scaledTo(
@@ -95,7 +95,7 @@ public class TradeEventLabelProvider implements ITableLabelProvider {
 //				else
 					return "add";
 
-			case 8:
+			case 6:
 				return null;
 			}
 		}
