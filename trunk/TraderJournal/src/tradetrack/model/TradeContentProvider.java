@@ -9,8 +9,8 @@ public class TradeContentProvider implements IStructuredContentProvider {
 
 	@Override
 	public Object[] getElements(Object inputElement) {
-		Trade t = new Trade();
-		List<Trade> l = t.getAllTrades();
+		
+		List<Trade> l = Trade.getAllTrades();
 
 		return l.toArray();
 	}
