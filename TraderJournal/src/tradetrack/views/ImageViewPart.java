@@ -1,5 +1,6 @@
 package tradetrack.views;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.viewers.ISelection;
@@ -28,10 +29,10 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
     public static final String ID_VIEW =
         "tradetrack.views.ImageViewPart"; //$NON-NLS-1$
         private CTabFolder cTabFolder;
-        private CTabItem cTabItem1;
+        
         
 
-    
+    List<CTabItem> cTabItemList = new ArrayList<CTabItem>();
     TradeEventImage eventImage;
     TradeEvent tradeEvent;
     Composite parentComposite;
@@ -99,13 +100,21 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 		tradeEvent= (TradeEvent)sl.getFirstElement();
 	
 		
-		Control [] arc = cTabFolder.getChildren();
-	
-		for(int j =0; j < arc.length; j++){
-			arc[j].dispose();
-			arc[j] = null;
+		for(CTabItem ct : cTabItemList){
+			ct.getControl().dispose();
+			ct.dispose();
 			
 		}
+		cTabItemList.clear();
+		
+//		Control [] arc = cTabFolder.getChildren();
+//	
+//		for(int j =0; j < arc.length; j++){
+//			arc[j].dispose();
+//			arc[j] = null;
+//			
+//		}
+//		
 		cTabFolder.setTopRight(null);
 		List<TradeEventImage> imglist = tradeEvent.getAllImages();
 		int i = 1;
@@ -119,6 +128,7 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 			
 			cmp.setBackgroundImage(ti.getImage());
 			cti.setControl(cmp);
+			cTabItemList.add(cti);
 			i++;
 		}
 		
