@@ -32,7 +32,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private IWorkbenchAction iAboutAction;
 	private IWorkbenchAction iExitAction;
 	private IContributionItem perspectivesMenu;
-	private OpenPerspectiveAction iperspectiveAccount;
+	
+	
+	private IWorkbenchAction preferenceAction;
 	
 	
     public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
@@ -51,7 +53,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		
 		
 		
-		
+		preferenceAction = ActionFactory.PREFERENCES.create(window);
+
+		register(preferenceAction);
+
 		
 		perspectivesMenu = ContributionItemFactory.PERSPECTIVES_SHORTLIST
 		.create(window);
@@ -63,20 +68,22 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		MenuManager helpMenu = new MenuManager("&Help",
 				IWorkbenchActionConstants.M_HELP);
 		
-		menuBar.add(helpMenu);
+		
 		// File Menu
 		helpMenu.add(iExitAction);
 		
-		MenuManager layoutMenu = new MenuManager("Switch Layout", "layout");
+		MenuManager layoutMenu = new MenuManager("Layout", "layout");
 		
 		layoutMenu.add(perspectivesMenu);
 		
-		
+		layoutMenu.add(preferenceAction);
+		menuBar.add(layoutMenu);
 		
 		
 		// Help Menu
 		helpMenu.add(iAboutAction);
 		
+		menuBar.add(helpMenu);
 		
         
 

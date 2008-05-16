@@ -6,12 +6,12 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 
-import tradetrack.model.DBUtils;
-
 /**
  * This class controls all aspects of the application's execution
  */
 public class Application implements IApplication {
+	
+	public final static String PLUGIN_ID = "TradeTrack";
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.equinox.app.IApplication#start(org.eclipse.equinox.app.IApplicationContext)
@@ -19,7 +19,7 @@ public class Application implements IApplication {
 	public Object start(IApplicationContext context) 
 	throws Exception {
 		
-		DBUtils.setupHSQLDB();
+		
 		Display display = PlatformUI.createDisplay();
 		try {
 			int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());

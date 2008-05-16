@@ -110,5 +110,19 @@
             name="TradeTrack.editors.TradeEditor">
       </editor>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="tradetrack.preferences.DatabasePreferencePage"
+            id="tradetrack.preferences.DatabasePreferencePage"
+            name="Database Preferences">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="tradetrack.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
 
 </plugin>
