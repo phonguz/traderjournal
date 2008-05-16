@@ -57,14 +57,13 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
         		cTabFolder = new CTabFolder(parent, SWT.CLOSE | SWT.TOP);
         		cTabFolder.setBorderVisible(true);
         		cTabFolder.setSimple(false);
-        		GridData gd = new GridData(GridData.FILL_BOTH );
+        		parent.setLayout(new GridLayout());
+        		GridData gd = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
         		cTabFolder.setTabPosition(SWT.TOP);
         		cTabFolder.setTabHeight(30);
-        		cTabFolder.setSingle(true);
+        		//cTabFolder.setSingle(true);
         		cTabFolder.setLayoutData(gd);
-        		
-        		
-        		
+
         		{
 
         		}
@@ -73,8 +72,7 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
         }
         
         parent.pack();
-        parent.setSize(644, 216);
-        parent.redraw();
+        
     }
 
     /* (non-Javadoc)
@@ -102,22 +100,20 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 	
 		
 		Control [] arc = cTabFolder.getChildren();
+	
 		for(int j =0; j < arc.length; j++){
 			arc[j].dispose();
 			arc[j] = null;
 			
 		}
-		
-		
-		
-		
+		cTabFolder.setTopRight(null);
 		List<TradeEventImage> imglist = tradeEvent.getAllImages();
 		int i = 1;
 		for(TradeEventImage ti : imglist){
 			CTabItem cti = new CTabItem(cTabFolder,SWT.NONE);
 			
 			cti.setText("Image : " + i);
-			GridData gData = new GridData(GridData.FILL_BOTH);
+			GridData gData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 			Composite cmp = new Composite(cTabFolder,SWT.NONE);
 			cmp.setLayoutData(gData);
 			
@@ -126,9 +122,9 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 			i++;
 		}
 		
+		cTabFolder.setSelection(0);
+		cTabFolder.redraw();
 		
-	
-		parentComposite.pack();
 		
 		
 		

@@ -48,9 +48,7 @@ import tradetrack.model.TradeEvent;
 import tradetrack.model.TradeEventType;
 import tradetrack.views.TradeListView;
 
-
-public class TradeEditor extends EditorPart implements ISelectionListener
-		 {
+public class TradeEditor extends EditorPart implements ISelectionListener {
 	public static final String ID = "TradeTrack.editors.TradeEditor";
 	private boolean changed = false;
 	private Trade trade;
@@ -115,24 +113,27 @@ public class TradeEditor extends EditorPart implements ISelectionListener
 		getSite().getPage().addSelectionListener(TradeListView.ID,
 				(ISelectionListener) this);
 		getSite().setSelectionProvider(tblViewer);
-		
-		parent.setLayout(null);
 
-		rightComposite = new Composite(parent, SWT.NONE);
+		
+
+		rightComposite = new Composite(parent, SWT.BORDER);
 		// Create a composite to hold the children
-		GridData gridData = new GridData(GridData.HORIZONTAL_ALIGN_FILL
-				| GridData.FILL_BOTH);
-		rightComposite.setLayoutData(gridData);
+		GridData gridData = new GridData( GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL
+				| GridData.GRAB_VERTICAL);
+		parent.setLayout(new GridLayout());
+		
 
 		// Set numColumns to 3 for the buttons
 		GridLayout layout = new GridLayout(3, false);
 		layout.marginWidth = 4;
 		rightComposite.setLayout(layout);
-
+		parent.setLayoutData(gridData);
+		rightComposite.setLayoutData(gridData);
+		
 		createTradeEventPart();
 		fillTradeEventPart();
 
-		parent.pack();
+		
 
 	}
 
@@ -177,7 +178,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener
 
 				// Identify the selected row
 				TableItem item = (TableItem) e.item;
-				final TradeEvent selectedEvent = (TradeEvent)item.getData();
+				final TradeEvent selectedEvent = (TradeEvent) item.getData();
 				if (item == null)
 					return;
 
@@ -185,20 +186,21 @@ public class TradeEditor extends EditorPart implements ISelectionListener
 				case 0:
 					return;
 
-				case 1:  //date
-		
+				case 1: // date
+
 					Text newEditor = new Text(tblEvents, SWT.NONE);
 					newEditor.setText(item.getText(EDITABLECOLUMN));
 					newEditor.addModifyListener(new ModifyListener() {
 						public void modifyText(ModifyEvent me) {
 							Text text = (Text) editor.getEditor();
-							editor.getItem()
-									.setText(EDITABLECOLUMN, text.getText());
+							editor.getItem().setText(EDITABLECOLUMN,
+									text.getText());
 							TableItem item = (TableItem) editor.getItem();
-							TradeEvent tEvent = (TradeEvent)item.getData();
-							SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+							TradeEvent tEvent = (TradeEvent) item.getData();
+							SimpleDateFormat sd = new SimpleDateFormat(
+									"yyyy-MM-dd");
 							try {
-								tEvent.setEventDate( sd.parse( text.getText()));
+								tEvent.setEventDate(sd.parse(text.getText()));
 							} catch (ParseException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -214,50 +216,54 @@ public class TradeEditor extends EditorPart implements ISelectionListener
 					return;
 				case 2: // type
 					Combo tradeTypeEditor = new Combo(tblEvents, SWT.NONE);
-					for( TradeEventType tt : TradeEventType.getAll()){
+					for (TradeEventType tt : TradeEventType.getAll()) {
 						tradeTypeEditor.add(tt.getName(), tt.getID());
 					}
-					
+
 					tradeTypeEditor.select(selectedEvent.getEventtype());
-					tradeTypeEditor.addSelectionListener(new SelectionListener() {
+					tradeTypeEditor
+							.addSelectionListener(new SelectionListener() {
 
+								@Override
+								public void widgetDefaultSelected(
+										SelectionEvent e) {
+									// TODO Auto-generated method stub
 
-						@Override
-						public void widgetDefaultSelected(SelectionEvent e) {
-							// TODO Auto-generated method stub
-							
-						}
+								}
 
-						@Override
-						public void widgetSelected(SelectionEvent ee) {
-							Combo cmb = (Combo)ee.widget;
-							TableItem item = (TableItem) editor.getItem();
-							TradeEvent tEvent = (TradeEvent)item.getData();
-							tEvent.setEventtype(	cmb.getSelectionIndex());
-							tEvent.update();
-							tblViewer.update(tEvent, null);
-							
-							
-						}
-					});
-				
+								@Override
+								public void widgetSelected(SelectionEvent ee) {
+									Combo cmb = (Combo) ee.widget;
+									TableItem item = (TableItem) editor
+											.getItem();
+									TradeEvent tEvent = (TradeEvent) item
+											.getData();
+									tEvent
+											.setEventtype(cmb
+													.getSelectionIndex());
+									tEvent.update();
+									tblViewer.update(tEvent, null);
+
+								}
+							});
+
 					tradeTypeEditor.setFocus();
 					editor.setEditor(tradeTypeEditor, item, EDITABLECOLUMN);
-					
+
 					return;
-					
-				case 3:  //description
-					
+
+				case 3: // description
+
 					Text descriptionEditor = new Text(tblEvents, SWT.NONE);
 					descriptionEditor.setText(item.getText(EDITABLECOLUMN));
 					descriptionEditor.addModifyListener(new ModifyListener() {
 						public void modifyText(ModifyEvent me) {
 							Text text = (Text) editor.getEditor();
-							editor.getItem()
-									.setText(EDITABLECOLUMN, text.getText());
+							editor.getItem().setText(EDITABLECOLUMN,
+									text.getText());
 							TableItem item = (TableItem) editor.getItem();
-							TradeEvent tEvent = (TradeEvent)item.getData();
-							tEvent.setDescription(	text.getText());
+							TradeEvent tEvent = (TradeEvent) item.getData();
+							tEvent.setDescription(text.getText());
 							tEvent.update();
 							tblViewer.update(tEvent, null);
 
@@ -267,28 +273,30 @@ public class TradeEditor extends EditorPart implements ISelectionListener
 					descriptionEditor.setFocus();
 					editor.setEditor(descriptionEditor, item, EDITABLECOLUMN);
 					return;
-					
-				case 4:  //eventorder
-					
+
+				case 4: // eventorder
+
 					Text orderEditor = new Text(tblEvents, SWT.NONE);
 					orderEditor.addVerifyListener(
-							
-							new VerifyListener() {
-								public void verifyText(VerifyEvent e) {
-									// Here, we could use a RegExp such as the following 
-									// if using JRE1.4 such as  e.doit = e.text.matches("[\\-0-9]*");
-									e.doit = "0123456789".indexOf(e.text) >= 0 ;
-								}
-							});
+
+					new VerifyListener() {
+						public void verifyText(VerifyEvent e) {
+							// Here, we could use a RegExp such as the following
+							// if using JRE1.4 such as e.doit =
+							// e.text.matches("[\\-0-9]*");
+							e.doit = "0123456789".indexOf(e.text) >= 0;
+						}
+					});
 					orderEditor.setText(item.getText(EDITABLECOLUMN));
 					orderEditor.addModifyListener(new ModifyListener() {
 						public void modifyText(ModifyEvent me) {
 							Text text = (Text) editor.getEditor();
-							editor.getItem()
-									.setText(EDITABLECOLUMN, text.getText());
+							editor.getItem().setText(EDITABLECOLUMN,
+									text.getText());
 							TableItem item = (TableItem) editor.getItem();
-							TradeEvent tEvent = (TradeEvent)item.getData();
-							tEvent.setEventorder(Integer.parseInt(text.getText()));
+							TradeEvent tEvent = (TradeEvent) item.getData();
+							tEvent.setEventorder(Integer.parseInt(text
+									.getText()));
 							tEvent.update();
 							tblViewer.update(tEvent, null);
 
@@ -300,31 +308,28 @@ public class TradeEditor extends EditorPart implements ISelectionListener
 					return;
 				case 5:
 					String txt = item.getText(5);
-					if( item.getText(5) != null && !item.getText(5).equals("")){
-						
+					if (item.getText(5) != null && !item.getText(5).equals("")) {
+
 						FileDialog fd = new FileDialog(new Shell());
 						String filepath = fd.open();
-						
-						if(filepath != null){
+
+						if (filepath != null) {
 							selectedEvent.addImage(filepath);
-							
+
 						}
 
-					}else{
+					} else {
 					}
-					
+
 					break;
-					
-					
-					
-				case 8:
+
+				case 6:
 					TradeEvent te = (TradeEvent) item.getData();
 					TradeEvent.remove(te.getID());
 					refresh();
 					return;
 				}
 
-				
 			}
 		});
 		refresh();
@@ -349,7 +354,8 @@ public class TradeEditor extends EditorPart implements ISelectionListener
 
 				tblEvents.setLinesVisible(true);
 				tblEvents.setHeaderVisible(true);
-				GridData gridData = new GridData(GridData.FILL_BOTH);
+				GridData gridData = new GridData(GridData.FILL_BOTH
+						| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 				gridData.grabExcessVerticalSpace = true;
 				gridData.horizontalSpan = 3;
 				tblEvents.setLayoutData(gridData);
@@ -359,9 +365,10 @@ public class TradeEditor extends EditorPart implements ISelectionListener
 					tblColID.setText("ID");
 					tblColID.setWidth(20);
 					tblColID.addSelectionListener(new SelectionAdapter() {
-				       	
+
 						public void widgetSelected(SelectionEvent e) {
-							tblViewer.setSorter(new TradeEventSorter(TradeEventSorter.ID));
+							tblViewer.setSorter(new TradeEventSorter(
+									TradeEventSorter.ID));
 						}
 					});
 				}
@@ -369,12 +376,14 @@ public class TradeEditor extends EditorPart implements ISelectionListener
 					tblColEventDate = new TableColumn(tblEvents, SWT.NONE);
 					tblColEventDate.setText("Date");
 					tblColEventDate.setWidth(60);
-					tblColEventDate.addSelectionListener(new SelectionAdapter() {
-				       	
-						public void widgetSelected(SelectionEvent e) {
-							tblViewer.setSorter(new TradeEventSorter(TradeEventSorter.EVENTDATE));
-						}
-					});
+					tblColEventDate
+							.addSelectionListener(new SelectionAdapter() {
+
+								public void widgetSelected(SelectionEvent e) {
+									tblViewer.setSorter(new TradeEventSorter(
+											TradeEventSorter.EVENTDATE));
+								}
+							});
 				}
 				{
 					tblColEventType = new TableColumn(tblEvents, SWT.NONE);
@@ -392,12 +401,13 @@ public class TradeEditor extends EditorPart implements ISelectionListener
 					tblColOrder.setText("Order");
 					tblColOrder.setWidth(60);
 					tblColOrder.addSelectionListener(new SelectionAdapter() {
-				       	
+
 						public void widgetSelected(SelectionEvent e) {
-							tblViewer.setSorter(new TradeEventSorter(TradeEventSorter.EVENTORDER));
+							tblViewer.setSorter(new TradeEventSorter(
+									TradeEventSorter.EVENTORDER));
 						}
 					});
-					
+
 				}
 				{
 					tblColImg1 = new TableColumn(tblEvents, SWT.NONE);
@@ -411,11 +421,11 @@ public class TradeEditor extends EditorPart implements ISelectionListener
 					tblColRemove.setWidth(30);
 				}
 			}
-			
+
 		}
 		tblViewer.setSorter(new TradeEventSorter(TradeEventSorter.EVENTORDER));
 		tblEvents.setSortColumn(tblColOrder);
-		
+
 		Button btnAdd = new Button(rightComposite, SWT.PUSH);
 		btnAdd.addSelectionListener(new SelectionListener() {
 
@@ -433,7 +443,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener
 		});
 
 		btnAdd.setText("Add");
-		
+
 		Button btnSave = new Button(rightComposite, SWT.PUSH);
 		btnAdd.addSelectionListener(new SelectionListener() {
 
@@ -478,9 +488,9 @@ public class TradeEditor extends EditorPart implements ISelectionListener
 		tblViewer.refresh();
 
 		for (int i = 0, n = tblEvents.getColumnCount(); i < n; i++) {
-			tblEvents.getColumn(i).pack();
+			//tblEvents.getColumn(i).pack();
 		}
-		tblEvents.pack();
+		tblEvents.redraw();
 		rightComposite.pack();
 	}
 
@@ -490,5 +500,4 @@ public class TradeEditor extends EditorPart implements ISelectionListener
 				(ISelectionListener) this);
 	}
 
-	
 }
