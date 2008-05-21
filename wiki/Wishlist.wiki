@@ -1,0 +1,14 @@
+#summary Wishlist for TraderJournal Application
+#labels Phase-Requirements
+
+= WishList =
+  # Account Support
+    # DB
+    # Perspective
+    # TradeList View
+    # AccountDetail View
+  # Trade Statistics View
+    # Show PL
+    # Shor Risk / Reward
+
+ 
