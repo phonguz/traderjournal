@@ -10,6 +10,10 @@ public class TradeEventType {
 	public static TradeEventType SHORT = new TradeEventType(2,"Short");
 	public static TradeEventType MOVESL = new TradeEventType(3,"Move SL");
 	public static TradeEventType CLOSE = new TradeEventType(4,"Close");
+	public static TradeEventType REVIEW = new TradeEventType(5,"Review");
+	public static TradeEventType MOVETP = new TradeEventType(6,"Move TP");
+	
+	
 	
 	public static List<TradeEventType> getAll(){
 		List<TradeEventType> ret = new ArrayList<TradeEventType>();
@@ -18,6 +22,8 @@ public class TradeEventType {
 		ret.add(SHORT);
 		ret.add(MOVESL);
 		ret.add(CLOSE);
+		ret.add(REVIEW);
+		ret.add(MOVETP);
 		return ret;
 	}
 	
@@ -39,6 +45,10 @@ public class TradeEventType {
 	}
 	public void setName(String name) {
 		Name = name;
+	}
+
+	public static TradeEventType getTradeEventType(int eventtype) {
+		return getAll().get(eventtype);
 	}
 	
 	

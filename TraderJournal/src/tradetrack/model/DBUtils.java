@@ -1,6 +1,11 @@
 package tradetrack.model;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.apache.commons.dbcp.ConnectionFactory;
 import org.apache.commons.dbcp.DriverManagerConnectionFactory;
@@ -76,5 +81,62 @@ public class DBUtils {
 	        // to access our pool of Connections.
 	        //
 	    }
+
+
+
+
+	public static void checkAndInitID(String table){
+		String sql = " select count(id) from " + table;
+		
+		String insertSql = "insert into  "+table+" (id) values (0) ";
+		
+	
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+	
+		int i;
+		
+		
+		
+			conn = DriverManager
+					.getConnection("jdbc:apache:commons:dbcp:tradetrack");
+			
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if(rs.next()){
+				int cnt = rs.getInt(1);
+				if(cnt != 0)
+					return;
+				
+			}
+			
+			pstmt = conn.prepareStatement(insertSql);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+	
+		} finally {
+	
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			try {
+				stmt.close();
+			} catch (Exception e) {
+			}
+			try {
+				pstmt.close();
+			} catch (Exception e) {
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+			}
+		}
+	}
 
 }

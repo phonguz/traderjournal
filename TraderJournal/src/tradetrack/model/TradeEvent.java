@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.core.runtime.content.BinarySignatureDescriber;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.internal.Workbench;
 
 import tradetrack.Activator;
@@ -65,26 +67,9 @@ public class TradeEvent {
 		this.eventtype = eventtype;
 	}
 
-	public TradeEventType getTradeEventType() {
-
-		switch (eventtype) {
-		case 0:
-			return TradeEventType.NONE;
-		case 1:
-			return TradeEventType.LONG;
-		case 2:
-			return TradeEventType.SHORT;
-		case 3:
-			return TradeEventType.MOVESL;
-		case 4:
-			return TradeEventType.CLOSE;
-		}
-		return null;
-	}
-
 	public static List<TradeEvent> getAlltradeEventsForTrade(int tradeid) {
 
-		List<TradeEvent> events = new ArrayList();
+		List<TradeEvent> events = new ArrayList<TradeEvent>();
 
 		String sql = "Select ID,Event_date,Event_type_id,description,eventorder,tradeid from tradeevent where tradeid = "
 				+ tradeid;
@@ -144,7 +129,10 @@ public class TradeEvent {
 					.getConnection("jdbc:apache:commons:dbcp:tradetrack");
 			stmt = conn.createStatement();
 			stmt.execute(sql);
-
+			
+			sql = "delete from tradeeventimage where event_id = " + tradeEventid;
+			stmt.execute(sql);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -162,6 +150,7 @@ public class TradeEvent {
 	}
 
 	public void addNew(int tradeid) {
+		DBUtils.checkAndInitID("tradeevent");
 		String sql = "insert into tradeevent (id,tradeid,eventorder) values ((select (max(id) +1)  from tradeevent),"
 				+ tradeid + ",(select max(eventorder) + 1 from tradeevent where tradeid = "+tradeid+"))";
 
@@ -276,8 +265,13 @@ public class TradeEvent {
 			while(rs.next()){
 				TradeEventImage ti = new TradeEventImage();
 				ti.setId(rs.getInt(1));
-				Image img = new Image(Activator.getDefault().getWorkbench().getDisplay(),rs.getBinaryStream(2));
-				ti.setImage(img);
+				Display dsp =  Activator.getDefault().getWorkbench().getDisplay();
+				if(rs.getBinaryStream(2) != null){
+					Image img = new Image(dsp,rs.getBinaryStream(2));
+				ti.setImage(img);}
+					else
+						ti.setImage(null);
+						
 				ti.setTradeEventId(getID());
 				
 				ti.setDescription(rs.getString(4));
@@ -306,6 +300,8 @@ public class TradeEvent {
 	}
 
 	public void addImage(String selected) {
+		DBUtils.checkAndInitID("tradeeventimage");
+		
 		String sql = "insert into  tradeeventimage (id,event_id,img) values ((select (max(id) +1) from tradeeventimage),?,?) ";
 		
 		java.io.File f = new java.io.File(selected);
