@@ -18,4 +18,5 @@
   * Account overview
     * List of all trades in certain account.
 
- 
+  * *Branding*
+  * Get icons / splash page
