@@ -20,3 +20,6 @@
 
   * *Branding*
   * Get icons / splash page
+
+  * *Web interface*
+  * Create GWT web interface for traderjournal
