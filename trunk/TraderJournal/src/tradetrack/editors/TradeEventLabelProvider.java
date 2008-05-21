@@ -10,6 +10,7 @@ import org.eclipse.swt.graphics.Image;
 import tradetrack.Activator;
 import tradetrack.model.TradeEvent;
 import tradetrack.model.TradeEventImage;
+import tradetrack.model.TradeEventType;
 
 public class TradeEventLabelProvider implements ITableLabelProvider {
 
@@ -79,7 +80,7 @@ public class TradeEventLabelProvider implements ITableLabelProvider {
 				else
 					return "";
 			case 2: // type
-				return te.getTradeEventType().getName();
+				return TradeEventType.getTradeEventType(te.getEventtype()).getName();
 			case 3: // description
 				if (te.getDescription() != null)
 				return te.getDescription();

@@ -193,7 +193,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
 	    						trade.setTradeCloseDate(df.parse(txtCloseDate.getText()));
 	    					} catch (ParseException e) {
 	    						
-	    						e.printStackTrace();
+	    						// skip unparsable dates
 	    					}
 	    					
 	    					trade.update();

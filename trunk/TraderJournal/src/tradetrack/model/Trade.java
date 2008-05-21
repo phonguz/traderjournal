@@ -212,6 +212,8 @@ public class Trade {
 	}
 
 	public void addNewTrade() {
+		DBUtils.checkAndInitID("trade");
+		
 		String sql = "insert into trade (id,open_trade_date) values ((select (max(id)+1) from trade),?) ";
 
 		Connection conn = null;

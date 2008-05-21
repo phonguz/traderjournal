@@ -198,8 +198,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 							try {
 								tEvent.setEventDate(sd.parse(text.getText()));
 							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+								//just don't update the date if it's non parsable... 
 							}
 							tEvent.update();
 							tblViewer.update(tEvent, null);
