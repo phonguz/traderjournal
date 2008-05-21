@@ -1,7 +1,7 @@
 #summary Wishlist for TraderJournal Application
 #labels Phase-Requirements
 
-= WishList =
+= Wishlist =
   * *Account Support*
   * DB
   * Perspective
