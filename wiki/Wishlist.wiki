@@ -12,4 +12,10 @@
   * Show PL
   * ShoW Risk / Reward
 
+  * *Reporting*
+  * Single PDF per trade
+    * All trade detail, trade events with related images, trade statistics.
+  * Account overview
+    * List of all trades in certain account.
+
  
