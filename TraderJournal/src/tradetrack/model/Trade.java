@@ -28,6 +28,8 @@ public class Trade {
 	private double entryfee;
 	private double exitfee;
 	private double pl;
+	private String reference;
+	
 	
 	
 	public int getId() {
@@ -134,6 +136,7 @@ public class Trade {
 				t.setEntryfee(rset.getDouble("entryfee"));
 				t.setExitfee(rset.getDouble("exitfee"));
 				t.setPl(rset.getDouble("pl"));
+				t.setReference(rset.getString("reference"));
 				trades.add(t);
 			}
 		} catch (SQLException e) {
@@ -163,7 +166,7 @@ public class Trade {
 		
 		String sql = "update trade set openprice = ?, closeprice = ?, qty = ?, " +
 				"stoploss =?, tp = ?,open_trade_date =?,close_trade_date=?," +
-				"instrument=?,entrycoms=?,exitcoms=?,entryfee=?,exitfee=?,pl=? ";
+				"instrument=?,entrycoms=?,exitcoms=?,entryfee=?,exitfee=?,pl=?,reference=? ";
 		
 		sql += " where id = " +getId();
         Connection conn = null;
@@ -198,7 +201,10 @@ public class Trade {
             stmt.setDouble(11, getEntryfee());
             stmt.setDouble(12, getExitfee());
             stmt.setDouble(13, getPl());
-            
+            if(getReference()  != null)
+            	stmt.setString(14,getReference());
+            else
+            	stmt.setString(14, null);
             stmt.executeUpdate();
            
         } catch(SQLException e) {
@@ -350,6 +356,14 @@ public class Trade {
 
 	public void setPl(double pl) {
 		this.pl = pl;
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
 	}
 
 }

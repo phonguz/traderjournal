@@ -71,6 +71,8 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
         private Label lblSL;
         private Label lblOpen;
         private Text txtOpenPrice;
+        private Label lblReference;
+        private Text txtReference;
 
         
         private Trade trade = new Trade();
@@ -173,8 +175,17 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
 	    			label5.setText("CDate");
 	    			txtCloseDate = new Text(composite1, SWT.NONE);
 	    			
+	    			
+	    			
 	    		
 	    		}
+	    		{
+	    			lblReference = new Label(composite1,SWT.NONE);
+	    			lblReference.setText("Reference");
+	    			txtReference = new Text(composite1,SWT.NONE);
+	    			
+	    		}
+	    		
 	    		{
 	    			btnSave = new Button(composite1, SWT.PUSH | SWT.CENTER);
 	    			btnSave.setText("Save");
@@ -195,7 +206,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
 	    						
 	    						// skip unparsable dates
 	    					}
-	    					
+	    					trade.setReference(txtReference.getText());
 	    					trade.update();
 	    					Trade.notifyTradeListChangeListeners();
 	    				}
@@ -271,6 +282,11 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
 					txtIns.setText(trade.getInstrument());
 				else
 					txtIns.setText("");
+				if(trade.getReference() !=null)
+					txtReference.setText(trade.getReference());
+				else
+					txtReference.setText("");
+					
 					
 			}
 

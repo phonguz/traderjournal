@@ -124,5 +124,17 @@
             class="tradetrack.preferences.PreferenceInitializer">
       </initializer>
    </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="TradeTrack.application"
+            name="TraderJournal">
+         <property
+               name="appName"
+               value="TraderJournal">
+         </property>
+      </product>
+   </extension>
 
 </plugin>

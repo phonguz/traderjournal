@@ -12,6 +12,7 @@ public class TradeEventType {
 	public static TradeEventType CLOSE = new TradeEventType(4,"Close");
 	public static TradeEventType REVIEW = new TradeEventType(5,"Review");
 	public static TradeEventType MOVETP = new TradeEventType(6,"Move TP");
+	public static TradeEventType UPDATE = new TradeEventType(7,"Update"); //for intra trade updates / info
 	
 	
 	
@@ -24,6 +25,7 @@ public class TradeEventType {
 		ret.add(CLOSE);
 		ret.add(REVIEW);
 		ret.add(MOVETP);
+		ret.add(UPDATE);
 		return ret;
 	}
 	
