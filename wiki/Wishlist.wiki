@@ -5,11 +5,11 @@
   * *Account Support*
   * DB
   * Perspective
-  * TradeList View
-  * AccountDetail View
+  * [TradeList View]
+  * [AccountDetail View]
 
   * *Trade Statistics View*
   * Show PL
-  * Shor Risk / Reward
+  * ShoW Risk / Reward
 
  
