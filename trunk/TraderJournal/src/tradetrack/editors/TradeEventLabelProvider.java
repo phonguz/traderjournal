@@ -44,13 +44,15 @@ public class TradeEventLabelProvider implements ITableLabelProvider {
 		switch (columnIndex) {
 
 		case 5: // / img1
-			if (te.getAllImages() != null && te.getAllImages().size() > 0
-					&& te.getAllImages().get(0) != null) {
-				TradeEventImage ei = te.getAllImages().get(0);
-				Image img = ei.getImage();
-				return new Image(img.getDevice(), img.getImageData().scaledTo(
-						50, 30));
-			}
+			//looks as though this slows it down
+//			if (te.getAllImages() != null && te.getAllImages().size() > 0
+//					&& te.getAllImages().get(0) != null) {
+//				TradeEventImage ei = te.getAllImages().get(0);
+//				Image img = ei.getImage();
+//				return new Image(img.getDevice(), img.getImageData().scaledTo(
+//						50, 30));
+//			}
+			
 			break;
 
 		

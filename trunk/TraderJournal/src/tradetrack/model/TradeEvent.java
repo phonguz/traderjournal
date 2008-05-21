@@ -151,10 +151,11 @@ public class TradeEvent {
 
 	public void addNew(int tradeid) {
 		DBUtils.checkAndInitID("tradeevent");
-		String sql = "insert into tradeevent (id,tradeid,eventorder) values ((select (max(id) +1)  from tradeevent),"
-				+ tradeid + ",(select max(eventorder) + 1 from tradeevent where tradeid = "+tradeid+"))";
+		String sql = "insert into tradeevent (id,tradeid,eventorder,event_date) values ((select (max(id) +1)  from tradeevent),"
+				+ tradeid + ",(select max(eventorder) + 1 from tradeevent where tradeid = "+tradeid+"),?)";
 
 		Connection conn = null;
+		PreparedStatement pstmt = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 
@@ -162,14 +163,14 @@ public class TradeEvent {
 
 			conn = DriverManager
 					.getConnection("jdbc:apache:commons:dbcp:tradetrack");
-			stmt = conn.createStatement();
-
-			stmt.execute(sql);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setDate(1, new java.sql.Date(new Date().getTime()));
+			pstmt.executeUpdate();
 
 			stmt = conn.createStatement();
 			rs = stmt
 					.executeQuery("select (max(id) + 1) as maxid from tradeevent");
-			while (rs.next()) {
+			if (rs.next()) {
 				setID(rs.getInt("maxid"));
 			}
 			setTradeid(tradeid);
