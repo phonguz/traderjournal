@@ -5,8 +5,8 @@
   * *Account Support*
   * DB
   * Perspective
-  * [TradeList View]
-  * [AccountDetail View]
+  * TradeList 
+  * AccountDetail 
 
   * *Trade Statistics View*
   * Show PL
