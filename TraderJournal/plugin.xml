@@ -23,6 +23,11 @@
             id="TraderJournal.AccountPerspective"
             name="AccountPerspective">
       </perspective>
+      <perspective
+            class="tradetrack.ReportPerspective"
+            id="TraderJournal.ReportPerspective"
+            name="ReportPerspective">
+      </perspective>
    </extension>
    <extension
          point="org.eclipse.ui.actionSets">
@@ -48,6 +53,12 @@
                class="tradetrack.actions.OpenTradePerspectiveAction"
                id="TraderJournal.openTradePerspectiveAction"
                label="TradePerspective"
+               menubarPath="perspectivesMenu/perspectives">
+         </action>
+         <action
+               class="tradetrack.actions.OpenReportPerspectiveAction"
+               id="TraderJournal.openReportPerspective"
+               label="ReportPerspective"
                menubarPath="perspectivesMenu/perspectives">
          </action>
       </actionSet>
@@ -85,6 +96,13 @@
             icon="icons/alt_window_32.gif"
             id="tradetrack.views.AccountListView"
             name="AccountListView">
+      </view>
+      <view
+            allowMultiple="false"
+            class="tradetrack.views.ReportView"
+            icon="icons/alt_about.gif"
+            id="tradetrack.views.ReportView"
+            name="reportview">
       </view>
    </extension>
    <extension

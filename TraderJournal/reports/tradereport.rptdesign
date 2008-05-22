@@ -1,0 +1,1317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.15" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 2.2.2.r222_v20071226 Build &lt;2.2.2.v20080226-1155></property>
+    <property name="units">in</property>
+    <property name="comments">Copyright (c) 2007 &lt;&lt;Your Company Name here>></property>
+    <html-property name="description">Creates a blank report with no predefined content.</html-property>
+    <text-property name="displayName">Blank Report</text-property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <parameters>
+        <scalar-parameter name="TradeId" id="85">
+            <property name="valueType">static</property>
+            <property name="dataType">integer</property>
+            <property name="paramType">simple</property>
+            <text-property name="promptText">Trade ID</text-property>
+            <property name="isRequired">true</property>
+            <property name="controlType">text-box</property>
+            <property name="defaultValue">1</property>
+            <property name="distinct">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="TradeTrack" id="26">
+            <text-property name="displayName"></text-property>
+            <property name="odaDriverClass">org.hsqldb.jdbcDriver</property>
+            <property name="odaURL">jdbc:hsqldb:hsql://localhost/TradeTrack</property>
+            <property name="odaUser">sa</property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="TradeEvents" id="29">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">ID</property>
+                    <property name="displayName">ID</property>
+                </structure>
+                <structure>
+                    <property name="columnName">EVENT_DATE</property>
+                    <property name="displayName">EVENT_DATE</property>
+                </structure>
+                <structure>
+                    <property name="columnName">EVENT_TYPE_ID</property>
+                    <property name="displayName">EVENT_TYPE_ID</property>
+                </structure>
+                <structure>
+                    <property name="columnName">DESCRIPTION</property>
+                    <property name="displayName">DESCRIPTION</property>
+                </structure>
+                <structure>
+                    <property name="columnName">EVENTORDER</property>
+                    <property name="displayName">EVENTORDER</property>
+                </structure>
+                <structure>
+                    <property name="columnName">TRADEID</property>
+                    <property name="displayName">TRADEID</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">ID</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">EVENT_DATE</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">EVENT_TYPE_ID</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">DESCRIPTION</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">EVENTORDER</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">TRADEID</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">TradeTrack</property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">TradeID</property>
+                    <property name="paramName">TradeId</property>
+                    <property name="dataType">integer</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue">1</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">ID</property>
+                    <property name="nativeName">ID</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">EVENT_DATE</property>
+                    <property name="nativeName">EVENT_DATE</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">EVENT_TYPE_ID</property>
+                    <property name="nativeName">EVENT_TYPE_ID</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">DESCRIPTION</property>
+                    <property name="nativeName">DESCRIPTION</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">EVENTORDER</property>
+                    <property name="nativeName">EVENTORDER</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">TRADEID</property>
+                    <property name="nativeName">TRADEID</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+            </list-property>
+            <property name="queryText">select  *
+from PUBLIC.TRADEEVENT
+where tradeid = ?
+order by eventorder</property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Trade" id="83">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">ID</property>
+                    <property name="displayName">ID</property>
+                </structure>
+                <structure>
+                    <property name="columnName">OPEN_TRADE_DATE</property>
+                    <property name="displayName">OPEN_TRADE_DATE</property>
+                </structure>
+                <structure>
+                    <property name="columnName">OPENPRICE</property>
+                    <property name="displayName">OPENPRICE</property>
+                </structure>
+                <structure>
+                    <property name="columnName">CLOSE_TRADE_DATE</property>
+                    <property name="displayName">CLOSE_TRADE_DATE</property>
+                </structure>
+                <structure>
+                    <property name="columnName">CLOSEPRICE</property>
+                    <property name="displayName">CLOSEPRICE</property>
+                </structure>
+                <structure>
+                    <property name="columnName">STOPLOSS</property>
+                    <property name="displayName">STOPLOSS</property>
+                </structure>
+                <structure>
+                    <property name="columnName">TP</property>
+                    <property name="displayName">TP</property>
+                </structure>
+                <structure>
+                    <property name="columnName">QTY</property>
+                    <property name="displayName">QTY</property>
+                </structure>
+                <structure>
+                    <property name="columnName">INSTRUMENT</property>
+                    <property name="displayName">INSTRUMENT</property>
+                </structure>
+                <structure>
+                    <property name="columnName">ENTRYCOMS</property>
+                    <property name="displayName">ENTRYCOMS</property>
+                </structure>
+                <structure>
+                    <property name="columnName">EXITCOMS</property>
+                    <property name="displayName">EXITCOMS</property>
+                </structure>
+                <structure>
+                    <property name="columnName">ENTRYFEE</property>
+                    <property name="displayName">ENTRYFEE</property>
+                </structure>
+                <structure>
+                    <property name="columnName">EXITFEE</property>
+                    <property name="displayName">EXITFEE</property>
+                </structure>
+                <structure>
+                    <property name="columnName">PL</property>
+                    <property name="displayName">PL</property>
+                </structure>
+                <structure>
+                    <property name="columnName">REFERENCE</property>
+                    <property name="displayName">REFERENCE</property>
+                </structure>
+                <structure>
+                    <property name="columnName">CARRYCOST</property>
+                    <property name="displayName">CARRYCOST</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">ID</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">OPEN_TRADE_DATE</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">OPENPRICE</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">CLOSE_TRADE_DATE</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">CLOSEPRICE</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">STOPLOSS</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">TP</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">QTY</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">INSTRUMENT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">ENTRYCOMS</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">EXITCOMS</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">ENTRYFEE</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">EXITFEE</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">PL</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">REFERENCE</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">CARRYCOST</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">TradeTrack</property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">id</property>
+                    <property name="paramName">TradeId</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                    <property name="position">1</property>
+                    <property name="isOptional">false</property>
+                    <property name="allowNull">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">ID</property>
+                    <property name="nativeName">ID</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">OPEN_TRADE_DATE</property>
+                    <property name="nativeName">OPEN_TRADE_DATE</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">OPENPRICE</property>
+                    <property name="nativeName">OPENPRICE</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">CLOSE_TRADE_DATE</property>
+                    <property name="nativeName">CLOSE_TRADE_DATE</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">CLOSEPRICE</property>
+                    <property name="nativeName">CLOSEPRICE</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">STOPLOSS</property>
+                    <property name="nativeName">STOPLOSS</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">TP</property>
+                    <property name="nativeName">TP</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">QTY</property>
+                    <property name="nativeName">QTY</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">INSTRUMENT</property>
+                    <property name="nativeName">INSTRUMENT</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">ENTRYCOMS</property>
+                    <property name="nativeName">ENTRYCOMS</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">EXITCOMS</property>
+                    <property name="nativeName">EXITCOMS</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">ENTRYFEE</property>
+                    <property name="nativeName">ENTRYFEE</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">EXITFEE</property>
+                    <property name="nativeName">EXITFEE</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">PL</property>
+                    <property name="nativeName">PL</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">REFERENCE</property>
+                    <property name="nativeName">REFERENCE</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">CARRYCOST</property>
+                    <property name="nativeName">CARRYCOST</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+            </list-property>
+            <property name="queryText">select *
+from Trade
+where id =?</property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>1.0</Version>
+  <design:DataSetParameters>
+    <design:parameterDefinitions>
+      <design:inOutMode>In</design:inOutMode>
+      <design:attributes>
+        <design:name></design:name>
+        <design:position>1</design:position>
+        <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+        <design:nullability>Unknown</design:nullability>
+        <design:uiHints>
+          <design:displayName>Trade ID</design:displayName>
+        </design:uiHints>
+      </design:attributes>
+      <design:inputAttributes>
+        <design:elementAttributes>
+          <design:defaultScalarValue>1</design:defaultScalarValue>
+          <design:optional>false</design:optional>
+          <design:masksValue>false</design:masksValue>
+          <design:uiHints>
+            <design:promptStyle>TextField</design:promptStyle>
+          </design:uiHints>
+        </design:elementAttributes>
+      </design:inputAttributes>
+    </design:parameterDefinitions>
+  </design:DataSetParameters>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>ID</design:name>
+            <design:position>1</design:position>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ID</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ID</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>OPEN_TRADE_DATE</design:name>
+            <design:position>2</design:position>
+            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
+            <design:precision>29</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>OPEN_TRADE_DATE</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>OPEN_TRADE_DATE</design:label>
+            <design:formattingHints>
+              <design:displaySize>6</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>OPENPRICE</design:name>
+            <design:position>3</design:position>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>17</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>OPENPRICE</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>OPENPRICE</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>CLOSE_TRADE_DATE</design:name>
+            <design:position>4</design:position>
+            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
+            <design:precision>29</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>CLOSE_TRADE_DATE</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>CLOSE_TRADE_DATE</design:label>
+            <design:formattingHints>
+              <design:displaySize>6</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>CLOSEPRICE</design:name>
+            <design:position>5</design:position>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>17</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>CLOSEPRICE</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>CLOSEPRICE</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>STOPLOSS</design:name>
+            <design:position>6</design:position>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>17</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>STOPLOSS</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>STOPLOSS</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>TP</design:name>
+            <design:position>7</design:position>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>17</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>TP</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>TP</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>QTY</design:name>
+            <design:position>8</design:position>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>QTY</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>QTY</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>INSTRUMENT</design:name>
+            <design:position>9</design:position>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>INSTRUMENT</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>INSTRUMENT</design:label>
+            <design:formattingHints>
+              <design:displaySize>32766</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>ENTRYCOMS</design:name>
+            <design:position>10</design:position>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>17</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ENTRYCOMS</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ENTRYCOMS</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>EXITCOMS</design:name>
+            <design:position>11</design:position>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>17</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>EXITCOMS</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>EXITCOMS</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>ENTRYFEE</design:name>
+            <design:position>12</design:position>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>17</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ENTRYFEE</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ENTRYFEE</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>EXITFEE</design:name>
+            <design:position>13</design:position>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>17</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>EXITFEE</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>EXITFEE</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>PL</design:name>
+            <design:position>14</design:position>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>17</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>PL</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>PL</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>REFERENCE</design:name>
+            <design:position>15</design:position>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>REFERENCE</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>REFERENCE</design:label>
+            <design:formattingHints>
+              <design:displaySize>32766</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>CARRYCOST</design:name>
+            <design:position>16</design:position>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>17</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>CARRYCOST</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>CARRYCOST</design:label>
+            <design:formattingHints>
+              <design:displaySize>23</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="TrdeEventImage" id="84">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">ID</property>
+                    <property name="displayName">ID</property>
+                </structure>
+                <structure>
+                    <property name="columnName">EVENT_ID</property>
+                    <property name="displayName">EVENT_ID</property>
+                </structure>
+                <structure>
+                    <property name="columnName">IMG</property>
+                    <property name="displayName">IMG</property>
+                </structure>
+                <structure>
+                    <property name="columnName">DESCRIPTION</property>
+                    <property name="displayName">DESCRIPTION</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">ID</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">EVENT_ID</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">IMG</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">DESCRIPTION</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">TradeTrack</property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">TradeEventID</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue">1</expression>
+                    <property name="isOptional">false</property>
+                    <property name="allowNull">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">ID</property>
+                    <property name="nativeName">ID</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">EVENT_ID</property>
+                    <property name="nativeName">EVENT_ID</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">IMG</property>
+                    <property name="nativeName">IMG</property>
+                    <property name="dataType">any</property>
+                    <property name="nativeDataType">1111</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">DESCRIPTION</property>
+                    <property name="nativeName">DESCRIPTION</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <property name="queryText">select *
+from tradeeventimage
+where event_id = ?</property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>1.0</Version>
+  <design:DataSetParameters>
+    <design:parameterDefinitions>
+      <design:inOutMode>In</design:inOutMode>
+      <design:attributes>
+        <design:name></design:name>
+        <design:position>1</design:position>
+        <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+        <design:nullability>Unknown</design:nullability>
+      </design:attributes>
+      <design:inputAttributes>
+        <design:elementAttributes>
+          <design:defaultScalarValue>1</design:defaultScalarValue>
+          <design:optional>false</design:optional>
+        </design:elementAttributes>
+      </design:inputAttributes>
+    </design:parameterDefinitions>
+  </design:DataSetParameters>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>ID</design:name>
+            <design:position>1</design:position>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ID</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ID</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>EVENT_ID</design:name>
+            <design:position>2</design:position>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>EVENT_ID</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>EVENT_ID</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>IMG</design:name>
+            <design:position>3</design:position>
+            <design:nativeDataTypeCode>1111</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>IMG</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>IMG</design:label>
+            <design:formattingHints>
+              <design:displaySize>2147483647</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>DESCRIPTION</design:name>
+            <design:position>4</design:position>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>DESCRIPTION</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>DESCRIPTION</design:label>
+            <design:formattingHints>
+              <design:displaySize>32766</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="SingleImage" id="229">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">IMG</property>
+                    <property name="displayName">IMG</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">IMG</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">TradeTrack</property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">TradeEventImageID</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue">1</expression>
+                    <property name="isOptional">false</property>
+                    <property name="allowNull">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">IMG</property>
+                    <property name="nativeName">IMG</property>
+                    <property name="nativeDataType">1111</property>
+                </structure>
+            </list-property>
+            <property name="queryText">select IMG
+from tradeeventimage 
+where id = ?</property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>1.0</Version>
+  <design:DataSetParameters>
+    <design:parameterDefinitions>
+      <design:inOutMode>In</design:inOutMode>
+      <design:attributes>
+        <design:name></design:name>
+        <design:position>1</design:position>
+        <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+        <design:nullability>Unknown</design:nullability>
+      </design:attributes>
+      <design:inputAttributes>
+        <design:elementAttributes>
+          <design:defaultScalarValue>1</design:defaultScalarValue>
+          <design:optional>false</design:optional>
+        </design:elementAttributes>
+      </design:inputAttributes>
+    </design:parameterDefinitions>
+  </design:DataSetParameters>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>ID</design:name>
+            <design:position>1</design:position>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ID</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ID</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>EVENT_ID</design:name>
+            <design:position>2</design:position>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>EVENT_ID</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>EVENT_ID</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>IMG</design:name>
+            <design:position>3</design:position>
+            <design:nativeDataTypeCode>1111</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>IMG</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>IMG</design:label>
+            <design:formattingHints>
+              <design:displaySize>2147483647</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:name>DESCRIPTION</design:name>
+            <design:position>4</design:position>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>DESCRIPTION</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>DESCRIPTION</design:label>
+            <design:formattingHints>
+              <design:displaySize>32766</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="crosstab-cell" id="4">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <data id="192">
+            <property name="dataSet">Trade</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">OPEN_TRADE_DATE</property>
+                    <expression name="expression">dataSetRow["OPEN_TRADE_DATE"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+            </list-property>
+            <property name="resultSetColumn">OPEN_TRADE_DATE</property>
+        </data>
+        <list id="88">
+            <property name="dataSet">TradeEvents</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">ID</property>
+                    <expression name="expression">dataSetRow["ID"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">EVENT_DATE</property>
+                    <expression name="expression">dataSetRow["EVENT_DATE"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="name">EVENT_TYPE_ID</property>
+                    <expression name="expression">dataSetRow["EVENT_TYPE_ID"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">DESCRIPTION</property>
+                    <expression name="expression">dataSetRow["DESCRIPTION"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">EVENTORDER</property>
+                    <expression name="expression">dataSetRow["EVENTORDER"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">TRADEID</property>
+                    <expression name="expression">dataSetRow["TRADEID"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+            <list-property name="sort">
+                <structure>
+                    <expression name="key">row["EVENTORDER"]</expression>
+                    <property name="direction">asc</property>
+                </structure>
+            </list-property>
+            <detail>
+                <data id="193">
+                    <property name="resultSetColumn">EVENT_DATE</property>
+                </data>
+                <data id="210">
+                    <property name="resultSetColumn">DESCRIPTION</property>
+                </data>
+                <table id="213">
+                    <property name="marginTop">0pt</property>
+                    <property name="width">100%</property>
+                    <property name="dataSet">TrdeEventImage</property>
+                    <list-property name="boundDataColumns">
+                        <structure>
+                            <property name="name">ID</property>
+                            <expression name="expression">dataSetRow["ID"]</expression>
+                            <property name="dataType">integer</property>
+                        </structure>
+                        <structure>
+                            <property name="name">EVENT_ID</property>
+                            <expression name="expression">dataSetRow["EVENT_ID"]</expression>
+                            <property name="dataType">integer</property>
+                        </structure>
+                        <structure>
+                            <property name="name">IMG</property>
+                            <expression name="expression">dataSetRow["IMG"]</expression>
+                            <property name="dataType">any</property>
+                        </structure>
+                        <structure>
+                            <property name="name">DESCRIPTION</property>
+                            <expression name="expression">dataSetRow["DESCRIPTION"]</expression>
+                            <property name="dataType">string</property>
+                        </structure>
+                    </list-property>
+                    <column id="234">
+                        <property name="width">0.375in</property>
+                    </column>
+                    <column id="223">
+                        <property name="width">1.28125in</property>
+                    </column>
+                    <column id="224"/>
+                    <header>
+                        <row id="214">
+                            <cell id="231">
+                                <label id="235">
+                                    <text-property name="text">ID</text-property>
+                                </label>
+                            </cell>
+                            <cell id="215">
+                                <label id="225">
+                                    <text-property name="text">DESCRIPTION</text-property>
+                                </label>
+                            </cell>
+                            <cell id="216">
+                                <label id="228">
+                                    <text-property name="text">IMG</text-property>
+                                </label>
+                            </cell>
+                        </row>
+                    </header>
+                    <detail>
+                        <row id="217">
+                            <cell id="232">
+                                <data id="236">
+                                    <property name="resultSetColumn">ID</property>
+                                </data>
+                            </cell>
+                            <cell id="218">
+                                <data id="226">
+                                    <property name="resultSetColumn">DESCRIPTION</property>
+                                </data>
+                            </cell>
+                            <cell id="219">
+                                <image id="227">
+                                    <property name="height">121px</property>
+                                    <property name="width">195px</property>
+                                    <property name="dataSet">SingleImage</property>
+                                    <list-property name="paramBindings">
+                                        <structure>
+                                            <property name="paramName">TradeEventImageID</property>
+                                            <expression name="expression">row["ID"]</expression>
+                                        </structure>
+                                    </list-property>
+                                    <list-property name="boundDataColumns">
+                                        <structure>
+                                            <property name="name">IMG</property>
+                                            <expression name="expression">dataSetRow["IMG"]</expression>
+                                            <property name="dataType">any</property>
+                                        </structure>
+                                    </list-property>
+                                    <property name="source">expr</property>
+                                    <expression name="valueExpr">row["IMG"]</expression>
+                                </image>
+                            </cell>
+                        </row>
+                    </detail>
+                    <footer>
+                        <row id="220">
+                            <cell id="233"/>
+                            <cell id="221"/>
+                            <cell id="222"/>
+                        </row>
+                    </footer>
+                </table>
+            </detail>
+        </list>
+    </body>
+</report>
