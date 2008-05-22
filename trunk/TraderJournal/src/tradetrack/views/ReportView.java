@@ -82,7 +82,7 @@ public class ReportView extends ViewPart implements ISelectionListener{
 		//options.setImageDirectory("C:\\test\\images");
 
 		PDFRenderOption options = new PDFRenderOption();
-		options.setOutputFileName(pluginDirString+"output/test.pdf");
+		options.setOutputFileName(pluginDirString+"output/test"+tradeid+".pdf");
 		options.setOutputFormat("pdf");
 
 		task.setRenderOption(options);
