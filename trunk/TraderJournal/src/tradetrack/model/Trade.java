@@ -29,9 +29,18 @@ public class Trade {
 	private double exitfee;
 	private double pl;
 	private String reference;
+	private double carrycost;
 	
 	
 	
+	public double getCarrycost() {
+		return carrycost;
+	}
+
+	public void setCarrycost(double carrycost) {
+		this.carrycost = carrycost;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -137,6 +146,7 @@ public class Trade {
 				t.setExitfee(rset.getDouble("exitfee"));
 				t.setPl(rset.getDouble("pl"));
 				t.setReference(rset.getString("reference"));
+				t.setCarrycost(rset.getDouble("carrycost"));
 				trades.add(t);
 			}
 		} catch (SQLException e) {
@@ -166,7 +176,7 @@ public class Trade {
 		
 		String sql = "update trade set openprice = ?, closeprice = ?, qty = ?, " +
 				"stoploss =?, tp = ?,open_trade_date =?,close_trade_date=?," +
-				"instrument=?,entrycoms=?,exitcoms=?,entryfee=?,exitfee=?,pl=?,reference=? ";
+				"instrument=?,entrycoms=?,exitcoms=?,entryfee=?,exitfee=?,pl=?,reference=?,carrycost=? ";
 		
 		sql += " where id = " +getId();
         Connection conn = null;
@@ -205,6 +215,8 @@ public class Trade {
             	stmt.setString(14,getReference());
             else
             	stmt.setString(14, null);
+            
+            stmt.setDouble(15, getCarrycost());
             stmt.executeUpdate();
            
         } catch(SQLException e) {

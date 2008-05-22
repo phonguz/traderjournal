@@ -17,6 +17,7 @@ import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -52,7 +53,7 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
      */
     public ImageViewPart() {
         super();
-        // TODO Auto-generated constructor stub
+       
     }
 
     /* (non-Javadoc)
@@ -91,7 +92,7 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
      * @see org.eclipse.ui.IWorkbenchPart#setFocus()
      */
     public void setFocus() {
-        // TODO Auto-generated method stub
+ 
     }
     
     /**
@@ -175,7 +176,7 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 
 				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
-					// TODO Auto-generated method stub
+					
 					
 				}
 
@@ -196,7 +197,7 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 
 				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
-					// TODO Auto-generated method stub
+					
 					
 				}
 
@@ -223,7 +224,10 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 					
 					GC gc = e.gc;
 					TradeEventImage ti = (TradeEventImage)e.widget.getData();
-					gc.drawImage(ti.getImage(), 0, 0);
+					if(ti.getImage().getImageData().width > 1024 || ti.getImage().getImageData().height > 768)
+						gc.drawImage(new Image(ti.getImage().getDevice(), ti.getImage().getImageData().scaledTo(1024, 768)), 0, 0);
+					else
+						gc.drawImage(ti.getImage(), 0, 0);
 				}
 				
 			});

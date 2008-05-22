@@ -40,7 +40,7 @@ public class TradeEventLabelProvider implements ITableLabelProvider {
 
 	@Override
 	public Image getColumnImage(Object element, int columnIndex) {
-		TradeEvent te = (TradeEvent) element;
+	//	TradeEvent te = (TradeEvent) element;
 		switch (columnIndex) {
 
 		case 5: // / img1
