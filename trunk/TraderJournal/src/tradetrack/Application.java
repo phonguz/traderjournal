@@ -21,6 +21,7 @@ public class Application implements IApplication {
 		
 		
 		Display display = PlatformUI.createDisplay();
+		String statelocation = Activator.getDefault().getStateLocation().toOSString();
 		try {
 			int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
 			if (returnCode == PlatformUI.RETURN_RESTART)
