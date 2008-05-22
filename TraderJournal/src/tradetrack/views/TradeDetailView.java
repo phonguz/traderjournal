@@ -73,6 +73,8 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
         private Text txtOpenPrice;
         private Label lblReference;
         private Text txtReference;
+        private Label lblCarryCost;
+        private Text txtCarryCost;
 
         
         private Trade trade = new Trade();
@@ -185,6 +187,12 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
 	    			txtReference = new Text(composite1,SWT.NONE);
 	    			
 	    		}
+	    		{
+	    			lblCarryCost = new Label(composite1,SWT.NONE);
+	    			lblCarryCost.setText("Carry");
+	    			txtCarryCost = new Text(composite1,SWT.NONE);
+	    			
+	    		}
 	    		
 	    		{
 	    			btnSave = new Button(composite1, SWT.PUSH | SWT.CENTER);
@@ -207,6 +215,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
 	    						// skip unparsable dates
 	    					}
 	    					trade.setReference(txtReference.getText());
+	    					trade.setCarrycost(Double.parseDouble(txtCarryCost.getText()));
 	    					trade.update();
 	    					Trade.notifyTradeListChangeListeners();
 	    				}
@@ -250,7 +259,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
      * @see org.eclipse.ui.IWorkbenchPart#setFocus()
      */
     public void setFocus() {
-        // TODO Auto-generated method stub
+        
     }
     
     /**
@@ -286,6 +295,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
 					txtReference.setText(trade.getReference());
 				else
 					txtReference.setText("");
+				txtCarryCost.setText("" + trade.getCarrycost());
 					
 					
 			}
