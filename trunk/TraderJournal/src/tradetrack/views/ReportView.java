@@ -29,9 +29,6 @@ public class ReportView extends ViewPart implements ISelectionListener{
 		
 			getSite().getPage().addSelectionListener(TradeListView.ID,
 				(ISelectionListener) this);
-			
-	
-
 	}
 
 	@Override
