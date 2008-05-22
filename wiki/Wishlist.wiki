@@ -7,6 +7,7 @@
   * Perspective
   * Trade list 
   * Account detail 
+  * Multiple currency support.... for fx trades, able to view pl in account currency
 
   * *Trade Statistics View*
   * Show PL
