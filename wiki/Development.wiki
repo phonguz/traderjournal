@@ -1,5 +1,5 @@
 #summary any development help would be appreciated
-#labels Phase-Implementation
+#labels Phase-Implementation,Featured
 
 = Eclipse =
 
