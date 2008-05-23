@@ -23,7 +23,6 @@
     </parameters>
     <data-sources>
         <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="TradeTrack" id="26">
-            <text-property name="displayName"></text-property>
             <property name="odaDriverClass">org.hsqldb.jdbcDriver</property>
             <property name="odaURL">jdbc:hsqldb:hsql://localhost/TradeTrack</property>
             <property name="odaUser">sa</property>
@@ -785,12 +784,16 @@ where id =?</property>
                     <property name="displayName">EVENT_ID</property>
                 </structure>
                 <structure>
-                    <property name="columnName">IMG</property>
-                    <property name="displayName">IMG</property>
-                </structure>
-                <structure>
                     <property name="columnName">DESCRIPTION</property>
                     <property name="displayName">DESCRIPTION</property>
+                </structure>
+                <structure>
+                    <property name="columnName">ID2</property>
+                    <property name="displayName">ID2</property>
+                </structure>
+                <structure>
+                    <property name="columnName">IMG2</property>
+                    <property name="displayName">IMG2</property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
@@ -807,13 +810,18 @@ where id =?</property>
                     </structure>
                     <structure>
                         <property name="position">3</property>
-                        <property name="name">IMG</property>
-                        <property name="dataType">any</property>
+                        <property name="name">DESCRIPTION</property>
+                        <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">4</property>
-                        <property name="name">DESCRIPTION</property>
-                        <property name="dataType">string</property>
+                        <property name="name">ID2</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">IMG2</property>
+                        <property name="dataType">blob</property>
                     </structure>
                 </list-property>
             </structure>
@@ -849,17 +857,24 @@ where id =?</property>
                 </structure>
                 <structure>
                     <property name="position">3</property>
-                    <property name="name">IMG</property>
-                    <property name="nativeName">IMG</property>
-                    <property name="dataType">any</property>
-                    <property name="nativeDataType">1111</property>
-                </structure>
-                <structure>
-                    <property name="position">4</property>
                     <property name="name">DESCRIPTION</property>
                     <property name="nativeName">DESCRIPTION</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">ID2</property>
+                    <property name="nativeName">ID2</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">IMG2</property>
+                    <property name="nativeName">IMG2</property>
+                    <property name="dataType">blob</property>
+                    <property name="nativeDataType">-4</property>
                 </structure>
             </list-property>
             <property name="queryText">select *
@@ -928,18 +943,18 @@ where event_id = ?</property>
         </design:resultColumnDefinitions>
         <design:resultColumnDefinitions>
           <design:attributes>
-            <design:name>IMG</design:name>
+            <design:name>IMG2</design:name>
             <design:position>3</design:position>
             <design:nativeDataTypeCode>1111</design:nativeDataTypeCode>
             <design:precision>2147483647</design:precision>
             <design:scale>0</design:scale>
             <design:nullability>Nullable</design:nullability>
             <design:uiHints>
-              <design:displayName>IMG</design:displayName>
+              <design:displayName>IMG2</design:displayName>
             </design:uiHints>
           </design:attributes>
           <design:usageHints>
-            <design:label>IMG</design:label>
+            <design:label>IMG2</design:label>
             <design:formattingHints>
               <design:displaySize>2147483647</design:displaySize>
             </design:formattingHints>
@@ -972,16 +987,16 @@ where event_id = ?</property>
         <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="SingleImage" id="229">
             <list-property name="columnHints">
                 <structure>
-                    <property name="columnName">IMG</property>
-                    <property name="displayName">IMG</property>
+                    <property name="columnName">IMG2</property>
+                    <property name="displayName">IMG2</property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
                 <list-property name="resultSet">
                     <structure>
                         <property name="position">1</property>
-                        <property name="name">IMG</property>
-                        <property name="dataType">any</property>
+                        <property name="name">IMG2</property>
+                        <property name="dataType">blob</property>
                     </structure>
                 </list-property>
             </structure>
@@ -1003,12 +1018,13 @@ where event_id = ?</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
-                    <property name="name">IMG</property>
-                    <property name="nativeName">IMG</property>
-                    <property name="nativeDataType">1111</property>
+                    <property name="name">IMG2</property>
+                    <property name="nativeName">IMG2</property>
+                    <property name="dataType">blob</property>
+                    <property name="nativeDataType">-4</property>
                 </structure>
             </list-property>
-            <property name="queryText">select IMG
+            <property name="queryText">select IMG2
 from tradeeventimage 
 where id = ?</property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
@@ -1074,18 +1090,18 @@ where id = ?</property>
         </design:resultColumnDefinitions>
         <design:resultColumnDefinitions>
           <design:attributes>
-            <design:name>IMG</design:name>
+            <design:name>IMG2</design:name>
             <design:position>3</design:position>
             <design:nativeDataTypeCode>1111</design:nativeDataTypeCode>
             <design:precision>2147483647</design:precision>
             <design:scale>0</design:scale>
             <design:nullability>Nullable</design:nullability>
             <design:uiHints>
-              <design:displayName>IMG</design:displayName>
+              <design:displayName>IMG2</design:displayName>
             </design:uiHints>
           </design:attributes>
           <design:usageHints>
-            <design:label>IMG</design:label>
+            <design:label>IMG2</design:label>
             <design:formattingHints>
               <design:displaySize>2147483647</design:displaySize>
             </design:formattingHints>
@@ -1114,6 +1130,97 @@ where id = ?</property>
     </design:resultSetDefinitions>
   </design:ResultSets>
 </model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="TradeEventWithType" id="304">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">ID</property>
+                    <property name="displayName">ID</property>
+                </structure>
+                <structure>
+                    <property name="columnName">EVENT_DATE</property>
+                    <property name="displayName">EVENT_DATE</property>
+                </structure>
+                <structure>
+                    <property name="columnName">DESCRIPTION</property>
+                    <property name="displayName">DESCRIPTION</property>
+                </structure>
+                <structure>
+                    <property name="columnName">NAME</property>
+                    <property name="displayName">NAME</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">ID</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">EVENT_DATE</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">DESCRIPTION</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">NAME</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">TradeTrack</property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">TradeID</property>
+                    <property name="paramName">TradeId</property>
+                    <property name="dataType">integer</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue">1</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">ID</property>
+                    <property name="nativeName">ID</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">EVENT_DATE</property>
+                    <property name="nativeName">EVENT_DATE</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">DESCRIPTION</property>
+                    <property name="nativeName">DESCRIPTION</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">NAME</property>
+                    <property name="nativeName">NAME</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <property name="queryText">select id,event_date,description,name
+from tradeevent,tradeeventtype
+where tradeevent.event_type_id =tradeeventtype.id
+and tradeevent.tradeid = ?
+order by tradeevent.eventorder</property>
         </oda-data-set>
     </data-sets>
     <styles>
@@ -1148,8 +1255,10 @@ where id = ?</property>
     </styles>
     <page-setup>
         <simple-master-page name="Simple MasterPage" id="2">
+            <property name="orientation">landscape</property>
             <page-footer>
                 <text id="3">
+                    <property name="fontSize">small</property>
                     <property name="contentType">html</property>
                     <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
                 </text>
@@ -1157,19 +1266,204 @@ where id = ?</property>
         </simple-master-page>
     </page-setup>
     <body>
-        <data id="192">
-            <property name="dataSet">Trade</property>
-            <list-property name="boundDataColumns">
-                <structure>
-                    <property name="name">OPEN_TRADE_DATE</property>
-                    <expression name="expression">dataSetRow["OPEN_TRADE_DATE"]</expression>
-                    <property name="dataType">date-time</property>
-                </structure>
-            </list-property>
-            <property name="resultSetColumn">OPEN_TRADE_DATE</property>
-        </data>
-        <list id="88">
-            <property name="dataSet">TradeEvents</property>
+        <label id="278">
+            <property name="fontSize">36pt</property>
+            <property name="fontWeight">bold</property>
+            <text-property name="text">Trade Detail</text-property>
+        </label>
+        <grid id="238">
+            <property name="height">1.71875in</property>
+            <property name="width">6.3645833333in</property>
+            <column id="239">
+                <property name="width">0.9583333333in</property>
+            </column>
+            <column id="240">
+                <property name="width">4.1458333333in</property>
+            </column>
+            <column id="241">
+                <property name="width">1.9583333333in</property>
+            </column>
+            <row id="267">
+                <cell id="268">
+                    <property name="fontSize">large</property>
+                    <property name="fontWeight">bold</property>
+                </cell>
+                <cell id="269">
+                    <data id="271">
+                        <property name="fontSize">xx-large</property>
+                        <property name="fontWeight">normal</property>
+                        <property name="dataSet">Trade</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">INSTRUMENT</property>
+                                <expression name="expression">dataSetRow["INSTRUMENT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">INSTRUMENT</property>
+                    </data>
+                </cell>
+                <cell id="270">
+                    <data id="272">
+                        <property name="fontSize">xx-large</property>
+                        <property name="fontWeight">normal</property>
+                        <property name="dataSet">Trade</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">REFERENCE</property>
+                                <expression name="expression">dataSetRow["REFERENCE"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">REFERENCE</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="243">
+                <cell id="244">
+                    <label id="276">
+                        <property name="fontSize">xx-large</property>
+                        <property name="fontWeight">bold</property>
+                        <text-property name="text">OPEN</text-property>
+                    </label>
+                </cell>
+                <cell id="245">
+                    <data id="192">
+                        <property name="fontSize">xx-large</property>
+                        <property name="fontWeight">normal</property>
+                        <structure name="dateTimeFormat">
+                            <property name="category">Long Date</property>
+                            <property name="pattern">Long Date</property>
+                        </structure>
+                        <property name="dataSet">Trade</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">OPEN_TRADE_DATE</property>
+                                <expression name="expression">dataSetRow["OPEN_TRADE_DATE"]</expression>
+                                <property name="dataType">date-time</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">OPEN_TRADE_DATE</property>
+                    </data>
+                </cell>
+                <cell id="246">
+                    <data id="258">
+                        <property name="fontSize">xx-large</property>
+                        <property name="fontWeight">normal</property>
+                        <property name="dataSet">Trade</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">OPENPRICE</property>
+                                <expression name="expression">dataSetRow["OPENPRICE"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">OPENPRICE</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="248">
+                <cell id="249">
+                    <label id="277">
+                        <property name="fontSize">xx-large</property>
+                        <property name="fontWeight">bold</property>
+                        <text-property name="text">CLOSE</text-property>
+                    </label>
+                </cell>
+                <cell id="250">
+                    <data id="273">
+                        <property name="fontSize">xx-large</property>
+                        <property name="fontWeight">normal</property>
+                        <structure name="dateTimeFormat">
+                            <property name="category">Long Date</property>
+                            <property name="pattern">Long Date</property>
+                        </structure>
+                        <property name="dataSet">Trade</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">CLOSE_TRADE_DATE</property>
+                                <expression name="expression">dataSetRow["CLOSE_TRADE_DATE"]</expression>
+                                <property name="dataType">date-time</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">CLOSE_TRADE_DATE</property>
+                    </data>
+                </cell>
+                <cell id="251">
+                    <data id="259">
+                        <property name="fontSize">xx-large</property>
+                        <property name="fontWeight">normal</property>
+                        <property name="dataSet">Trade</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">CLOSEPRICE</property>
+                                <expression name="expression">dataSetRow["CLOSEPRICE"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">CLOSEPRICE</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="253">
+                <cell id="254">
+                    <label id="274">
+                        <property name="fontSize">xx-large</property>
+                        <property name="fontWeight">bold</property>
+                        <text-property name="text">SL</text-property>
+                    </label>
+                </cell>
+                <cell id="255">
+                    <data id="265">
+                        <property name="fontSize">xx-large</property>
+                        <property name="fontWeight">normal</property>
+                        <property name="dataSet">Trade</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">STOPLOSS</property>
+                                <expression name="expression">dataSetRow["STOPLOSS"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">STOPLOSS</property>
+                    </data>
+                </cell>
+                <cell id="256"/>
+            </row>
+            <row id="260">
+                <cell id="261">
+                    <label id="275">
+                        <property name="fontSize">xx-large</property>
+                        <property name="fontWeight">bold</property>
+                        <text-property name="text">TP</text-property>
+                    </label>
+                </cell>
+                <cell id="262">
+                    <data id="266">
+                        <property name="fontSize">xx-large</property>
+                        <property name="fontWeight">normal</property>
+                        <property name="dataSet">Trade</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">TP</property>
+                                <expression name="expression">dataSetRow["TP"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">TP</property>
+                    </data>
+                </cell>
+                <cell id="263"/>
+            </row>
+        </grid>
+        <label id="279">
+            <property name="fontSize">36pt</property>
+            <property name="fontWeight">bold</property>
+            <text-property name="text">Trade Events</text-property>
+        </label>
+        <table id="280">
+            <property name="width">100%</property>
+            <property name="dataSet">TradeEventWithType</property>
             <list-property name="boundDataColumns">
                 <structure>
                     <property name="name">ID</property>
@@ -1182,136 +1476,175 @@ where id = ?</property>
                     <property name="dataType">date-time</property>
                 </structure>
                 <structure>
-                    <property name="name">EVENT_TYPE_ID</property>
-                    <expression name="expression">dataSetRow["EVENT_TYPE_ID"]</expression>
-                    <property name="dataType">integer</property>
-                </structure>
-                <structure>
                     <property name="name">DESCRIPTION</property>
                     <expression name="expression">dataSetRow["DESCRIPTION"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">EVENTORDER</property>
-                    <expression name="expression">dataSetRow["EVENTORDER"]</expression>
-                    <property name="dataType">integer</property>
-                </structure>
-                <structure>
-                    <property name="name">TRADEID</property>
-                    <expression name="expression">dataSetRow["TRADEID"]</expression>
-                    <property name="dataType">integer</property>
+                    <property name="name">NAME</property>
+                    <expression name="expression">dataSetRow["NAME"]</expression>
+                    <property name="dataType">string</property>
                 </structure>
             </list-property>
-            <list-property name="sort">
-                <structure>
-                    <expression name="key">row["EVENTORDER"]</expression>
-                    <property name="direction">asc</property>
-                </structure>
-            </list-property>
-            <detail>
-                <data id="193">
-                    <property name="resultSetColumn">EVENT_DATE</property>
-                </data>
-                <data id="210">
-                    <property name="resultSetColumn">DESCRIPTION</property>
-                </data>
-                <table id="213">
-                    <property name="marginTop">0pt</property>
-                    <property name="width">100%</property>
-                    <property name="dataSet">TrdeEventImage</property>
-                    <list-property name="boundDataColumns">
+            <column id="293">
+                <property name="width">2.2916666667in</property>
+            </column>
+            <column id="294">
+                <property name="width">2.2916666667in</property>
+            </column>
+            <column id="295"/>
+            <header>
+                <row id="281">
+                    <list-property name="visibility">
                         <structure>
-                            <property name="name">ID</property>
-                            <expression name="expression">dataSetRow["ID"]</expression>
-                            <property name="dataType">integer</property>
-                        </structure>
-                        <structure>
-                            <property name="name">EVENT_ID</property>
-                            <expression name="expression">dataSetRow["EVENT_ID"]</expression>
-                            <property name="dataType">integer</property>
-                        </structure>
-                        <structure>
-                            <property name="name">IMG</property>
-                            <expression name="expression">dataSetRow["IMG"]</expression>
-                            <property name="dataType">any</property>
-                        </structure>
-                        <structure>
-                            <property name="name">DESCRIPTION</property>
-                            <expression name="expression">dataSetRow["DESCRIPTION"]</expression>
-                            <property name="dataType">string</property>
+                            <property name="format">all</property>
+                            <expression name="valueExpr">true</expression>
                         </structure>
                     </list-property>
-                    <column id="234">
-                        <property name="width">0.375in</property>
-                    </column>
-                    <column id="223">
-                        <property name="width">1.28125in</property>
-                    </column>
-                    <column id="224"/>
-                    <header>
-                        <row id="214">
-                            <cell id="231">
-                                <label id="235">
-                                    <text-property name="text">ID</text-property>
-                                </label>
-                            </cell>
-                            <cell id="215">
-                                <label id="225">
-                                    <text-property name="text">DESCRIPTION</text-property>
-                                </label>
-                            </cell>
-                            <cell id="216">
-                                <label id="228">
-                                    <text-property name="text">IMG</text-property>
-                                </label>
-                            </cell>
-                        </row>
-                    </header>
-                    <detail>
-                        <row id="217">
-                            <cell id="232">
-                                <data id="236">
-                                    <property name="resultSetColumn">ID</property>
-                                </data>
-                            </cell>
-                            <cell id="218">
-                                <data id="226">
-                                    <property name="resultSetColumn">DESCRIPTION</property>
-                                </data>
-                            </cell>
-                            <cell id="219">
-                                <image id="227">
-                                    <property name="height">121px</property>
-                                    <property name="width">195px</property>
-                                    <property name="dataSet">SingleImage</property>
-                                    <list-property name="paramBindings">
+                    <cell id="282">
+                        <label id="300">
+                            <text-property name="text">EVENT_DATE</text-property>
+                        </label>
+                    </cell>
+                    <cell id="283">
+                        <label id="306">
+                            <text-property name="text">NAME</text-property>
+                        </label>
+                    </cell>
+                    <cell id="284">
+                        <label id="302">
+                            <text-property name="text">DESCRIPTION</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="285">
+                    <cell id="286">
+                        <data id="301">
+                            <property name="marginTop">0pt</property>
+                            <property name="paddingTop">1pt</property>
+                            <structure name="dateTimeFormat">
+                                <property name="category">Long Date</property>
+                                <property name="pattern">Long Date</property>
+                            </structure>
+                            <property name="resultSetColumn">EVENT_DATE</property>
+                        </data>
+                    </cell>
+                    <cell id="287">
+                        <data id="307">
+                            <property name="fontSize">xx-large</property>
+                            <property name="fontWeight">bold</property>
+                            <property name="resultSetColumn">NAME</property>
+                        </data>
+                    </cell>
+                    <cell id="288">
+                        <data id="303">
+                            <property name="fontSize">xx-large</property>
+                            <property name="fontWeight">bold</property>
+                            <property name="resultSetColumn">DESCRIPTION</property>
+                        </data>
+                    </cell>
+                </row>
+                <row id="296">
+                    <cell id="297">
+                        <property name="colSpan">3</property>
+                        <property name="rowSpan">1</property>
+                        <table id="213">
+                            <property name="marginTop">0pt</property>
+                            <property name="width">100%</property>
+                            <property name="dataSet">TrdeEventImage</property>
+                            <list-property name="paramBindings">
+                                <structure>
+                                    <property name="paramName">TradeEventID</property>
+                                    <expression name="expression">row["ID"]</expression>
+                                </structure>
+                            </list-property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">ID</property>
+                                    <expression name="expression">dataSetRow["ID"]</expression>
+                                    <property name="dataType">integer</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">EVENT_ID</property>
+                                    <expression name="expression">dataSetRow["EVENT_ID"]</expression>
+                                    <property name="dataType">integer</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">DESCRIPTION</property>
+                                    <expression name="expression">dataSetRow["DESCRIPTION"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">ID2</property>
+                                    <expression name="expression">dataSetRow["ID2"]</expression>
+                                    <property name="dataType">integer</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">IMG2</property>
+                                    <expression name="expression">dataSetRow["IMG2"]</expression>
+                                    <property name="dataType">blob</property>
+                                </structure>
+                            </list-property>
+                            <column id="223">
+                                <property name="width">0.9791666667in</property>
+                            </column>
+                            <column id="224"/>
+                            <header>
+                                <row id="214">
+                                    <list-property name="visibility">
                                         <structure>
-                                            <property name="paramName">TradeEventImageID</property>
-                                            <expression name="expression">row["ID"]</expression>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr">true</expression>
                                         </structure>
                                     </list-property>
-                                    <list-property name="boundDataColumns">
-                                        <structure>
-                                            <property name="name">IMG</property>
-                                            <expression name="expression">dataSetRow["IMG"]</expression>
-                                            <property name="dataType">any</property>
-                                        </structure>
-                                    </list-property>
-                                    <property name="source">expr</property>
-                                    <expression name="valueExpr">row["IMG"]</expression>
-                                </image>
-                            </cell>
-                        </row>
-                    </detail>
-                    <footer>
-                        <row id="220">
-                            <cell id="233"/>
-                            <cell id="221"/>
-                            <cell id="222"/>
-                        </row>
-                    </footer>
-                </table>
+                                    <cell id="215">
+                                        <label id="225">
+                                            <text-property name="text">Description</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="216"/>
+                                </row>
+                            </header>
+                            <detail>
+                                <row id="217">
+                                    <property name="pageBreakAfter">always</property>
+                                    <property name="pageBreakBefore">avoid</property>
+                                    <cell id="218">
+                                        <data id="226">
+                                            <property name="resultSetColumn">DESCRIPTION</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="219">
+                                        <image id="237">
+                                            <property name="pageBreakAfter">always</property>
+                                            <property name="pageBreakBefore">avoid</property>
+                                            <property name="height">328px</property>
+                                            <property name="width">550px</property>
+                                            <property name="source">expr</property>
+                                            <expression name="valueExpr">row["IMG2"]</expression>
+                                        </image>
+                                    </cell>
+                                </row>
+                            </detail>
+                            <footer>
+                                <row id="220">
+                                    <cell id="221"/>
+                                    <cell id="222"/>
+                                </row>
+                            </footer>
+                        </table>
+                    </cell>
+                </row>
             </detail>
-        </list>
+            <footer>
+                <row id="289">
+                    <cell id="290"/>
+                    <cell id="291"/>
+                    <cell id="292"/>
+                </row>
+            </footer>
+        </table>
     </body>
 </report>

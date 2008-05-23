@@ -1,13 +1,20 @@
 package tradetrack.model;
 
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
+
+import tradetrack.Activator;
 
 public class TradeEventImage {
 
@@ -111,5 +118,112 @@ public class TradeEventImage {
 		this.description = description;
 	}
 	
+	public static List<TradeEventImage> getAllImages(int tradeeventid) {
+		String sql = "select id,img2,event_id,description from tradeeventimage ";
+		sql += " where event_id = " + tradeeventid;
+		List<TradeEventImage> imgList = new ArrayList<TradeEventImage>();
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+
+			conn = DriverManager
+					.getConnection("jdbc:apache:commons:dbcp:tradetrack");
+
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				TradeEventImage ti = new TradeEventImage();
+				ti.setId(rs.getInt(1));
+				Display dsp =  Activator.getDefault().getWorkbench().getDisplay();
+				if(rs.getBinaryStream(2) != null){
+					Image img = new Image(dsp,rs.getBinaryStream(2));
+					
+					ti.setImage(img);}
+				
+					else
+						ti.setImage(null);
+						
+				ti.setTradeEventId(tradeeventid);
+				
+				ti.setDescription(rs.getString(4));
+				
+				imgList.add(ti);
+			}
+			
+			return imgList;
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	public static void copyAllImagesfromIMGtoIMG2() {
+		String sql = "select id,img,event_id,description from tradeeventimage ";
+		
+		List<TradeEventImage> imgList = new ArrayList<TradeEventImage>();
+		Connection conn = null;
+		Statement stmt = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String usql = "update tradeeventimage set img2 = ? where id = ?";
+			
+			conn = DriverManager
+					.getConnection("jdbc:apache:commons:dbcp:tradetrack");
+			pstmt =conn.prepareStatement(usql);
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			byte [] bar = null;
+			while(rs.next()){
+
+		
+				if(rs.getBinaryStream(2) != null){
+					Blob b = rs.getBlob(2); 
+					pstmt.setBlob(1,b);
+					pstmt.setInt(2, rs.getInt(1));
+					pstmt.executeUpdate();
+					
+				}
+					
+			
+
+				
+				
+				
+				
+			}
+			
+			return ;
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return ;
+	}
 	
 }

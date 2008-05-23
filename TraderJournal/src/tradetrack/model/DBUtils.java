@@ -27,6 +27,7 @@ public class DBUtils {
 			String urllist = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.P_DBURLLIST);
 			String url = DBURLListEditor.getFirstDBURL(urllist);
 		setupDriver(url);
+		//TradeEventImage.copyAllImagesfromIMGtoIMG2();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -138,5 +139,8 @@ public class DBUtils {
 			}
 		}
 	}
+	
+	
+	
 
 }
