@@ -31,7 +31,7 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	private IWorkbenchAction iAboutAction;
 	private IWorkbenchAction iExitAction;
-	private IContributionItem perspectivesMenu;
+
 	
 	
 	private IWorkbenchAction preferenceAction;
@@ -58,8 +58,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		register(preferenceAction);
 
 		
-		perspectivesMenu = ContributionItemFactory.PERSPECTIVES_SHORTLIST
-		.create(window);
+
 
     }
 
