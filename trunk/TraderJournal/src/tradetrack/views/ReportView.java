@@ -1,5 +1,6 @@
 package tradetrack.views;
 
+import java.io.IOException;
 import java.net.URL;
 
 import org.eclipse.birt.core.framework.Platform;
@@ -12,6 +13,8 @@ import org.eclipse.birt.report.engine.api.IRunAndRenderTask;
 import org.eclipse.birt.report.engine.api.PDFRenderOption;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
@@ -22,6 +25,21 @@ import tradetrack.model.Trade;
 
 public class ReportView extends ViewPart implements ISelectionListener{
 	private Trade trade;
+	private IReportEngineFactory factory;
+	IReportEngine engine=null;
+	EngineConfig config = null;
+	Browser browser = null;
+	
+	
+	URL relativeURL = null;
+
+
+	// Turn relative path to a local path with the help of Eclipse-platform:
+	URL localURL = null;
+
+
+
+	String pluginDirString = null;
 	
 	public static final String ID = "tradetrack.views.ReportView";
 	@Override
@@ -29,6 +47,7 @@ public class ReportView extends ViewPart implements ISelectionListener{
 		
 			getSite().getPage().addSelectionListener(TradeReportListView.ID,
 				(ISelectionListener) this);
+			browser = new Browser(parent,SWT.NONE);
 	}
 
 	@Override
@@ -37,38 +56,57 @@ public class ReportView extends ViewPart implements ISelectionListener{
 
 	}
 	
+	String getPDFReportURL(){if(relativeURL == null)
+		relativeURL = Activator.getDefault().getBundle().getEntry("/");
+
+
+	// Turn relative path to a local path with the help of Eclipse-platform:
+	if (localURL == null)
+		try {
+			localURL = Platform.asLocalURL(relativeURL);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+	// From this you can get the path
+	if(pluginDirString == null)
+	pluginDirString = localURL.getPath();
+	String ret = pluginDirString+"output/test"+trade.getId()+".pdf";
+	return ret;
+		
+	}
 	
-	public void executeReport(int tradeid) throws EngineException
+	
+	public void executeReport() throws EngineException
 	{
 
-	IReportEngine engine=null;
-	EngineConfig config = null;
+
 
 	try{
-		config = new EngineConfig( );			
+		getPDFReportURL();
+		this.showBusy(true);
+		if(config == null)
+			config = new EngineConfig( );			
 	
 
-		IReportEngineFactory factory = (IReportEngineFactory) Platform
+		if(factory == null)
+				factory = (IReportEngineFactory) Platform
 		.createFactoryObject( IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY );
-		engine = factory.createReportEngine( config );		
+		
+		if(engine == null)
+			engine = factory.createReportEngine( config );		
 
 		IReportRunnable design = null;
 		//Open the report design
 		// URL to the root ("/") of the plugin-path:
-		URL relativeURL = Activator.getDefault().getBundle().getEntry("/");
-
-
-		// Turn relative path to a local path with the help of Eclipse-platform:
-		URL localURL = Platform.asLocalURL(relativeURL);
-
-
-		// From this you can get the path
-		String pluginDirString = localURL.getPath();
+		
 
 		
 		design = engine.openReportDesign(pluginDirString+ "reports/tradereport.rptdesign"); 
 		IRunAndRenderTask task = engine.createRunAndRenderTask(design); 		
-		task.setParameterValue("TradeId", (new Integer(tradeid)));
+		task.setParameterValue("TradeId", (new Integer(trade.getId())));
 		//task.validateParameters();
 				
 		//HTMLRenderOption options = new HTMLRenderOption();		
@@ -79,19 +117,25 @@ public class ReportView extends ViewPart implements ISelectionListener{
 		//options.setImageDirectory("C:\\test\\images");
 
 		PDFRenderOption options = new PDFRenderOption();
-		options.setOutputFileName(pluginDirString+"output/test"+tradeid+".pdf");
+		options.setOutputFileName(getPDFReportURL());
 		options.setOutputFormat("pdf");
 
 		task.setRenderOption(options);
 		task.run();
 		task.close();
-		engine.destroy();
+		//engine.destroy();
+		
+		//engine = null;
+		
+	
+		//task = null;
+		this.showBusy(false);
 	}catch( Exception ex){
 		ex.printStackTrace();
 	}		
 	finally
 	{
-	       Platform.shutdown( );
+	      // Platform.shutdown( );
 	}
 
 	}
@@ -104,11 +148,19 @@ public class ReportView extends ViewPart implements ISelectionListener{
 
 			try {
 				
-				executeReport(trade.getId());
+				executeReport();
+				displyPDFinBrowser();
 			} catch (EngineException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private void displyPDFinBrowser() {
+		String fname = "file://" + getPDFReportURL();
+		browser.setUrl(fname);
+		
+		
 	}
 }

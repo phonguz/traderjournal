@@ -249,55 +249,10 @@ public class TradeEvent {
 		this.eventorder = eventorder;
 	}
 
-	public List<TradeEventImage> getAllImages() {
-		String sql = "select id,img,event_id,description from tradeeventimage ";
-		sql += " where event_id = " + getID();
-		imgList = new ArrayList<TradeEventImage>();
-		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		try {
-
-			conn = DriverManager
-					.getConnection("jdbc:apache:commons:dbcp:tradetrack");
-
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			while(rs.next()){
-				TradeEventImage ti = new TradeEventImage();
-				ti.setId(rs.getInt(1));
-				Display dsp =  Activator.getDefault().getWorkbench().getDisplay();
-				if(rs.getBinaryStream(2) != null){
-					Image img = new Image(dsp,rs.getBinaryStream(2));
-				ti.setImage(img);}
-					else
-						ti.setImage(null);
-						
-				ti.setTradeEventId(getID());
-				
-				ti.setDescription(rs.getString(4));
-				
-				imgList.add(ti);
-			}
-			
-			return imgList;
+	public List<TradeEventImage> getAllImages(
+			){
 		
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-
-			try {
-				stmt.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				conn.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
+		return TradeEventImage.getAllImages(getID());
 	}
 
 	public void addImage(String selected) {
