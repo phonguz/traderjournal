@@ -6,6 +6,15 @@ import org.eclipse.swt.graphics.Image;
 
 public class TradeLabelProvider implements ILabelProvider {
 
+	private String delim = null;
+	
+	public TradeLabelProvider(){
+		delim = ":";
+	}
+	public TradeLabelProvider(String delimeter){
+		delim = delimeter;
+	}
+	
 	@Override
 	public Image getImage(Object element) {
 		// TODO Auto-generated method stub
@@ -16,7 +25,7 @@ public class TradeLabelProvider implements ILabelProvider {
 	public String getText(Object element) {
 		Trade t = (Trade)element;
 		
-		return t.getId() + ":" + t.getInstrument() + ":" + t.getTradeOpenDate();
+		return t.getId() + delim + t.getInstrument() +delim+ t.getTradeOpenDate();
 	}
 
 	@Override
