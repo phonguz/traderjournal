@@ -16,6 +16,8 @@
   * *Reporting*
   * Single PDF per trade
     * All trade detail, trade events with related images, trade statistics.
+    * Initial trade detail report completed,  not done account detail view;
+
   * Account overview
     * List of all trades in certain account.
 
