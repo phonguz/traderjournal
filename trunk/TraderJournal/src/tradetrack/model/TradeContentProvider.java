@@ -22,7 +22,7 @@ public class TradeContentProvider implements IStructuredContentProvider {
 
 	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		System.out.print("input changed");
+		
 	}
 
 }

@@ -104,6 +104,13 @@
             id="tradetrack.views.ReportView"
             name="reportview">
       </view>
+      <view
+            allowMultiple="false"
+            class="tradetrack.views.TradeReportListView"
+            icon="icons/sample.gif"
+            id="tradetrack.views.TradeReportListView"
+            name="TradeReportListView">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">

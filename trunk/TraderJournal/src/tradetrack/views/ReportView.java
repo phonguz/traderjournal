@@ -27,7 +27,7 @@ public class ReportView extends ViewPart implements ISelectionListener{
 	@Override
 	public void createPartControl(Composite parent) {
 		
-			getSite().getPage().addSelectionListener(TradeListView.ID,
+			getSite().getPage().addSelectionListener(TradeReportListView.ID,
 				(ISelectionListener) this);
 	}
 
@@ -103,6 +103,7 @@ public class ReportView extends ViewPart implements ISelectionListener{
 			trade = newTrade;
 
 			try {
+				
 				executeReport(trade.getId());
 			} catch (EngineException e) {
 				// TODO Auto-generated catch block

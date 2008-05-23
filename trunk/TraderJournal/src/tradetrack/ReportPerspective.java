@@ -8,6 +8,7 @@ import tradetrack.views.ImageViewPart;
 import tradetrack.views.ReportView;
 import tradetrack.views.TradeDetailView;
 import tradetrack.views.TradeListView;
+import tradetrack.views.TradeReportListView;
 
 public class ReportPerspective implements IPerspectiveFactory {
 	public final static String ID = "TraderJournal.ReportPerspective";
@@ -17,7 +18,7 @@ public class ReportPerspective implements IPerspectiveFactory {
 
 		String editorArea = layout.getEditorArea();
 		layout.setEditorAreaVisible(false);
-		layout.addView(TradeListView.ID, IPageLayout.LEFT,0.2f, editorArea);
+		layout.addView(TradeReportListView.ID, IPageLayout.LEFT,0.2f, editorArea);
 		layout.addView(ReportView.ID, IPageLayout.RIGHT, 0.2f, TradeListView.ID);
 		
 	}
