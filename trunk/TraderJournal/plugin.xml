@@ -7,7 +7,7 @@
          point="org.eclipse.core.runtime.applications">
       <application>
          <run
-               class="tradetrack.Application">
+               class="traderjournal.Application">
          </run>
       </application>
    </extension>
@@ -15,16 +15,16 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             name="TradePerspective"
-            class="tradetrack.Perspective"
-            id="TradeTrack.tradePerspective">
+            class="traderjournal.Perspective"
+            id="TraderJournal.tradePerspective">
       </perspective>
       <perspective
-            class="tradetrack.AccountPerspective"
+            class="traderjournal.AccountPerspective"
             id="TraderJournal.AccountPerspective"
             name="AccountPerspective">
       </perspective>
       <perspective
-            class="tradetrack.ReportPerspective"
+            class="traderjournal.ReportPerspective"
             id="TraderJournal.ReportPerspective"
             name="ReportPerspective">
       </perspective>
@@ -33,7 +33,7 @@
          point="org.eclipse.ui.actionSets">
       <actionSet
             description="PerspectivesActionSet"
-            id="TradeTrack.actionSetPerspectives"
+            id="TraderJournall.actionSetPerspectives"
             label="PerspectivesActionSet"
             visible="true">
          <menu
@@ -44,19 +44,19 @@
             </separator>
          </menu>
          <action
-               class="tradetrack.actions.OpenAccountPerspectiveAction"
+               class="traderjournal.actions.OpenAccountPerspectiveAction"
                id="TraderJournal.openAccountPerspectiveAction"
                label="AccountPerspective"
                menubarPath="perspectivesMenu/perspectives">
          </action>
          <action
-               class="tradetrack.actions.OpenTradePerspectiveAction"
+               class="traderjournal.actions.OpenTradePerspectiveAction"
                id="TraderJournal.openTradePerspectiveAction"
                label="TradePerspective"
                menubarPath="perspectivesMenu/perspectives">
          </action>
          <action
-               class="tradetrack.actions.OpenReportPerspectiveAction"
+               class="traderjournal.actions.OpenReportPerspectiveAction"
                id="TraderJournal.openReportPerspective"
                label="ReportPerspective"
                menubarPath="perspectivesMenu/perspectives">
@@ -66,49 +66,49 @@
    <extension
          point="org.eclipse.ui.views">
       <category
-            id="TradeTrack"
-            name="TradeTrack Category">
+            id="TraderJournal"
+            name="TraderJournal Category">
       </category>
       <view
             category="TradeTrack"
-            class="tradetrack.views.TradeListView"
+            class="traderjournal.views.TradeListView"
             icon="icons/sample.gif"
-            id="tradetrack.views.TradeListView"
+            id="traderjournal.views.TradeListView"
             name="Trade List View">
       </view>
       <view
             category="TradeTrack"
-            class="tradetrack.views.ImageViewPart"
+            class="traderjournal.views.ImageViewPart"
             icon="icons/sample.gif"
-            id="tradetrack.views.ImageViewPart"
+            id="traderjournal.views.ImageViewPart"
             name="ImageViewPart">
       </view>
       <view
             category="TradeTrack"
-            class="tradetrack.views.TradeDetailView"
-            id="tradetrack.views.TradeDetailView"
+            class="traderjournal.views.TradeDetailView"
+            id="traderjournal.views.TradeDetailView"
             name="TradeDetailView">
       </view>
       <view
             allowMultiple="false"
             category="TradeTrack"
-            class="tradetrack.views.AccountListView"
+            class="traderjournal.views.AccountListView"
             icon="icons/alt_window_32.gif"
-            id="tradetrack.views.AccountListView"
+            id="traderjournal.views.AccountListView"
             name="AccountListView">
       </view>
       <view
             allowMultiple="false"
-            class="tradetrack.views.ReportView"
+            class="traderjournal.views.ReportView"
             icon="icons/alt_about.gif"
-            id="tradetrack.views.ReportView"
+            id="traderjournal.views.ReportView"
             name="reportview">
       </view>
       <view
             allowMultiple="false"
-            class="tradetrack.views.TradeReportListView"
+            class="traderjournal.views.TradeReportListView"
             icon="icons/sample.gif"
-            id="tradetrack.views.TradeReportListView"
+            id="traderjournal.views.TradeReportListView"
             name="TradeReportListView">
       </view>
    </extension>
@@ -117,7 +117,7 @@
       <perspectiveExtension
             targetID="org.eclipse.ui.resourcePerspective">
          <view
-               id="tradetrack.views.AccountListView"
+               id="traderjournal.views.AccountListView"
                ratio="0.5"
                relationship="right"
                relative="org.eclipse.ui.views.TaskList"
@@ -128,32 +128,32 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="tradetrack.editors.TradeEditor"
+            class="traderjournal.editors.TradeEditor"
             default="false"
             icon="icons/alt_window_16.gif"
-            id="TradeTrack.editors.TradeEditor"
-            name="TradeTrack.editors.TradeEditor">
+            id="traderjournal.editors.TradeEditor"
+            name="TradeEditor">
       </editor>
    </extension>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="tradetrack.preferences.DatabasePreferencePage"
-            id="tradetrack.preferences.DatabasePreferencePage"
+            class="traderjournal.preferences.DatabasePreferencePage"
+            id="traderjournal.preferences.DatabasePreferencePage"
             name="Database Preferences">
       </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="tradetrack.preferences.PreferenceInitializer">
+            class="traderjournal.preferences.PreferenceInitializer">
       </initializer>
    </extension>
    <extension
          id="product"
          point="org.eclipse.core.runtime.products">
       <product
-            application="TradeTrack.application"
+            application="TraderJournal.application"
             name="TraderJournal">
          <property
                name="appName"
