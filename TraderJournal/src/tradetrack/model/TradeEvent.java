@@ -215,7 +215,7 @@ public class TradeEvent {
 				
 			stmt.setInt(4, getEventorder());
 			stmt.setInt(5, getTradeid());
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -258,7 +258,7 @@ public class TradeEvent {
 	public void addImage(String selected) {
 		DBUtils.checkAndInitID("tradeeventimage");
 		
-		String sql = "insert into  tradeeventimage (id,event_id,img) values ((select (max(id) +1) from tradeeventimage),?,?) ";
+		String sql = "insert into  tradeeventimage (id,event_id,img2) values ((select (max(id) +1) from tradeeventimage),?,?) ";
 		
 		java.io.File f = new java.io.File(selected);
 		Connection conn = null;
