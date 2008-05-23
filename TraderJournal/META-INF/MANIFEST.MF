@@ -18,3 +18,4 @@ Bundle-ClassPath: lib/commons-dbcp-1.2.2.jar,
  lib/commons-pool-1.3.jar,
  lib/hsqldb.jar,
  .
+Bundle-Vendor: TraderJournal Development Team

@@ -72,20 +72,21 @@
       <view
             category="TradeTrack"
             class="traderjournal.views.TradeListView"
-            icon="icons/sample.gif"
+            icon="icons/hierarchical.gif"
             id="traderjournal.views.TradeListView"
             name="Trade List View">
       </view>
       <view
             category="TradeTrack"
             class="traderjournal.views.ImageViewPart"
-            icon="icons/sample.gif"
+            icon="icons/binary.gif"
             id="traderjournal.views.ImageViewPart"
             name="ImageViewPart">
       </view>
       <view
             category="TradeTrack"
             class="traderjournal.views.TradeDetailView"
+            icon="icons/flat.gif"
             id="traderjournal.views.TradeDetailView"
             name="TradeDetailView">
       </view>
@@ -93,21 +94,21 @@
             allowMultiple="false"
             category="TradeTrack"
             class="traderjournal.views.AccountListView"
-            icon="icons/alt_window_32.gif"
+            icon="icons/hierarchical.gif"
             id="traderjournal.views.AccountListView"
             name="AccountListView">
       </view>
       <view
             allowMultiple="false"
             class="traderjournal.views.ReportView"
-            icon="icons/alt_about.gif"
+            icon="icons/validate.gif"
             id="traderjournal.views.ReportView"
-            name="reportview">
+            name="ReportView">
       </view>
       <view
             allowMultiple="false"
             class="traderjournal.views.TradeReportListView"
-            icon="icons/sample.gif"
+            icon="icons/hierarchical.gif"
             id="traderjournal.views.TradeReportListView"
             name="TradeReportListView">
       </view>
@@ -130,7 +131,7 @@
       <editor
             class="traderjournal.editors.TradeEditor"
             default="false"
-            icon="icons/alt_window_16.gif"
+            icon="icons/properties.gif"
             id="traderjournal.editors.TradeEditor"
             name="TradeEditor">
       </editor>
@@ -158,6 +159,10 @@
          <property
                name="appName"
                value="TraderJournal">
+         </property>
+         <property
+               name="windowImages"
+               value="icons/bookmark.gif">
          </property>
       </product>
    </extension>
