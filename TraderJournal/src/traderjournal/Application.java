@@ -9,6 +9,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 
 import sun.security.action.GetLongAction;
+import traderjournal.model.DBUtils;
 
 /**
  * This class controls all aspects of the application's execution
@@ -22,6 +23,7 @@ public class Application implements IApplication {
 	 */
 	public Object start(IApplicationContext context) 
 	throws Exception {
+		
 		
 		
 		Display display = PlatformUI.createDisplay();
