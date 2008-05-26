@@ -1,7 +1,6 @@
 package traderjournal.views;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Enumeration;
 
 import org.eclipse.birt.core.framework.Platform;
@@ -13,7 +12,6 @@ import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.eclipse.birt.report.engine.api.IRunAndRenderTask;
 import org.eclipse.birt.report.engine.api.PDFRenderOption;
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
