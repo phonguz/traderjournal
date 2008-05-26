@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008/05/26 04:30:45 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="traderjournal.model.hibernate.Tradeeventimage" table="TRADEEVENTIMAGE" schema="PUBLIC">
+        <composite-id name="id" class="traderjournal.model.hibernate.TradeeventimageId">
+            <key-property name="id" type="java.lang.Integer">
+                <column name="ID" />
+            </key-property>
+            <key-property name="eventId" type="java.lang.Integer">
+                <column name="EVENT_ID" />
+            </key-property>
+            <key-property name="description" type="string">
+                <column name="DESCRIPTION" />
+            </key-property>
+            <key-property name="img2" type="binary">
+                <column name="IMG2" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="tradeevent" class="traderjournal.model.hibernate.Tradeevent" update="false" insert="false" fetch="select">
+            <column name="EVENT_ID" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
