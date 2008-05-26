@@ -6,6 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Hashtable;
+
+import javax.naming.Binding;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
 
 import org.apache.commons.dbcp.ConnectionFactory;
 import org.apache.commons.dbcp.DriverManagerConnectionFactory;
@@ -13,12 +20,18 @@ import org.apache.commons.dbcp.PoolableConnectionFactory;
 import org.apache.commons.dbcp.PoolingDriver;
 import org.apache.commons.pool.ObjectPool;
 import org.apache.commons.pool.impl.GenericObjectPool;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import traderjournal.Activator;
+import traderjournal.model.hibernate.Account;
+import traderjournal.model.hibernate.AccountHome;
 import traderjournal.preferences.DBURLListEditor;
 import traderjournal.preferences.PreferenceConstants;
 
 public class DBUtils {
+	
+	private static SessionFactory sessionFactory;
 	
 	public static void setupHSQLDB(){
 		try {
@@ -27,6 +40,7 @@ public class DBUtils {
 			String urllist = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.P_DBURLLIST);
 			String url = DBURLListEditor.getFirstDBURL(urllist);
 		setupDriver(url);
+		setupHBM();
 		//TradeEventImage.copyAllImagesfromIMGtoIMG2();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -37,8 +51,33 @@ public class DBUtils {
 		}
 	}
 
+	public static SessionFactory getSessionFactory(){
+		return sessionFactory;
+	}
+	
+	public static void setupHBM(){
+
+		
+		
+		
+		
+			if(sessionFactory == null)
+			sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+			//AccountHome acm = new AccountHome();
+			//Account a =acm.findById(1);
+			//System.out.println(a.toString());
+	}
 	
 	
+	public static void testHBM(){
+		setupHBM();
+		//getSessionFactory().getCurrentSession().beginTransaction();
+		//AccountHome acm = new AccountHome();
+		//Account a =acm.findById(1);
+		//System.out.println(a.toString());
+		//getSessionFactory().getCurrentSession().getTransaction().commit();
+		
+	}
 	
 	 public static void setupDriver(String connectURI) throws Exception {
 	        //
