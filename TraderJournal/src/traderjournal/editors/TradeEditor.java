@@ -1,7 +1,16 @@
 package traderjournal.editors;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
+
+import javax.imageio.stream.FileImageInputStream;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.ISelection;
@@ -39,10 +48,17 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 
-import traderjournal.model.Trade;
-import traderjournal.model.TradeEvent;
-import traderjournal.model.TradeEventType;
+import traderjournal.model.hibernate.Trade;
+import traderjournal.model.hibernate.Tradeevent;
+import traderjournal.model.hibernate.TradeeventHome;
+import traderjournal.model.hibernate.Tradeeventimage;
+import traderjournal.model.hibernate.TradeeventimageHome;
+import traderjournal.model.hibernate.Tradeeventtype;
+import traderjournal.model.hibernate.TradeeventtypeHome;
 import traderjournal.views.TradeListView;
+import traderjournal.views.contentproviders.TradeEventContentProvider;
+import traderjournal.views.labelproviders.TradeEventLabelProvider;
+import traderjournal.views.sorters.TradeEventSorter;
 
 public class TradeEditor extends EditorPart implements ISelectionListener {
 	public static final String ID = "traderjournal.editors.TradeEditor";
@@ -62,6 +78,8 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 	private int EDITABLECOLUMN;
 
 	Composite rightComposite;
+	TradeeventHome tradeEventHome = new TradeeventHome();
+	
 
 	public TradeEditor() {
 		
@@ -174,7 +192,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 
 				// Identify the selected row
 				TableItem item = (TableItem) e.item;
-				final TradeEvent selectedEvent = (TradeEvent) item.getData();
+				final Tradeevent selectedEvent = (Tradeevent) item.getData();
 				if (item == null)
 					return;
 
@@ -192,7 +210,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 							editor.getItem().setText(EDITABLECOLUMN,
 									text.getText());
 							TableItem item = (TableItem) editor.getItem();
-							TradeEvent tEvent = (TradeEvent) item.getData();
+							Tradeevent tEvent = (Tradeevent) item.getData();
 							SimpleDateFormat sd = new SimpleDateFormat(
 									"yyyy-MM-dd");
 							try {
@@ -200,7 +218,9 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 							} catch (ParseException e) {
 								//just don't update the date if it's non parsable... 
 							}
-							tEvent.update();
+							tradeEventHome.getSessionFactory().getCurrentSession().beginTransaction();
+							tradeEventHome.attachDirty(tEvent);
+							tradeEventHome.getSessionFactory().getCurrentSession().getTransaction().commit();
 							tblViewer.update(tEvent, null);
 
 						}
@@ -211,11 +231,12 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 					return;
 				case 2: // type
 					Combo tradeTypeEditor = new Combo(tblEvents, SWT.NONE);
-					for (TradeEventType tt : TradeEventType.getAll()) {
-						tradeTypeEditor.add(tt.getName(), tt.getID());
+					TradeeventtypeHome th = new TradeeventtypeHome();
+					for (Tradeeventtype tt : th.findAll()) {
+						tradeTypeEditor.add(tt.getName(), tt.getId());
 					}
 
-					tradeTypeEditor.select(selectedEvent.getEventtype());
+					tradeTypeEditor.select(selectedEvent.getTradeeventtype().getId());
 					tradeTypeEditor
 							.addSelectionListener(new SelectionListener() {
 
@@ -231,12 +252,19 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 									Combo cmb = (Combo) ee.widget;
 									TableItem item = (TableItem) editor
 											.getItem();
-									TradeEvent tEvent = (TradeEvent) item
+									Tradeevent tEvent = (Tradeevent) item
 											.getData();
-									tEvent
-											.setEventtype(cmb
-													.getSelectionIndex());
-									tEvent.update();
+									
+									TradeeventtypeHome th = new TradeeventtypeHome();
+									Tradeeventtype t = th.findById(cmb.getSelectionIndex());
+									
+									tEvent.setTradeeventtype(t);
+									
+									
+									tradeEventHome.getSessionFactory().getCurrentSession().beginTransaction();
+									tradeEventHome.attachDirty(tEvent);
+									tradeEventHome.getSessionFactory().getCurrentSession().getTransaction().commit();
+									
 									tblViewer.update(tEvent, null);
 
 								}
@@ -257,9 +285,11 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 							editor.getItem().setText(EDITABLECOLUMN,
 									text.getText());
 							TableItem item = (TableItem) editor.getItem();
-							TradeEvent tEvent = (TradeEvent) item.getData();
+							Tradeevent tEvent = (Tradeevent) item.getData();
 							tEvent.setDescription(text.getText());
-							tEvent.update();
+							tradeEventHome.getSessionFactory().getCurrentSession().beginTransaction();
+							tradeEventHome.attachDirty(tEvent);
+							tradeEventHome.getSessionFactory().getCurrentSession().getTransaction().commit();
 							tblViewer.update(tEvent, null);
 
 						}
@@ -289,10 +319,12 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 							editor.getItem().setText(EDITABLECOLUMN,
 									text.getText());
 							TableItem item = (TableItem) editor.getItem();
-							TradeEvent tEvent = (TradeEvent) item.getData();
+							Tradeevent tEvent = (Tradeevent) item.getData();
 							tEvent.setEventorder(Integer.parseInt(text
 									.getText()));
-							tEvent.update();
+							tradeEventHome.getSessionFactory().getCurrentSession().beginTransaction();
+							tradeEventHome.attachDirty(tEvent);
+							tradeEventHome.getSessionFactory().getCurrentSession().getTransaction().commit();
 							tblViewer.update(tEvent, null);
 
 						}
@@ -307,20 +339,44 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 
 						FileDialog fd = new FileDialog(new Shell());
 						String filepath = fd.open();
-
-						if (filepath != null) {
-							selectedEvent.addImage(filepath);
-
+						
+						try {
+							FileReader fr = new FileReader(filepath);
+						
+						File f = new File(filepath);
+						BufferedInputStream bi = new BufferedInputStream(new FileInputStream(f));
+						
+						
+						byte [] bar = new byte[bi.available()];
+						 bi.read(bar);
+						TradeeventimageHome tih = new TradeeventimageHome();
+						Tradeeventimage ti = new Tradeeventimage();
+						
+						
+						ti.setImg(bar);
+						ti.setTradeevent(selectedEvent);
+						tih.getSessionFactory().getCurrentSession().beginTransaction();
+						tih.merge(ti);
+						tih.getSessionFactory().getCurrentSession().getTransaction().commit();
+						} catch (FileNotFoundException e1) {
+							
+							e1.printStackTrace();
+						} catch (IOException e2) {
+							
+							e2.printStackTrace();
 						}
-
+						
 					} else {
 					}
 
 					break;
 
 				case 6:
-					TradeEvent te = (TradeEvent) item.getData();
-					TradeEvent.remove(te.getID());
+					Tradeevent te = (Tradeevent) item.getData();
+					tradeEventHome.getSessionFactory().getCurrentSession().beginTransaction();
+					tradeEventHome.delete(te);
+					tradeEventHome.getSessionFactory().getCurrentSession().getTransaction().commit();
+					
 					refresh();
 					return;
 				}
@@ -432,7 +488,13 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				trade.addTradeEvent();
+				Tradeevent te = new Tradeevent();
+				te.setTrade(trade);
+				tradeEventHome.getSessionFactory().getCurrentSession().beginTransaction();
+				tradeEventHome.persist(te);
+				tradeEventHome.getSessionFactory().getCurrentSession().getTransaction().commit();
+				
+				
 
 				refresh();
 			}
@@ -441,7 +503,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 		btnAdd.setText("Add");
 
 		Button btnSave = new Button(rightComposite, SWT.PUSH);
-		btnAdd.addSelectionListener(new SelectionListener() {
+		btnSave.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
@@ -450,9 +512,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				trade.update();
-
-				refresh();
+				System.out.println("TODO: Save");
 			}
 		});
 

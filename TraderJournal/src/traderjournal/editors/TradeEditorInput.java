@@ -4,7 +4,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 
-import traderjournal.model.Trade;
+import traderjournal.model.hibernate.Trade;
 
 public class TradeEditorInput implements IEditorInput {
 	Trade trade = null;
@@ -27,7 +27,7 @@ public class TradeEditorInput implements IEditorInput {
 
 	@Override
 	public String getName() {
-		return trade.getName();
+		return trade.getId() +"-" + trade.getOpenTradeDate().toString();
 	}
 
 	@Override
