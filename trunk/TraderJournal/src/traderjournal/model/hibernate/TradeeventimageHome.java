@@ -1,6 +1,6 @@
 package traderjournal.model.hibernate;
 
-// Generated 2008/05/26 04:30:45 by Hibernate Tools 3.2.1.GA
+// Generated 2008/05/27 01:45:17 by Hibernate Tools 3.2.1.GA
 
 import java.util.List;
 import org.apache.commons.logging.Log;
@@ -23,7 +23,7 @@ public class TradeeventimageHome {
 	private Transaction tx;
 	private final SessionFactory sessionFactory = getSessionFactory();
 
-	protected SessionFactory getSessionFactory() {
+	public SessionFactory getSessionFactory() {
 		try {
 			return DBUtils.getSessionFactory();
 		} catch (Exception e) {
@@ -109,8 +109,7 @@ public class TradeeventimageHome {
 		tx = sessionFactory.getCurrentSession().beginTransaction();
 	}
 
-	public Tradeeventimage findById(
-			traderjournal.model.hibernate.TradeeventimageId id) {
+	public Tradeeventimage findById(int id) {
 		log.debug("getting Tradeeventimage instance with id: " + id);
 		try {
 			startOperation();
