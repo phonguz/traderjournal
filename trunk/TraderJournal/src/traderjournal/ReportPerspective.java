@@ -4,7 +4,7 @@ import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
 import traderjournal.views.AccountListView;
-import traderjournal.views.ImageViewPart;
+import traderjournal.views.ImageView;
 import traderjournal.views.ReportView;
 import traderjournal.views.TradeDetailView;
 import traderjournal.views.TradeListView;

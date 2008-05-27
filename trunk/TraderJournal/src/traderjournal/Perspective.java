@@ -4,7 +4,7 @@ import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
 import traderjournal.views.AccountListView;
-import traderjournal.views.ImageViewPart;
+import traderjournal.views.ImageView;
 import traderjournal.views.TradeDetailView;
 import traderjournal.views.TradeListView;
 
@@ -15,13 +15,13 @@ public class Perspective implements IPerspectiveFactory {
 		String editorArea = layout.getEditorArea();
 		layout.setEditorAreaVisible(true);
 		layout.addView(TradeListView.ID, IPageLayout.LEFT,0.2f, editorArea);
-		layout.addView(ImageViewPart.ID_VIEW, IPageLayout.BOTTOM,0.7f, editorArea);
+		layout.addView(ImageView.ID_VIEW, IPageLayout.BOTTOM,0.7f, editorArea);
 		layout.addView(TradeDetailView.ID_VIEW, IPageLayout.BOTTOM,0.5f, TradeListView.ID);
 	}
 	
 	private void defineActions(IPageLayout layout) {
 		layout.addShowViewShortcut(TradeListView.ID);
-		layout.addShowViewShortcut(ImageViewPart.ID_VIEW);
+		layout.addShowViewShortcut(ImageView.ID_VIEW);
 		layout.addShowViewShortcut(TradeDetailView.ID_VIEW);
 		
 		
