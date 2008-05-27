@@ -78,10 +78,10 @@
       </view>
       <view
             category="TradeTrack"
-            class="traderjournal.views.ImageViewPart"
+            class="traderjournal.views.ImageView"
             icon="icons/binary.gif"
-            id="traderjournal.views.ImageViewPart"
-            name="ImageViewPart">
+            id="traderjournal.views.ImageView"
+            name="ImageView">
       </view>
       <view
             category="TradeTrack"
@@ -111,6 +111,18 @@
             icon="icons/hierarchical.gif"
             id="traderjournal.views.TradeReportListView"
             name="TradeReportListView">
+      </view>
+      <view
+            class="traderjournal.views.AccountDetailView"
+            icon="icons/flat.gif"
+            id="traderjournal.views.AccountDetailView"
+            name="AccountDetailView">
+      </view>
+      <view
+            class="traderjournal.views.TradeTableView"
+            icon="icons/properties.gif"
+            id="traderjournal.views.TradeTableView"
+            name="TradeTableView">
       </view>
    </extension>
    <extension
