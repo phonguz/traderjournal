@@ -24,7 +24,7 @@ import org.osgi.framework.Bundle;
 
 import traderjournal.Activator;
 import traderjournal.Application;
-import traderjournal.model.Trade;
+import traderjournal.model.hibernate.Trade;
 
 public class ReportView extends ViewPart implements ISelectionListener {
 	private Trade trade;

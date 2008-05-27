@@ -4,27 +4,28 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.List;
 
-import org.eclipse.ui.ISelectionListener;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.activities.WorkbenchActivityHelper;
-import org.eclipse.ui.internal.Workbench;
-import org.eclipse.ui.part.ViewPart;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.part.ViewPart;
 
-import traderjournal.model.Trade;
+import traderjournal.model.hibernate.Trade;
+import traderjournal.model.hibernate.Account;
+import traderjournal.model.hibernate.AccountHome;
+import traderjournal.model.hibernate.TradeHome;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -43,11 +44,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
         "traderjournal.views.TradeDetailView"; //$NON-NLS-1$
     	private Label labelIns;
     	private Text txtIns;
-        private Label label8;
-        private Text text2;
-        private Label label7;
-        private Text text1;
-        private Label label6;
+
         private Label label5;
         private Label label4;
         private Label label3;
@@ -57,12 +54,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
         private Label label2;
         private Text txtClose;
         private Text txtOpenDate;
-        private Text text7;
-        private Label label9;
-        private Text text6;
-        private Text text5;
-        private Text text4;
-        private Text text3;
+
         private Button btnSave;
         private Text txtCloseDate;
         private Text txtTP;
@@ -75,9 +67,10 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
         private Text txtReference;
         private Label lblCarryCost;
         private Text txtCarryCost;
-
-        
+        private Label lblAccount;
+        private Combo cmbAccounts;
         private Trade trade = new Trade();
+        private TradeHome th = new TradeHome();
     Composite composite1;
     
     /**
@@ -193,6 +186,13 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
 	    			txtCarryCost = new Text(composite1,SWT.NONE);
 	    			
 	    		}
+	    		{
+	    			lblAccount = new Label(composite1,SWT.NONE);
+	    			lblAccount.setText("Account");
+	    			
+	    			cmbAccounts = new Combo(composite1,SWT.NONE);
+	    			
+	    		}
 	    		
 	    		{
 	    			btnSave = new Button(composite1, SWT.PUSH | SWT.CENTER);
@@ -200,24 +200,29 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
 	    			
 	    			btnSave.addSelectionListener(new SelectionAdapter() {
 	    				public void widgetSelected(SelectionEvent evt) {
-	    					trade.setTradeOpen(Double.parseDouble(txtOpenPrice.getText()));
-	    					trade.setTradeClose(Double.parseDouble(txtClose.getText()));
+	    					trade.setOpenprice(Double.parseDouble(txtOpenPrice.getText()));
+	    					trade.setCloseprice(Double.parseDouble(txtClose.getText()));
 	    					trade.setStoploss(Double.parseDouble(txtSL.getText()));
 	    					trade.setTp(Double.parseDouble(txtTP.getText()));
 	    					trade.setQty(Integer.parseInt(txtQty.getText()));
 	    					trade.setInstrument(txtIns.getText());
 	    					DateFormat df =  new SimpleDateFormat("yyyy-MM-dd");
 	    					try {
-	    						trade.setTradeOpenDate(df.parse(txtOpenDate.getText()) );
-	    						trade.setTradeCloseDate(df.parse(txtCloseDate.getText()));
+	    						trade.setOpenTradeDate(df.parse(txtOpenDate.getText()) );
+	    						trade.setCloseTradeDate(df.parse(txtCloseDate.getText()));
 	    					} catch (ParseException e) {
 	    						
 	    						// skip unparsable dates
 	    					}
 	    					trade.setReference(txtReference.getText());
 	    					trade.setCarrycost(Double.parseDouble(txtCarryCost.getText()));
-	    					trade.update();
-	    					Trade.notifyTradeListChangeListeners();
+	    					
+	    					
+	    					th.getSessionFactory().getCurrentSession().beginTransaction();
+	    					th.attachDirty(trade);
+	    					
+	    					th.getSessionFactory().getCurrentSession().getTransaction().commit();
+	    					
 	    				}
 	    			});
 	    		}
@@ -227,8 +232,23 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
 	    			
 	    			btnAdd.addSelectionListener(new SelectionAdapter() {
 	    				public void widgetSelected(SelectionEvent evt) {
-	    					trade.addNewTrade();
-	    					Trade.notifyTradeListChangeListeners();
+	    					Trade t = new Trade();
+	    					List<Trade> li= th.findAll();
+	    					int bigid = 0;
+	    					for(Trade tt : li){
+	    						if(tt.getId() > bigid)
+	    							bigid = tt.getId();
+	    					}
+	    					t.setId(bigid +1);
+	    					t.setOpenTradeDate(new Date());
+	    					AccountHome ach = new AccountHome();
+	    					Account ac = ach.findAll().get(0);
+	    					t.setAccount(ac);
+	    					th.getSessionFactory().getCurrentSession().beginTransaction();
+	    					th.persist(t);
+	    					th.getSessionFactory().getCurrentSession().getTransaction().commit();
+	    					
+	    					
 	    					
 	    					;        		}
 	    			});
@@ -239,8 +259,10 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
 	    			
 	    			btnRemove.addSelectionListener(new SelectionAdapter() {
 	    				public void widgetSelected(SelectionEvent evt) {
-	    					trade.delete();
-	    					Trade.notifyTradeListChangeListeners();
+	    					th.getSessionFactory().getCurrentSession().beginTransaction();
+	    					th.delete(trade);
+	    					th.getSessionFactory().getCurrentSession().getTransaction().commit();
+	    					
 	    				}
 	    			});
 	    		}
@@ -274,14 +296,14 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
 			if(newTrade != null){
 				trade = newTrade;
 				
-				txtOpenPrice.setText("" + trade.getTradeOpen());
-				txtClose.setText("" + trade.getTradeClose());
-				if( trade.getTradeOpenDate() != null)
-					txtOpenDate.setText(trade.getTradeOpenDate().toString());
+				txtOpenPrice.setText("" + trade.getOpenprice());
+				txtClose.setText("" + trade.getCloseprice());
+				if( trade.getOpenTradeDate() != null)
+					txtOpenDate.setText(trade.getOpenTradeDate() .toString());
 				else
 					txtOpenDate.setText("");
-				if(trade.getTradeCloseDate() != null)
-					txtCloseDate.setText(trade.getTradeCloseDate().toString());
+				if(trade.getCloseTradeDate() != null)
+					txtCloseDate.setText(trade.getCloseTradeDate().toString());
 				else
 					txtCloseDate.setText("");
 				txtSL.setText(""+ trade.getStoploss());
@@ -296,7 +318,21 @@ public class TradeDetailView extends ViewPart implements ISelectionListener {
 				else
 					txtReference.setText("");
 				txtCarryCost.setText("" + trade.getCarrycost());
-					
+				
+				cmbAccounts.clearSelection();
+				cmbAccounts.removeAll();
+				AccountHome achome = new AccountHome();
+				List<Account> aclist = achome.findAll();
+				int i=0;
+				int selectedAccountid = 0;
+				for(Account ac:aclist){
+					cmbAccounts.add(ac.getName());
+					if (trade.getAccount().getId() == i)
+						selectedAccountid = i;
+					i++;
+				}
+				cmbAccounts.select(selectedAccountid);
+				
 					
 			}
 

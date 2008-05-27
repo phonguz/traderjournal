@@ -31,8 +31,8 @@ import traderjournal.editors.TradeEditor;
 import traderjournal.editors.TradeEditorInput;
 import traderjournal.model.ITradeListChanged;
 import traderjournal.model.Trade;
-import traderjournal.model.TradeContentProvider;
-import traderjournal.model.TradeLabelProvider;
+import traderjournal.views.contentproviders.TradeListContentProvider;
+import traderjournal.views.labelproviders.TradeListLabelProvider;
 
 
 /**
@@ -75,11 +75,11 @@ public class TradeReportListView extends ViewPart implements ITradeListChanged {
 	 */
 	public void createPartControl(Composite parent) {
 		tradeviewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-		tradeviewer.setContentProvider(new TradeContentProvider());
-		tradeviewer.setLabelProvider(new TradeLabelProvider("*"));
+		tradeviewer.setContentProvider(new TradeListContentProvider());
+		tradeviewer.setLabelProvider(new TradeListLabelProvider("*"));
 		tradeviewer.setSorter(new NameSorter());
 		tradeviewer.setInput(getViewSite());
-		Trade.addTradeListChangeListener(this);
+		
 	
 		hookDoubleClickAction();
 		contributeActions();
