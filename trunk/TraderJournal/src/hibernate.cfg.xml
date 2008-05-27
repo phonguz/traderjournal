@@ -13,7 +13,7 @@
         <property name="connection.autocommit">true</property>  
         <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
-        
+        <property name="hibernate.show_sql">true</property>
         <mapping resource="traderjournal/model/hibernate/Tradeeventtype.hbm.xml" />
         <mapping resource="traderjournal/model/hibernate/Ccy.hbm.xml" />
         <mapping resource="traderjournal/model/hibernate/Transaction.hbm.xml" />
