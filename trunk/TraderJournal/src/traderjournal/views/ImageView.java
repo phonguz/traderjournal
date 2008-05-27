@@ -1,15 +1,15 @@
 package traderjournal.views;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.PaintEvent;
@@ -18,6 +18,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -32,26 +33,30 @@ import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
 
+import traderjournal.Activator;
 import traderjournal.editors.TradeEditor;
-import traderjournal.model.TradeEvent;
 import traderjournal.model.TradeEventImage;
+import traderjournal.model.hibernate.Tradeevent;
+import traderjournal.model.hibernate.TradeeventHome;
+import traderjournal.model.hibernate.Tradeeventimage;
+import traderjournal.model.hibernate.TradeeventimageHome;
 
 
-public class ImageViewPart extends ViewPart implements ISelectionListener{
+public class ImageView extends ViewPart implements ISelectionListener{
     public static final String ID_VIEW =
-        "traderjournal.views.ImageViewPart"; //$NON-NLS-1$
+        "traderjournal.views.ImageView"; //$NON-NLS-1$
         private CTabFolder cTabFolder;
         
         
 
     List<CTabItem> cTabItemList = new ArrayList<CTabItem>();
-    TradeEventImage eventImage;
-    TradeEvent tradeEvent;
+    Tradeeventimage eventImage;
+    Tradeevent tradeEvent;
     Composite parentComposite;
     /**
      * 
      */
-    public ImageViewPart() {
+    public ImageView() {
         super();
        
     }
@@ -109,7 +114,7 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 		if(selection.isEmpty())
 			return;
 		StructuredSelection sl = (StructuredSelection)selection;
-		tradeEvent= (TradeEvent)sl.getFirstElement();
+		tradeEvent= (Tradeevent)sl.getFirstElement();
 	
 		
 		for(CTabItem ct : cTabItemList){
@@ -128,9 +133,14 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 //		}
 //		
 		cTabFolder.setTopRight(null);
-		List<TradeEventImage> imglist = tradeEvent.getAllImages();
+		
+		TradeeventHome th = new TradeeventHome();
+		th.getSessionFactory().getCurrentSession().beginTransaction();
+		th.getSessionFactory().getCurrentSession().refresh(tradeEvent);
+		Set<Tradeeventimage> trSet = tradeEvent.getTradeeventimages();
+		
 		int i = 1;
-		for(TradeEventImage ti : imglist){
+		for(Tradeeventimage ti : trSet){
 			CTabItem cti = new CTabItem(cTabFolder,SWT.NONE);
 			cti.addListener(SWT.MouseDown,new Listener(){
 
@@ -162,7 +172,7 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 
 				@Override
 				public void modifyText(ModifyEvent e) {
-					TradeEventImage it = (TradeEventImage)e.widget.getData();
+					Tradeeventimage it = (Tradeeventimage)e.widget.getData();
 					
 					it.setDescription(((Text)e.widget).getText());
 					System.out.println(it.getDescription());
@@ -182,9 +192,12 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 
 				@Override
 				public void widgetSelected(SelectionEvent e) {
-					TradeEventImage it = (TradeEventImage)e.widget.getData();
-
-					it.save();
+					Tradeeventimage it = (Tradeeventimage)e.widget.getData();
+					TradeeventimageHome th = new TradeeventimageHome();
+					th.getSessionFactory().getCurrentSession().beginTransaction();
+					th.attachDirty(it);
+					th.getSessionFactory().getCurrentSession().getTransaction().commit();
+					
 					
 				}});
 
@@ -203,8 +216,11 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 
 				@Override
 				public void widgetSelected(SelectionEvent e) {
-					TradeEventImage it = (TradeEventImage)e.widget.getData();
-					it.remove();
+					Tradeeventimage it = (Tradeeventimage)e.widget.getData();
+					TradeeventimageHome th = new TradeeventimageHome();
+					th.getSessionFactory().getCurrentSession().beginTransaction();
+					th.delete(it);
+					th.getSessionFactory().getCurrentSession().getTransaction().commit();
 					cTabFolder.redraw();
 					
 				}});
@@ -223,11 +239,16 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 				public void paintControl(PaintEvent e) {
 					
 					GC gc = e.gc;
-					TradeEventImage ti = (TradeEventImage)e.widget.getData();
-					if(ti.getImage().getImageData().width > 1024 || ti.getImage().getImageData().height > 768)
-						gc.drawImage(new Image(ti.getImage().getDevice(), ti.getImage().getImageData().scaledTo(1024, 768)), 0, 0);
+					Tradeeventimage ti = (Tradeeventimage)e.widget.getData();
+					
+					ByteArrayInputStream bi = new ByteArrayInputStream(ti.getImg());
+					
+					Image img = new Image(Activator.getDefault().getWorkbench().getDisplay(),bi);
+					
+					if(img.getImageData().width > 1024 || img.getImageData().height > 768)
+						gc.drawImage(new Image(img.getDevice(), img.getImageData().scaledTo(1024, 768)), 0, 0);
 					else
-						gc.drawImage(ti.getImage(), 0, 0);
+						gc.drawImage(img, 0, 0);
 				}
 				
 			});
@@ -239,7 +260,7 @@ public class ImageViewPart extends ViewPart implements ISelectionListener{
 			i++;
 			cTabFolder.setSelection(i);
 		}
-		
+		th.getSessionFactory().getCurrentSession().getTransaction().commit();
 		cTabFolder.setSelection(0);
 		cTabFolder.redraw();
 		

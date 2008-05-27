@@ -30,9 +30,9 @@ import org.eclipse.ui.part.ViewPart;
 import traderjournal.editors.TradeEditor;
 import traderjournal.editors.TradeEditorInput;
 import traderjournal.model.ITradeListChanged;
-import traderjournal.model.Trade;
-import traderjournal.model.TradeContentProvider;
-import traderjournal.model.TradeLabelProvider;
+import traderjournal.model.hibernate.Trade;
+import traderjournal.views.contentproviders.TradeListContentProvider;
+import traderjournal.views.labelproviders.TradeListLabelProvider;
 
 
 /**
@@ -75,11 +75,11 @@ public class TradeListView extends ViewPart implements ITradeListChanged {
 	 */
 	public void createPartControl(Composite parent) {
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-		viewer.setContentProvider(new TradeContentProvider());
-		viewer.setLabelProvider(new TradeLabelProvider());
+		viewer.setContentProvider(new TradeListContentProvider());
+		viewer.setLabelProvider(new TradeListLabelProvider());
 		viewer.setSorter(new NameSorter());
 		viewer.setInput(getViewSite());
-		Trade.addTradeListChangeListener(this);
+		
 	
 		hookDoubleClickAction();
 		contributeActions();
