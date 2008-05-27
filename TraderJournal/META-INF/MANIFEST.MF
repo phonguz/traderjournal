@@ -27,5 +27,6 @@ Bundle-ClassPath: lib/commons-dbcp-1.2.2.jar,
  lib/asm.jar,
  lib/asm-attrs.jar,
  .,
- lib/jta.jar
+ lib/jta.jar,
+ lib/antlr-2.7.6.jar
 Bundle-Vendor: TraderJournal Development Team

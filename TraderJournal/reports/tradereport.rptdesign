@@ -60,32 +60,32 @@
                 <list-property name="resultSet">
                     <structure>
                         <property name="position">1</property>
-                        <property name="name">ID</property>
-                        <property name="dataType">integer</property>
-                    </structure>
-                    <structure>
-                        <property name="position">2</property>
                         <property name="name">EVENT_DATE</property>
                         <property name="dataType">date-time</property>
                     </structure>
                     <structure>
-                        <property name="position">3</property>
+                        <property name="position">2</property>
                         <property name="name">EVENT_TYPE_ID</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">4</property>
+                        <property name="position">3</property>
                         <property name="name">DESCRIPTION</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">5</property>
+                        <property name="position">4</property>
                         <property name="name">EVENTORDER</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">6</property>
+                        <property name="position">5</property>
                         <property name="name">TRADEID</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">ID</property>
                         <property name="dataType">integer</property>
                     </structure>
                 </list-property>
@@ -105,45 +105,39 @@
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
-                    <property name="name">ID</property>
-                    <property name="nativeName">ID</property>
-                    <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
-                </structure>
-                <structure>
-                    <property name="position">2</property>
                     <property name="name">EVENT_DATE</property>
                     <property name="nativeName">EVENT_DATE</property>
                     <property name="dataType">date-time</property>
-                    <property name="nativeDataType">93</property>
                 </structure>
                 <structure>
-                    <property name="position">3</property>
+                    <property name="position">2</property>
                     <property name="name">EVENT_TYPE_ID</property>
                     <property name="nativeName">EVENT_TYPE_ID</property>
                     <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">4</property>
+                    <property name="position">3</property>
                     <property name="name">DESCRIPTION</property>
                     <property name="nativeName">DESCRIPTION</property>
                     <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">5</property>
+                    <property name="position">4</property>
                     <property name="name">EVENTORDER</property>
                     <property name="nativeName">EVENTORDER</property>
                     <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">6</property>
+                    <property name="position">5</property>
                     <property name="name">TRADEID</property>
                     <property name="nativeName">TRADEID</property>
                     <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">ID</property>
+                    <property name="nativeName">ID</property>
+                    <property name="dataType">integer</property>
                 </structure>
             </list-property>
             <property name="queryText">select  *
@@ -222,83 +216,88 @@ order by eventorder</property>
                 <list-property name="resultSet">
                     <structure>
                         <property name="position">1</property>
-                        <property name="name">ID</property>
-                        <property name="dataType">integer</property>
-                    </structure>
-                    <structure>
-                        <property name="position">2</property>
                         <property name="name">OPEN_TRADE_DATE</property>
                         <property name="dataType">date-time</property>
                     </structure>
                     <structure>
-                        <property name="position">3</property>
+                        <property name="position">2</property>
                         <property name="name">OPENPRICE</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">4</property>
+                        <property name="position">3</property>
                         <property name="name">CLOSE_TRADE_DATE</property>
                         <property name="dataType">date-time</property>
                     </structure>
                     <structure>
-                        <property name="position">5</property>
+                        <property name="position">4</property>
                         <property name="name">CLOSEPRICE</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">6</property>
+                        <property name="position">5</property>
                         <property name="name">STOPLOSS</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">7</property>
+                        <property name="position">6</property>
                         <property name="name">TP</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">8</property>
+                        <property name="position">7</property>
                         <property name="name">QTY</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">9</property>
+                        <property name="position">8</property>
                         <property name="name">INSTRUMENT</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">10</property>
+                        <property name="position">9</property>
                         <property name="name">ENTRYCOMS</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">11</property>
+                        <property name="position">10</property>
                         <property name="name">EXITCOMS</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">12</property>
+                        <property name="position">11</property>
                         <property name="name">ENTRYFEE</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">13</property>
+                        <property name="position">12</property>
                         <property name="name">EXITFEE</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">14</property>
+                        <property name="position">13</property>
                         <property name="name">PL</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">15</property>
+                        <property name="position">14</property>
                         <property name="name">REFERENCE</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">16</property>
+                        <property name="position">15</property>
                         <property name="name">CARRYCOST</property>
                         <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">ACCOUNT_ID</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">ID</property>
+                        <property name="dataType">integer</property>
                     </structure>
                 </list-property>
             </structure>
@@ -320,115 +319,105 @@ order by eventorder</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
-                    <property name="name">ID</property>
-                    <property name="nativeName">ID</property>
-                    <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
-                </structure>
-                <structure>
-                    <property name="position">2</property>
                     <property name="name">OPEN_TRADE_DATE</property>
                     <property name="nativeName">OPEN_TRADE_DATE</property>
                     <property name="dataType">date-time</property>
-                    <property name="nativeDataType">93</property>
                 </structure>
                 <structure>
-                    <property name="position">3</property>
+                    <property name="position">2</property>
                     <property name="name">OPENPRICE</property>
                     <property name="nativeName">OPENPRICE</property>
                     <property name="dataType">float</property>
-                    <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">4</property>
+                    <property name="position">3</property>
                     <property name="name">CLOSE_TRADE_DATE</property>
                     <property name="nativeName">CLOSE_TRADE_DATE</property>
                     <property name="dataType">date-time</property>
-                    <property name="nativeDataType">93</property>
                 </structure>
                 <structure>
-                    <property name="position">5</property>
+                    <property name="position">4</property>
                     <property name="name">CLOSEPRICE</property>
                     <property name="nativeName">CLOSEPRICE</property>
                     <property name="dataType">float</property>
-                    <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">6</property>
+                    <property name="position">5</property>
                     <property name="name">STOPLOSS</property>
                     <property name="nativeName">STOPLOSS</property>
                     <property name="dataType">float</property>
-                    <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">7</property>
+                    <property name="position">6</property>
                     <property name="name">TP</property>
                     <property name="nativeName">TP</property>
                     <property name="dataType">float</property>
-                    <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">8</property>
+                    <property name="position">7</property>
                     <property name="name">QTY</property>
                     <property name="nativeName">QTY</property>
                     <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">9</property>
+                    <property name="position">8</property>
                     <property name="name">INSTRUMENT</property>
                     <property name="nativeName">INSTRUMENT</property>
                     <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">10</property>
+                    <property name="position">9</property>
                     <property name="name">ENTRYCOMS</property>
                     <property name="nativeName">ENTRYCOMS</property>
                     <property name="dataType">float</property>
-                    <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">11</property>
+                    <property name="position">10</property>
                     <property name="name">EXITCOMS</property>
                     <property name="nativeName">EXITCOMS</property>
                     <property name="dataType">float</property>
-                    <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">12</property>
+                    <property name="position">11</property>
                     <property name="name">ENTRYFEE</property>
                     <property name="nativeName">ENTRYFEE</property>
                     <property name="dataType">float</property>
-                    <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">13</property>
+                    <property name="position">12</property>
                     <property name="name">EXITFEE</property>
                     <property name="nativeName">EXITFEE</property>
                     <property name="dataType">float</property>
-                    <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">14</property>
+                    <property name="position">13</property>
                     <property name="name">PL</property>
                     <property name="nativeName">PL</property>
                     <property name="dataType">float</property>
-                    <property name="nativeDataType">8</property>
                 </structure>
                 <structure>
-                    <property name="position">15</property>
+                    <property name="position">14</property>
                     <property name="name">REFERENCE</property>
                     <property name="nativeName">REFERENCE</property>
                     <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">16</property>
+                    <property name="position">15</property>
                     <property name="name">CARRYCOST</property>
                     <property name="nativeName">CARRYCOST</property>
                     <property name="dataType">float</property>
-                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">ACCOUNT_ID</property>
+                    <property name="nativeName">ACCOUNT_ID</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">ID</property>
+                    <property name="nativeName">ID</property>
+                    <property name="dataType">integer</property>
                 </structure>
             </list-property>
             <property name="queryText">select *
@@ -787,41 +776,28 @@ where id =?</property>
                     <property name="columnName">DESCRIPTION</property>
                     <property name="displayName">DESCRIPTION</property>
                 </structure>
-                <structure>
-                    <property name="columnName">ID2</property>
-                    <property name="displayName">ID2</property>
-                </structure>
-                <structure>
-                    <property name="columnName">IMG2</property>
-                    <property name="displayName">IMG2</property>
-                </structure>
             </list-property>
             <structure name="cachedMetaData">
                 <list-property name="resultSet">
                     <structure>
                         <property name="position">1</property>
-                        <property name="name">ID</property>
-                        <property name="dataType">integer</property>
-                    </structure>
-                    <structure>
-                        <property name="position">2</property>
                         <property name="name">EVENT_ID</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">3</property>
+                        <property name="position">2</property>
                         <property name="name">DESCRIPTION</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">4</property>
-                        <property name="name">ID2</property>
-                        <property name="dataType">integer</property>
+                        <property name="position">3</property>
+                        <property name="name">IMG</property>
+                        <property name="dataType">blob</property>
                     </structure>
                     <structure>
-                        <property name="position">5</property>
-                        <property name="name">IMG2</property>
-                        <property name="dataType">blob</property>
+                        <property name="position">4</property>
+                        <property name="name">ID</property>
+                        <property name="dataType">integer</property>
                     </structure>
                 </list-property>
             </structure>
@@ -843,38 +819,27 @@ where id =?</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
-                    <property name="name">ID</property>
-                    <property name="nativeName">ID</property>
-                    <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
-                </structure>
-                <structure>
-                    <property name="position">2</property>
                     <property name="name">EVENT_ID</property>
                     <property name="nativeName">EVENT_ID</property>
                     <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
-                    <property name="position">3</property>
+                    <property name="position">2</property>
                     <property name="name">DESCRIPTION</property>
                     <property name="nativeName">DESCRIPTION</property>
                     <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">IMG</property>
+                    <property name="nativeName">IMG</property>
+                    <property name="dataType">blob</property>
                 </structure>
                 <structure>
                     <property name="position">4</property>
-                    <property name="name">ID2</property>
-                    <property name="nativeName">ID2</property>
+                    <property name="name">ID</property>
+                    <property name="nativeName">ID</property>
                     <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
-                </structure>
-                <structure>
-                    <property name="position">5</property>
-                    <property name="name">IMG2</property>
-                    <property name="nativeName">IMG2</property>
-                    <property name="dataType">blob</property>
-                    <property name="nativeDataType">-4</property>
                 </structure>
             </list-property>
             <property name="queryText">select *
@@ -987,15 +952,15 @@ where event_id = ?</property>
         <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="SingleImage" id="229">
             <list-property name="columnHints">
                 <structure>
-                    <property name="columnName">IMG2</property>
-                    <property name="displayName">IMG2</property>
+                    <property name="columnName">IMG</property>
+                    <property name="displayName">IMG</property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
                 <list-property name="resultSet">
                     <structure>
                         <property name="position">1</property>
-                        <property name="name">IMG2</property>
+                        <property name="name">IMG</property>
                         <property name="dataType">blob</property>
                     </structure>
                 </list-property>
@@ -1018,13 +983,13 @@ where event_id = ?</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
-                    <property name="name">IMG2</property>
-                    <property name="nativeName">IMG2</property>
+                    <property name="name">IMG</property>
+                    <property name="nativeName">IMG</property>
                     <property name="dataType">blob</property>
                     <property name="nativeDataType">-4</property>
                 </structure>
             </list-property>
-            <property name="queryText">select IMG2
+            <property name="queryText">select IMG
 from tradeeventimage 
 where id = ?</property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
@@ -1192,28 +1157,24 @@ where id = ?</property>
                     <property name="name">ID</property>
                     <property name="nativeName">ID</property>
                     <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
                 </structure>
                 <structure>
                     <property name="position">2</property>
                     <property name="name">EVENT_DATE</property>
                     <property name="nativeName">EVENT_DATE</property>
                     <property name="dataType">date-time</property>
-                    <property name="nativeDataType">93</property>
                 </structure>
                 <structure>
                     <property name="position">3</property>
                     <property name="name">DESCRIPTION</property>
                     <property name="nativeName">DESCRIPTION</property>
                     <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
                     <property name="position">4</property>
                     <property name="name">NAME</property>
                     <property name="nativeName">NAME</property>
                     <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
                 </structure>
             </list-property>
             <property name="queryText">select id,event_date,description,name
@@ -1562,11 +1523,6 @@ order by tradeevent.eventorder</property>
                             </list-property>
                             <list-property name="boundDataColumns">
                                 <structure>
-                                    <property name="name">ID</property>
-                                    <expression name="expression">dataSetRow["ID"]</expression>
-                                    <property name="dataType">integer</property>
-                                </structure>
-                                <structure>
                                     <property name="name">EVENT_ID</property>
                                     <expression name="expression">dataSetRow["EVENT_ID"]</expression>
                                     <property name="dataType">integer</property>
@@ -1577,13 +1533,18 @@ order by tradeevent.eventorder</property>
                                     <property name="dataType">string</property>
                                 </structure>
                                 <structure>
-                                    <property name="name">ID2</property>
-                                    <expression name="expression">dataSetRow["ID2"]</expression>
+                                    <property name="name">IMG</property>
+                                    <expression name="expression">dataSetRow["IMG"]</expression>
+                                    <property name="dataType">blob</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">ID</property>
+                                    <expression name="expression">dataSetRow["ID"]</expression>
                                     <property name="dataType">integer</property>
                                 </structure>
                                 <structure>
-                                    <property name="name">IMG2</property>
-                                    <expression name="expression">dataSetRow["IMG2"]</expression>
+                                    <property name="name">outerimg</property>
+                                    <expression name="expression">row["IMG"]</expression>
                                     <property name="dataType">blob</property>
                                 </structure>
                             </list-property>
@@ -1623,7 +1584,7 @@ order by tradeevent.eventorder</property>
                                             <property name="height">328px</property>
                                             <property name="width">550px</property>
                                             <property name="source">expr</property>
-                                            <expression name="valueExpr">row["IMG2"]</expression>
+                                            <expression name="valueExpr">row["IMG"]</expression>
                                         </image>
                                     </cell>
                                 </row>
