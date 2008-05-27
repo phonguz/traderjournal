@@ -1,6 +1,6 @@
 package traderjournal.model.hibernate;
 
-// Generated 2008/05/26 04:30:45 by Hibernate Tools 3.2.1.GA
+// Generated 2008/05/27 01:45:17 by Hibernate Tools 3.2.1.GA
 
 import java.util.Date;
 import java.util.HashSet;
