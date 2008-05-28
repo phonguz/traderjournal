@@ -3,13 +3,13 @@
 
 Quick and dirty getting  up and running:
 As plugin to Eclipse:
-1.  Check out TraderJournal into eclipse
-2.  In dbdata execute runServer.bat from windows explorer.
-3.  In Eclipse execute the app : --> Click on plugin.xml, once open the plugin.xml (on the overview screen)  click on debug eclipse application.
+  * Check out TraderJournal into eclipse
+  * In dbdata execute runServer.bat from windows explorer.
+  * In Eclipse execute the app : --> Click on plugin.xml, once open the plugin.xml (on the overview screen)  click on debug eclipse application.
 
 After Standalone download:
-1.  Unzip the TraderJournal.zip
-2.  In dbdata execute runServer.bat from windows explorer.
-3.  Execute eclipse.exe in the TraderJournal directory.  
+  * Unzip the TraderJournal.zip
+  * In dbdata execute runServer.bat from windows explorer.
+  * Execute eclipse.exe in the TraderJournal directory.  
 
 Send any questions to traderjournal@googlegroups.com
