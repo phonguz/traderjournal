@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2008/05/27 01:45:17 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 2008/05/28 12:26:25 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="traderjournal.model.hibernate.Account" table="ACCOUNT" schema="PUBLIC">
         <id name="id" type="int">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="ccy" class="traderjournal.model.hibernate.Ccy" fetch="select">
-            <column name="BASE_CCY_ID" />
+            <column name="BASE_CCY_ID" not-null="true" />
         </many-to-one>
         <property name="name" type="string">
             <column name="NAME" length="250" not-null="true" />
@@ -19,7 +19,7 @@
         </property>
         <set name="trades" inverse="true">
             <key>
-                <column name="ACCOUNT_ID" />
+                <column name="ACCOUNT_ID" not-null="true" />
             </key>
             <one-to-many class="traderjournal.model.hibernate.Trade" />
         </set>

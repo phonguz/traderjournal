@@ -20,9 +20,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
@@ -53,7 +55,7 @@ import traderjournal.views.labelproviders.TradeListLabelProvider;
  * <p>
  */
 
-public class TradeListView extends ViewPart implements ITradeListChanged {
+public class TradeListView extends ViewPart  implements ISelectionListener{
 	public final static String ID = "traderjournal.views.TradeListView";
 	private TableViewer viewer;
 
@@ -74,6 +76,8 @@ public class TradeListView extends ViewPart implements ITradeListChanged {
 	 * to create the viewer and initialize it.
 	 */
 	public void createPartControl(Composite parent) {
+		getSite().getPage().addSelectionListener(TradeDetailView.ID_VIEW,
+				(ISelectionListener) this);
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(new TradeListContentProvider());
 		viewer.setLabelProvider(new TradeListLabelProvider());
@@ -84,7 +88,7 @@ public class TradeListView extends ViewPart implements ITradeListChanged {
 		hookDoubleClickAction();
 		contributeActions();
 		getSite().setSelectionProvider(viewer);
-		
+
 		
 	}
 
@@ -144,10 +148,18 @@ public class TradeListView extends ViewPart implements ITradeListChanged {
 		};
 	}
 
+
+
 	@Override
-	public void tradeListChanged() {
+	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		refreshData();
 		
 	}
+
+//	@Override
+//	public void tradeListChanged() {
+//		refreshData();
+//		
+//	}
 	
 }

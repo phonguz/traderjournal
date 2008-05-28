@@ -1,6 +1,6 @@
 package traderjournal.model.hibernate;
 
-// Generated 2008/05/27 01:45:17 by Hibernate Tools 3.2.1.GA
+// Generated 2008/05/28 12:26:25 by Hibernate Tools 3.2.1.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,8 +19,9 @@ public class Account implements java.io.Serializable {
 	public Account() {
 	}
 
-	public Account(int id, String name, double balance) {
+	public Account(int id, Ccy ccy, String name, double balance) {
 		this.id = id;
+		this.ccy = ccy;
 		this.name = name;
 		this.balance = balance;
 	}
