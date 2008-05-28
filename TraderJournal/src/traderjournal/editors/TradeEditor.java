@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.imageio.stream.FileImageInputStream;
@@ -490,7 +491,13 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 			public void widgetSelected(SelectionEvent e) {
 				Tradeevent te = new Tradeevent();
 				te.setTrade(trade);
+				te.setEventDate(new Date());
+				te.setEventorder(0);
+				te.setTradeeventtype(new TradeeventtypeHome().findAll().get(0));
 				tradeEventHome.getSessionFactory().getCurrentSession().beginTransaction();
+				tradeEventHome.getSessionFactory().getCurrentSession().flush();
+				tradeEventHome.getSessionFactory().getCurrentSession().refresh(te.getTrade());
+				tradeEventHome.getSessionFactory().getCurrentSession().refresh(te.getTradeeventtype());
 				tradeEventHome.persist(te);
 				tradeEventHome.getSessionFactory().getCurrentSession().getTransaction().commit();
 				

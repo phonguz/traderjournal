@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2008/05/27 01:45:17 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 2008/05/28 12:26:25 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="traderjournal.model.hibernate.Trade" table="TRADE" schema="PUBLIC">
         <id name="id" type="int">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="account" class="traderjournal.model.hibernate.Account" fetch="select">
-            <column name="ACCOUNT_ID" />
+            <column name="ACCOUNT_ID" not-null="true" />
         </many-to-one>
         <property name="openTradeDate" type="timestamp">
             <column name="OPEN_TRADE_DATE" length="6" />
@@ -58,7 +58,7 @@
         </property>
         <set name="tradeevents" inverse="true">
             <key>
-                <column name="TRADEID" />
+                <column name="TRADEID" not-null="true" />
             </key>
             <one-to-many class="traderjournal.model.hibernate.Tradeevent" />
         </set>

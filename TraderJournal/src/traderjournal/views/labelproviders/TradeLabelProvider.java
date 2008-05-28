@@ -30,7 +30,10 @@ public class TradeLabelProvider implements ITableLabelProvider {
 			return Double.toString(t.getOpenprice());
 		
 		case TradeTableView.COL_colCloseDate:
+			if(t.getCloseTradeDate() != null)
 			return t.getCloseTradeDate().toString();
+			else
+				return null;
 		case TradeTableView.COL_colClosePrice:
 			return Double.toString(t.getCloseprice());
 		case TradeTableView.COL_colSL:

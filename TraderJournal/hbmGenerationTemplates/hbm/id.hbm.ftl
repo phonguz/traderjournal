@@ -34,7 +34,7 @@
 	    <#include "pkcolumn.hbm.ftl">
  </#foreach>
  <#if !c2h.isIdentifierGeneratorProperties(property)>
-	    <generator class="${property.value.identifierGeneratorStrategy}" />
+	    <generator class="identity" />
  <#else>
 	    <generator class="${property.value.identifierGeneratorStrategy}">
         <#assign parameters = c2h.getIdentifierGeneratorProperties(property)>
