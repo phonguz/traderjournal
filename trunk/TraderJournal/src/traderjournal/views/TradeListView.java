@@ -33,6 +33,7 @@ import traderjournal.editors.TradeEditor;
 import traderjournal.editors.TradeEditorInput;
 import traderjournal.model.ITradeListChanged;
 import traderjournal.model.hibernate.Trade;
+import traderjournal.views.TradeDetailView.TradeStructerdSelection;
 import traderjournal.views.contentproviders.TradeListContentProvider;
 import traderjournal.views.labelproviders.TradeListLabelProvider;
 
@@ -148,11 +149,23 @@ public class TradeListView extends ViewPart  implements ISelectionListener{
 		};
 	}
 
+	private ISelection curSel =null;
 
 
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-		refreshData();
+		ISelection sel = viewer.getSelection();
+		curSel = sel;
+		TradeStructerdSelection tr = (TradeStructerdSelection)selection;
+		if(tr.getAction().equals("add") || tr.getAction().equals("remove"))
+			viewer.refresh();
+		else{
+		Trade tra = (Trade)tr.getFirstElement();
+		viewer.refresh(tra);
+		}
+		viewer.setSelection(viewer.getSelection());
+		
+		//viewer.refresh();
 		
 	}
 

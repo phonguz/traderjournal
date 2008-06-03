@@ -18,9 +18,12 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.nebula.widgets.cdatetime.CDT;
+import org.eclipse.swt.nebula.widgets.cdatetime.CDateTime;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ISelectionListener;
@@ -75,6 +78,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 	private Text txtCarryCost;
 	private Label lblAccount;
 	private Combo cmbAccounts;
+	private CDateTime dateTime;
 	private Trade trade = new Trade();
 	private TradeHome th = new TradeHome();
 	Composite composite1;
@@ -123,6 +127,12 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 
 					txtOpenDate = new Text(composite1, SWT.NONE);
 
+					Label l2 = new Label(composite1, SWT.NONE);
+					l2.setText("ODate2");
+					dateTime = new CDateTime(composite1, CDT.BORDER
+							| CDT.SPINNER );
+					dateTime.setPattern("yyyy-MM-dd HH:mm");
+					
 				}
 				{
 					lblOpen = new Label(composite1, SWT.NONE);
@@ -241,11 +251,13 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 
 							th.getSessionFactory().getCurrentSession()
 									.beginTransaction();
+							th.getSessionFactory().getCurrentSession().refresh(
+									trade.getAccount());
 							th.attachDirty(trade);
 
 							th.getSessionFactory().getCurrentSession()
 									.getTransaction().commit();
-							setSelection(new TradeStructerdSelection());
+							setSelection(new TradeStructerdSelection("save"));
 						}
 					});
 				}
@@ -256,19 +268,20 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 					btnAdd.addSelectionListener(new SelectionAdapter() {
 						public void widgetSelected(SelectionEvent evt) {
 							Trade t = new Trade();
-							
+
 							t.setOpenTradeDate(new Date());
 							AccountHome ach = new AccountHome();
 							Account ac = ach.findAll().get(0);
 							t.setAccount(ac);
-							
+
 							th.getSessionFactory().getCurrentSession()
 									.beginTransaction();
-							th.getSessionFactory().getCurrentSession().refresh(ac);
+							th.getSessionFactory().getCurrentSession().refresh(
+									ac);
 							th.persist(t);
 							th.getSessionFactory().getCurrentSession()
 									.getTransaction().commit();
-							setSelection(new TradeStructerdSelection());
+							setSelection(new TradeStructerdSelection("add"));
 
 							;
 						}
@@ -285,7 +298,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 							th.delete(trade);
 							th.getSessionFactory().getCurrentSession()
 									.getTransaction().commit();
-							setSelection(new TradeStructerdSelection());
+							setSelection(new TradeStructerdSelection("remove"));
 						}
 					});
 				}
@@ -411,7 +424,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 	@Override
 	public ISelection getSelection() {
 
-		return new TradeStructerdSelection();
+		return new TradeStructerdSelection("save");
 	}
 
 	@Override
@@ -435,6 +448,12 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 
 	public class TradeStructerdSelection implements IStructuredSelection {
 
+		public String action;
+		
+		public TradeStructerdSelection(String ac){
+			action  = ac;
+		}
+		
 		@Override
 		public Object getFirstElement() {
 			// TODO Auto-generated method stub
@@ -477,6 +496,14 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 				return true;
 			else
 				return false;
+		}
+
+		public String getAction() {
+			return action;
+		}
+
+		public void setAction(String action) {
+			this.action = action;
 		}
 	}
 
