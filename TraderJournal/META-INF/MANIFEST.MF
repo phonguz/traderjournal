@@ -28,5 +28,6 @@ Bundle-ClassPath: lib/commons-dbcp-1.2.2.jar,
  lib/asm-attrs.jar,
  .,
  lib/jta.jar,
- lib/antlr-2.7.6.jar
+ lib/antlr-2.7.6.jar,
+ lib/nebula_cdatetime_0.9.0.jar
 Bundle-Vendor: TraderJournal Development Team
