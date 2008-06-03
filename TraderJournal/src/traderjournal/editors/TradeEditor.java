@@ -444,9 +444,10 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 					tblColEventType.setWidth(60);
 				}
 				{
-					tblColDescription = new TableColumn(tblEvents, SWT.LEFT);
+					tblColDescription = new TableColumn(tblEvents, SWT.LEFT | SWT.WRAP);
 					tblColDescription.setText("Description");
-					tblColDescription.setWidth(400);
+					tblColDescription.setWidth(600);
+					
 
 				}
 				{
