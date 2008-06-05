@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008/06/05 03:03:07 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="traderjournal.model.hibernate.Tradeevent" table="TRADEEVENT" schema="PUBLIC">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="tradeeventtype" class="traderjournal.model.hibernate.Tradeeventtype" fetch="select">
+            <column name="EVENT_TYPE_ID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="trade" class="traderjournal.model.hibernate.Trade" fetch="select">
+            <column name="TRADEID" not-null="true" />
+        </many-to-one>
+        <property name="eventDate" type="timestamp">
+            <column name="EVENT_DATE" length="6" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" />
+        </property>
+        <property name="eventorder" type="java.lang.Integer">
+            <column name="EVENTORDER" />
+        </property>
+        <set name="tradeeventimages" inverse="true">
+            <key>
+                <column name="EVENT_ID" />
+            </key>
+            <one-to-many class="traderjournal.model.hibernate.Tradeeventimage" />
+        </set>
+    </class>
+</hibernate-mapping>
