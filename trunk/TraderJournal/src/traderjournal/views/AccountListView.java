@@ -16,15 +16,9 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import traderjournal.editors.TradeEditor;
-import traderjournal.editors.TradeEditorInput;
-import traderjournal.model.Trade;
 import traderjournal.model.hibernate.Account;
-import traderjournal.views.TradeListView.NameSorter;
 import traderjournal.views.contentproviders.AccountContentProvider;
-import traderjournal.views.contentproviders.TradeListContentProvider;
 import traderjournal.views.labelproviders.AccountLabelProvider;
-import traderjournal.views.labelproviders.TradeListLabelProvider;
 
 public class AccountListView extends ViewPart implements ISelectionListener{
 	class NameSorter extends ViewerSorter {

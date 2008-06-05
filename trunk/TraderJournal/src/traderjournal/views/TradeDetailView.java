@@ -23,18 +23,16 @@ import org.eclipse.swt.nebula.widgets.cdatetime.CDateTime;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
 
-import traderjournal.model.hibernate.Trade;
 import traderjournal.model.hibernate.Account;
 import traderjournal.model.hibernate.AccountHome;
+import traderjournal.model.hibernate.Trade;
 import traderjournal.model.hibernate.TradeHome;
-import traderjournal.views.AccountDetailView.AccountStructerdSelection;
 import traderjournal.views.verify.DoubleVerifyListener;
 import traderjournal.views.verify.IntegerVerifyListener;
 

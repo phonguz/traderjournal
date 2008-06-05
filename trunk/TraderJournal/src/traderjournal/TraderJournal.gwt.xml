@@ -18,10 +18,19 @@
       <servlet path="/rpc" class="traderjournal.gwt.server.TradeServiceImpl" />
       <!-- Specify the application specific style sheet.              -->
       <stylesheet src='TraderJournal.css' />
-      <!--  >source path="traderjournal">
-      	<include name="**/hibernate/**"/>
-      	<include name="**/client/**"/>
-      </source-->
+      <source path="gwt">
+      <include name="**/client/*"/>
+      <include name="**/client/panel/*"/>
+      <include name="**/client/service/*"/>
+      </source>
+      
+      <source path="model">
+      	<exclude name="**/*Home*" />
+      	<include name="**/hibernate/*"/>
+      	 </source>
+      	
+      
+
       
 	
 </module>

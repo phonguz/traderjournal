@@ -1,8 +1,11 @@
 ${pojo.getPackageDeclaration()}
 // Generated ${date} by Hibernate Tools ${version}
 
+
 <#assign classbody>
-<#assign declarationName = pojo.importType(pojo.getDeclarationName())>/**
+<#assign declarationName = pojo.importType(pojo.getDeclarationName())>
+
+/**
  * Home object for domain model class ${declarationName}.
  * @see ${pojo.getQualifiedDeclarationName()}
  * @author Hibernate Tools
@@ -10,6 +13,8 @@ ${pojo.getPackageDeclaration()}
 <#if ejb3>
 @${pojo.importType("javax.ejb.Stateless")}
 </#if>
+
+
 public class ${declarationName}Home {
 
     private static final ${pojo.importType("org.apache.commons.logging.Log")} log = ${pojo.importType("org.apache.commons.logging.LogFactory")}.getLog(${pojo.getDeclarationName()}Home.class);
@@ -17,6 +22,7 @@ public class ${declarationName}Home {
 <#if ejb3>
     @${pojo.importType("javax.persistence.PersistenceContext")} private ${pojo.importType("javax.persistence.EntityManager")} entityManager;
     
+
     public void persist(${declarationName} transientInstance) {
         log.debug("persisting ${declarationName} instance");
         try {

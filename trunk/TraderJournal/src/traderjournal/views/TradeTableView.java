@@ -20,7 +20,6 @@ import org.eclipse.ui.part.ViewPart;
 import traderjournal.model.hibernate.Account;
 import traderjournal.views.contentproviders.TradeContentProvider;
 import traderjournal.views.labelproviders.TradeLabelProvider;
-import traderjournal.views.sorters.TradeEventSorter;
 import traderjournal.views.sorters.TradeSorter;
 
 public class TradeTableView extends ViewPart implements ISelectionListener {
