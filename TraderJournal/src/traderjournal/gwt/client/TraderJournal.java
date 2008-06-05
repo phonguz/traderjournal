@@ -1,5 +1,8 @@
 package traderjournal.gwt.client;
 
+import traderjournal.gwt.client.panel.TradeListPanel;
+import traderjournal.model.DBUtils;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -18,6 +21,7 @@ public class TraderJournal implements EntryPoint {
    * This is the entry point method.
    */
   public void onModuleLoad() {
+	 
     Image img = new Image("http://code.google.com/webtoolkit/logo-185x175.png");
     Button button = new Button("Click me");
 
@@ -56,5 +60,8 @@ public class TraderJournal implements EntryPoint {
         dialogBox.show();
       }
     });
+    
+    TradeListPanel tlp = new TradeListPanel();
+    vPanel.add(tlp);
   }
 }

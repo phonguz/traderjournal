@@ -8,7 +8,6 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
 
 import traderjournal.Activator;
-
 import traderjournal.model.hibernate.Tradeevent;
 import traderjournal.model.hibernate.TradeeventHome;
 

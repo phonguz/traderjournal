@@ -2,9 +2,9 @@ package traderjournal.gwt.client.panel;
 
 import java.util.List;
 
-import traderjournal.gwt.server.TradeService;
+import traderjournal.gwt.client.service.TradeInterface;
+import traderjournal.gwt.client.service.TradeInterfaceAsync;
 import traderjournal.model.hibernate.Trade;
-import traderjournal.model.hibernate.TradeHome;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -12,15 +12,13 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class TradeListPanel extends Composite {
-	TradeHome th = new TradeHome();
+	
 	VerticalPanel panel = new VerticalPanel();
 	FlexTable fx = new FlexTable();
-	TradeService tradeService;
+	TradeInterfaceAsync tradeService; 
 	public TradeListPanel(){
 		initWidget(panel);
 		
@@ -28,7 +26,7 @@ public class TradeListPanel extends Composite {
 		panel.add(fx);
 		Button btnRefresh = new Button();
 		  if (tradeService == null) {   
-			  tradeService = GWT.create(TradeService.class);  
+			  tradeService = (TradeInterfaceAsync)GWT.create(TradeInterface.class);  
 			  ServiceDefTarget endpoint = (ServiceDefTarget)tradeService;   
 			  endpoint.setServiceEntryPoint(GWT.getModuleBaseURL() + "rpc"); 
 			  }
@@ -39,9 +37,27 @@ public class TradeListPanel extends Composite {
 		
 	}
 	
-	AsyncCallback<List<Trade>> callback = new AsyncCallback<List<Trade>>(){
+	AsyncCallback <Trade[]> callback = new AsyncCallback<Trade[]>(){
 
-		@Override
+		
+		public void onFailure(Throwable caught) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		
+		public void onSuccess(Trade[] result) {
+			// TODO Auto-generated method stub
+			
+		}
+
+	
+	
+
+
+	
+
+		/*@Override
 		public void onFailure(Throwable caught) {
 			panel.add(new HTML("Failed:" + caught.getMessage()));
 			
@@ -61,7 +77,7 @@ public class TradeListPanel extends Composite {
 			}
 			
 		}
-		
+		*/
 	};
 
 

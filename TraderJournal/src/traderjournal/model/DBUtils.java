@@ -6,13 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Hashtable;
-
-import javax.naming.Binding;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingEnumeration;
-import javax.naming.NamingException;
 
 import org.apache.commons.dbcp.ConnectionFactory;
 import org.apache.commons.dbcp.DriverManagerConnectionFactory;
@@ -24,8 +17,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import traderjournal.Activator;
-import traderjournal.model.hibernate.Account;
-import traderjournal.model.hibernate.AccountHome;
 import traderjournal.preferences.DBURLListEditor;
 import traderjournal.preferences.PreferenceConstants;
 

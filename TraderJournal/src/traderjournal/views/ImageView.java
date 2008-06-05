@@ -18,7 +18,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -35,7 +34,6 @@ import org.eclipse.ui.part.ViewPart;
 
 import traderjournal.Activator;
 import traderjournal.editors.TradeEditor;
-import traderjournal.model.TradeEventImage;
 import traderjournal.model.hibernate.Tradeevent;
 import traderjournal.model.hibernate.TradeeventHome;
 import traderjournal.model.hibernate.Tradeeventimage;
