@@ -8,7 +8,7 @@
             <column name="ID" />
             <generator class="identity" />
         </id>
-        <many-to-one name="account" class="traderjournal.model.hibernate.Account" fetch="select">
+        <many-to-one name="account" class="traderjournal.model.hibernate.Account" fetch="select" lazy="false">
             <column name="ACCOUNT_ID" not-null="true" />
         </many-to-one>
         <property name="openTradeDate" type="timestamp">
