@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2008/06/04 10:16:42 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 2008/06/05 03:03:07 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="traderjournal.model.hibernate.Tradeevent" table="TRADEEVENT" schema="PUBLIC">
         <id name="id" type="int">
