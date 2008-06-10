@@ -13,14 +13,14 @@ import static org.hibernate.criterion.Example.create;
 import traderjournal.model.DBUtils;
 
 /**
- * Home object for domain model class Trade.
- * @see traderjournal.model.hibernate.Trade
+ * Home object for domain model class Trader.
+ * @see traderjournal.model.hibernate.Trader
  * @author Hibernate Tools
  */
 
-public class TradeHome {
+public class TraderHome {
 
-	private static final Log log = LogFactory.getLog(TradeHome.class);
+	private static final Log log = LogFactory.getLog(TraderHome.class);
 	private Transaction tx;
 	private final SessionFactory sessionFactory = getSessionFactory();
 
@@ -34,8 +34,8 @@ public class TradeHome {
 		}
 	}
 
-	public void persist(Trade transientInstance) {
-		log.debug("persisting Trade instance");
+	public void persist(Trader transientInstance) {
+		log.debug("persisting Trader instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
@@ -45,8 +45,8 @@ public class TradeHome {
 		}
 	}
 
-	public void attachDirty(Trade instance) {
-		log.debug("attaching dirty Trade instance");
+	public void attachDirty(Trader instance) {
+		log.debug("attaching dirty Trader instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -56,8 +56,8 @@ public class TradeHome {
 		}
 	}
 
-	public void attachClean(Trade instance) {
-		log.debug("attaching clean Trade instance");
+	public void attachClean(Trader instance) {
+		log.debug("attaching clean Trader instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -67,8 +67,8 @@ public class TradeHome {
 		}
 	}
 
-	public void delete(Trade persistentInstance) {
-		log.debug("deleting Trade instance");
+	public void delete(Trader persistentInstance) {
+		log.debug("deleting Trader instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -78,10 +78,10 @@ public class TradeHome {
 		}
 	}
 
-	public Trade merge(Trade detachedInstance) {
-		log.debug("merging Trade instance");
+	public Trader merge(Trader detachedInstance) {
+		log.debug("merging Trader instance");
 		try {
-			Trade result = (Trade) sessionFactory.getCurrentSession().merge(
+			Trader result = (Trader) sessionFactory.getCurrentSession().merge(
 					detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -91,13 +91,13 @@ public class TradeHome {
 		}
 	}
 
-	public List<Trade> findAll() {
-		log.debug("getting all Trade instance");
+	public List<Trader> findAll() {
+		log.debug("getting all Trader instance");
 		try {
 			startOperation();
 			Query query = sessionFactory.getCurrentSession().createQuery(
-					"from " + "traderjournal.model.hibernate.Trade");
-			List<Trade> ret = (List<Trade>) query.list();
+					"from " + "traderjournal.model.hibernate.Trader");
+			List<Trader> ret = (List<Trader>) query.list();
 			tx.commit();
 			return ret;
 		} catch (RuntimeException re) {
@@ -110,12 +110,12 @@ public class TradeHome {
 		tx = sessionFactory.getCurrentSession().beginTransaction();
 	}
 
-	public Trade findById(int id) {
-		log.debug("getting Trade instance with id: " + id);
+	public Trader findById(int id) {
+		log.debug("getting Trader instance with id: " + id);
 		try {
 			startOperation();
-			Trade instance = (Trade) sessionFactory.getCurrentSession().get(
-					"traderjournal.model.hibernate.Trade", id);
+			Trader instance = (Trader) sessionFactory.getCurrentSession().get(
+					"traderjournal.model.hibernate.Trader", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -129,13 +129,13 @@ public class TradeHome {
 		}
 	}
 
-	public List<Trade> findByExample(Trade instance) {
-		log.debug("finding Trade instance by example");
+	public List<Trader> findByExample(Trader instance) {
+		log.debug("finding Trader instance by example");
 		try {
 			startOperation();
-			List<Trade> results = (List<Trade>) sessionFactory
+			List<Trader> results = (List<Trader>) sessionFactory
 					.getCurrentSession().createCriteria(
-							"traderjournal.model.hibernate.Trade").add(
+							"traderjournal.model.hibernate.Trader").add(
 							create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

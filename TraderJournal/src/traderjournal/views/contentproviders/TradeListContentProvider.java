@@ -10,7 +10,7 @@ import traderjournal.model.hibernate.TradeHome;
 
 public class TradeListContentProvider implements IStructuredContentProvider {
 
-	@Override
+	
 	public Object[] getElements(Object inputElement) {
 		TradeHome th = new TradeHome();
 		
@@ -29,5 +29,7 @@ public class TradeListContentProvider implements IStructuredContentProvider {
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		
 	}
+
+
 
 }

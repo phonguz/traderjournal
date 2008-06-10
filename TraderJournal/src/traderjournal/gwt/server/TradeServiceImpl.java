@@ -2,6 +2,9 @@ package traderjournal.gwt.server;
 
 import java.util.List;
 
+import net.sf.hibernate4gwt.core.HibernateBeanManager;
+import net.sf.hibernate4gwt.gwt.HibernateRemoteService;
+
 import org.hibernate.Query;
 import org.hibernate.StatelessSession;
 import org.hibernate.Transaction;
@@ -12,7 +15,7 @@ import traderjournal.model.hibernate.Trade;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class TradeServiceImpl extends RemoteServiceServlet implements
+public class TradeServiceImpl extends HibernateRemoteService implements
 		TradeInterface {
 
 	/**
@@ -22,27 +25,34 @@ public class TradeServiceImpl extends RemoteServiceServlet implements
 	
 	public TradeServiceImpl() {
 		 DBUtils.setupHBM();
+		 HibernateBeanManager.getInstance().setSessionFactory(DBUtils.getSessionFactory());
 	}
 	
 	@Override
-	public Trade[] findAll() {
-		StatelessSession ses = DBUtils.getSessionFactory().openStatelessSession();
-		Transaction tx = ses.beginTransaction();
-
-		Query query= ses.createQuery(
-				"from " + "traderjournal.model.hibernate.Trade");
+	public List<Trade> findAll() {
 		
-		//ses.beginTransaction();
-		List<Trade> li = (List<Trade>) query.list();
-		tx.commit();
-		ses.close();
-//		TradeHome th = new TradeHome();
+		TradeRemoteImpl ti = new TradeRemoteImpl();
+		List<Trade> li = ti.findAll();
+		//Trade [] ret = li.toArray(new Trade[li.size()]);
+		return li;
+		
+//		StatelessSession ses = DBUtils.getSessionFactory().openStatelessSession();
+//		Transaction tx = ses.beginTransaction();
+//
+//		Query query= ses.createQuery(
+//				"from " + "traderjournal.model.hibernate.Trade");
 //		
-//		List<Trade> li = th.findAll();
-		if(li != null)
-			return li.toArray(new Trade[li.size()]);
-		else
-			return null;
+//		//ses.beginTransaction();
+//		List<Trade> li = (List<Trade>) query.list();
+//		tx.commit();
+//		ses.close();
+////		TradeHome th = new TradeHome();
+////		
+////		List<Trade> li = th.findAll();
+//		if(li != null)
+//			return li.toArray(new Trade[li.size()]);
+//		else
+//			return null;
 	}
 
 }
