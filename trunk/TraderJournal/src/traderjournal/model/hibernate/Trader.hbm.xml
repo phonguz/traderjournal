@@ -3,19 +3,19 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2008/06/10 05:26:57 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="traderjournal.model.hibernate.Ccy" table="CCY" schema="PUBLIC">
+    <class name="traderjournal.model.hibernate.Trader" table="TRADER" schema="PUBLIC">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="identity" />
         </id>
         <property name="name" type="string">
-            <column name="NAME" length="25" not-null="true" />
+            <column name="NAME" />
         </property>
-        <set name="accounts" inverse="true">
+        <set name="trades" inverse="true">
             <key>
-                <column name="BASE_CCY_ID" not-null="true" />
+                <column name="TRADER_ID" not-null="true" />
             </key>
-            <one-to-many class="traderjournal.model.hibernate.Account" />
+            <one-to-many class="traderjournal.model.hibernate.Trade" />
         </set>
     </class>
 </hibernate-mapping>

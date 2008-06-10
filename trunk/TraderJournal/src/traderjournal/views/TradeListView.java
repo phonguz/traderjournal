@@ -1,12 +1,14 @@
 package traderjournal.views;
 
 
+import java.util.List;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -19,10 +21,12 @@ import org.eclipse.ui.part.ViewPart;
 
 import traderjournal.editors.TradeEditor;
 import traderjournal.editors.TradeEditorInput;
+import traderjournal.model.hibernate.Account;
+import traderjournal.model.hibernate.AccountHome;
 import traderjournal.model.hibernate.Trade;
 import traderjournal.views.TradeDetailView.TradeStructerdSelection;
-import traderjournal.views.contentproviders.TradeListContentProvider;
-import traderjournal.views.labelproviders.TradeListLabelProvider;
+import traderjournal.views.contentproviders.TradeTreeContentProvider;
+import traderjournal.views.labelproviders.TradeTreeLabelProvider;
 
 
 /**
@@ -45,7 +49,7 @@ import traderjournal.views.labelproviders.TradeListLabelProvider;
 
 public class TradeListView extends ViewPart  implements ISelectionListener{
 	public final static String ID = "traderjournal.views.TradeListView";
-	private TableViewer viewer;
+	private TreeViewer viewer;
 
 	private Action doubleClickAction;
 
@@ -66,11 +70,11 @@ public class TradeListView extends ViewPart  implements ISelectionListener{
 	public void createPartControl(Composite parent) {
 		getSite().getPage().addSelectionListener(TradeDetailView.ID_VIEW,
 				(ISelectionListener) this);
-		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-		viewer.setContentProvider(new TradeListContentProvider());
-		viewer.setLabelProvider(new TradeListLabelProvider());
+		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+		viewer.setContentProvider(new TradeTreeContentProvider());
+		viewer.setLabelProvider(new TradeTreeLabelProvider());
 		viewer.setSorter(new NameSorter());
-		viewer.setInput(getViewSite());
+		viewer.setInput(getAllAccounts());
 		
 	
 		hookDoubleClickAction();
@@ -81,6 +85,11 @@ public class TradeListView extends ViewPart  implements ISelectionListener{
 	}
 
 	
+	private List<Account> getAllAccounts() {
+		AccountHome ach = new AccountHome();
+		return ach.findAll();
+	}
+
 	public void refreshData(){
 		viewer.refresh();
 	}

@@ -43,6 +43,8 @@ public class DBUtils {
 	}
 
 	public static SessionFactory getSessionFactory(){
+		if(sessionFactory == null)
+			setupHBM();
 		return sessionFactory;
 	}
 	
