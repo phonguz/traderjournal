@@ -3,8 +3,11 @@ package traderjournal.views.labelproviders;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
+import org.hibernate.Transaction;
 
+import traderjournal.model.DBUtils;
 import traderjournal.model.hibernate.Trade;
+import traderjournal.stats.TradeStatistics;
 import traderjournal.views.TradeTableView;
 
 public class TradeLabelProvider implements ITableLabelProvider {
@@ -18,33 +21,75 @@ public class TradeLabelProvider implements ITableLabelProvider {
 	@Override
 	public String getColumnText(Object element, int columnIndex) {
 		Trade t = (Trade) element;
+		TradeStatistics ts = new TradeStatistics(t);
+		String ret ="";
 		switch (columnIndex) {
 		case TradeTableView.COL_colID:
 			return Integer.toString(t.getId());
 		case TradeTableView.COL_colInstrument:
-			return t.getInstrument();
+			Transaction tx = DBUtils.getSessionFactory().getCurrentSession().beginTransaction();
+			DBUtils.getSessionFactory().getCurrentSession().refresh(t);
+			try{
+				if(t.getInstrument() != null)
+					ret = t.getInstrument().getName();
+				else
+					ret = "";
+			tx.commit();
+			}catch(Exception e){
+				tx.rollback();
+			}
+					
+			
+			
+			return ret;
 		case TradeTableView.COL_colOpenDate:
-
-			return t.getOpenTradeDate().toString();
+			if(t.getOpenTradeDate() != null)
+				return LabelUtils.getDateFormat().format(t.getOpenTradeDate());
+			else
+			return null; 
+			
+			
 		case TradeTableView.COL_colOpenPrice:
-			return Double.toString(t.getOpenprice());
+			if(t.getOpenprice() != null)
+				return Double.toString(t.getOpenprice());
+			else
+				return null;
 		
 		case TradeTableView.COL_colCloseDate:
 			if(t.getCloseTradeDate() != null)
-			return t.getCloseTradeDate().toString();
+			 return LabelUtils.getDateFormat().format(t.getCloseTradeDate());
 			else
 				return null;
 		case TradeTableView.COL_colClosePrice:
-			return Double.toString(t.getCloseprice());
+			if(t.getCloseprice() != null)
+				return Double.toString(t.getCloseprice());
+			return
+				"";
 		case TradeTableView.COL_colSL:
-			return Double.toString(t.getStoploss());
+			if(t.getStoploss() != null)
+				return Double.toString(t.getStoploss());
+			return "";
 		case TradeTableView.COL_colTP:
-			return Double.toString(t.getTp());
+			if(t.getTp() != null)
+				return Double.toString(t.getTp());
+			else
+				return "";
 		case TradeTableView.COL_colReference:
-			return t.getReference();
+			if(t.getReference() != null)
+				return t.getReference();
+			else
+				return "";
 		
+		case TradeTableView.COL_colOriginalRR:
+			
+			return  LabelUtils.nf.format(ts.getOriginalRR());
+		case TradeTableView.COL_colFinalRR:
+			
+			return  LabelUtils.nf.format(ts.getRealisedRR());
+			
 		}
-		return null;
+		
+		return ret;
 
 	}
 

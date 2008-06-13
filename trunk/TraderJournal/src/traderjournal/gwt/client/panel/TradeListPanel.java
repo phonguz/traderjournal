@@ -67,7 +67,7 @@ public class TradeListPanel extends Composite {
 
 			for (Trade trade : result) {
 
-				fx.setText(i, 1, trade.getInstrument());
+				fx.setText(i, 1, trade.getInstrument().getName());
 
 				fx.getFlexCellFormatter().setStyleName(i, 1, "tj-Table-Cell");
 

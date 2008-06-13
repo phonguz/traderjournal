@@ -1,6 +1,6 @@
 package traderjournal.model.hibernate;
 
-// Generated 2008/06/10 05:26:56 by Hibernate Tools 3.2.2.GA
+// Generated 2008/06/12 11:43:13 by Hibernate Tools 3.2.2.GA
 
 import java.util.Date;
 import java.util.HashSet;
@@ -14,6 +14,7 @@ public class Trade extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo implements
 
 	private int id;
 	private Trader trader;
+	private Instrument instrument;
 	private Account account;
 	private Date openTradeDate;
 	private Double openprice;
@@ -21,8 +22,6 @@ public class Trade extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo implements
 	private Double closeprice;
 	private Double stoploss;
 	private Double tp;
-	private Integer qty;
-	private String instrument;
 	private Double entrycoms;
 	private Double exitcoms;
 	private Double entryfee;
@@ -30,6 +29,7 @@ public class Trade extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo implements
 	private Double pl;
 	private String reference;
 	private Double carrycost;
+	private Double qty;
 	private Set<Tradeevent> tradeevents = new HashSet<Tradeevent>(0);
 
 	public Trade() {
@@ -41,14 +41,15 @@ public class Trade extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo implements
 		this.account = account;
 	}
 
-	public Trade(int id, Trader trader, Account account, Date openTradeDate,
-			Double openprice, Date closeTradeDate, Double closeprice,
-			Double stoploss, Double tp, Integer qty, String instrument,
-			Double entrycoms, Double exitcoms, Double entryfee, Double exitfee,
-			Double pl, String reference, Double carrycost,
+	public Trade(int id, Trader trader, Instrument instrument, Account account,
+			Date openTradeDate, Double openprice, Date closeTradeDate,
+			Double closeprice, Double stoploss, Double tp, Double entrycoms,
+			Double exitcoms, Double entryfee, Double exitfee, Double pl,
+			String reference, Double carrycost, Double qty,
 			Set<Tradeevent> tradeevents) {
 		this.id = id;
 		this.trader = trader;
+		this.instrument = instrument;
 		this.account = account;
 		this.openTradeDate = openTradeDate;
 		this.openprice = openprice;
@@ -56,8 +57,6 @@ public class Trade extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo implements
 		this.closeprice = closeprice;
 		this.stoploss = stoploss;
 		this.tp = tp;
-		this.qty = qty;
-		this.instrument = instrument;
 		this.entrycoms = entrycoms;
 		this.exitcoms = exitcoms;
 		this.entryfee = entryfee;
@@ -65,6 +64,7 @@ public class Trade extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo implements
 		this.pl = pl;
 		this.reference = reference;
 		this.carrycost = carrycost;
+		this.qty = qty;
 		this.tradeevents = tradeevents;
 	}
 
@@ -82,6 +82,14 @@ public class Trade extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo implements
 
 	public void setTrader(Trader trader) {
 		this.trader = trader;
+	}
+
+	public Instrument getInstrument() {
+		return this.instrument;
+	}
+
+	public void setInstrument(Instrument instrument) {
+		this.instrument = instrument;
 	}
 
 	public Account getAccount() {
@@ -140,22 +148,6 @@ public class Trade extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo implements
 		this.tp = tp;
 	}
 
-	public Integer getQty() {
-		return this.qty;
-	}
-
-	public void setQty(Integer qty) {
-		this.qty = qty;
-	}
-
-	public String getInstrument() {
-		return this.instrument;
-	}
-
-	public void setInstrument(String instrument) {
-		this.instrument = instrument;
-	}
-
 	public Double getEntrycoms() {
 		return this.entrycoms;
 	}
@@ -210,6 +202,14 @@ public class Trade extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo implements
 
 	public void setCarrycost(Double carrycost) {
 		this.carrycost = carrycost;
+	}
+
+	public Double getQty() {
+		return this.qty;
+	}
+
+	public void setQty(Double qty) {
+		this.qty = qty;
 	}
 
 	public Set<Tradeevent> getTradeevents() {

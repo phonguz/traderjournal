@@ -23,5 +23,6 @@
         <mapping resource="traderjournal/model/hibernate/TransactionType.hbm.xml" />
         <mapping resource="traderjournal/model/hibernate/Tradeevent.hbm.xml" />
         <mapping resource="traderjournal/model/hibernate/Trader.hbm.xml" />
+        <mapping resource="traderjournal/model/hibernate/Instrument.hbm.xml" />
     </session-factory>
 </hibernate-configuration>

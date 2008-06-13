@@ -1,6 +1,6 @@
 package traderjournal.model.hibernate;
 
-// Generated 2008/06/10 05:26:57 by Hibernate Tools 3.2.2.GA
+// Generated 2008/06/12 11:43:14 by Hibernate Tools 3.2.2.GA
 
 import java.util.List;
 import org.apache.commons.logging.Log;

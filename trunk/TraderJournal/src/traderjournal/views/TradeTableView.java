@@ -46,6 +46,10 @@ public class TradeTableView extends ViewPart implements ISelectionListener {
 	public static final int COL_colTP = 7;
 	private TableColumn colReference;
 	public static final int COL_colReference = 8;
+	private TableColumn colOriginalRR;
+	public static final int COL_colOriginalRR = 9;
+	private TableColumn colFinalRR;
+	public static final int COL_colFinalRR = 10;
 	
 
 	@Override
@@ -145,6 +149,14 @@ public class TradeTableView extends ViewPart implements ISelectionListener {
 		colReference = new TableColumn(tblTrades, SWT.LEFT);
 		colReference.setText("Reference");
 		colReference.setWidth(90);
+		
+		colOriginalRR = new TableColumn(tblTrades, SWT.LEFT);
+		colOriginalRR.setText("OriginalRR");
+		colOriginalRR.setWidth(90);
+		
+		colFinalRR = new TableColumn(tblTrades, SWT.LEFT);
+		colFinalRR.setText("FinalRR");
+		colFinalRR.setWidth(90);
 		
 		tblViewer.setSorter(new TradeSorter(TradeSorter.ID));
 		tblTrades.setSortColumn(colID);

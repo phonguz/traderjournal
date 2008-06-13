@@ -8,6 +8,7 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
 
 import traderjournal.Activator;
+import traderjournal.editors.TradeEditor;
 import traderjournal.model.hibernate.Tradeevent;
 import traderjournal.model.hibernate.TradeeventHome;
 
@@ -15,25 +16,25 @@ public class TradeEventLabelProvider implements ITableLabelProvider {
 
 	@Override
 	public void addListener(ILabelProviderListener listener) {
-		// TODO Auto-generated method stub
+
 
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public boolean isLabelProperty(Object element, String property) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public void removeListener(ILabelProviderListener listener) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -70,31 +71,40 @@ public class TradeEventLabelProvider implements ITableLabelProvider {
 		Tradeevent te = (Tradeevent) element;
 		if (te != null) {
 			switch (columnIndex) {
-			case 0: // id
+			case TradeEditor.COL_ID: // id
 				return "" + te.getId();
 
-			case 1: // date
+			case TradeEditor.COL_EVENT_DATE: // date
 				if(te.getEventDate() != null){
-					SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-					return sd.format(te.getEventDate());
+					
+					return LabelUtils.getDateFormat().format(te.getEventDate());
 				}
 				else
 					return "";
-			case 2: // type
+			case TradeEditor.COL_EVENT_TYPE: // type
 				TradeeventHome th = new TradeeventHome();
 				th.getSessionFactory().getCurrentSession().beginTransaction();
 				th.getSessionFactory().getCurrentSession().refresh(te);
 				String ret = te.getTradeeventtype().getName();
 				th.getSessionFactory().getCurrentSession().getTransaction().commit();
 				return ret;
-			case 3: // description
+			case TradeEditor.COL_DESCRIPTION: // description
 				if (te.getDescription() != null)
 				return te.getDescription();
 				else
 					return "";
-			case 4: // order
+			case TradeEditor.COL_EVENT_ORDER: // order
+				if(te.getEventorder() != null)
 				return "" + te.getEventorder();
-			case 5: // / img1
+				else
+					return "0";
+			case TradeEditor.COL_NEW_VALUE: // newvalue
+				if(te.getNewValue() != null)
+				return "" + te.getNewValue();
+				else
+					return "0.0";
+				
+			case TradeEditor.COL_IMAGE: // / img1
 //				if (te.getAllImages() != null && te.getAllImages().size() > 0
 //						&& te.getAllImages().get(0) != null)
 //					return null;
@@ -102,7 +112,7 @@ public class TradeEventLabelProvider implements ITableLabelProvider {
 //				else
 					return "add";
 
-			case 6:
+			case TradeEditor.COL_REMOVE:
 				return null;
 			}
 		}
