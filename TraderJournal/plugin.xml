@@ -124,6 +124,19 @@
             id="traderjournal.views.TradeTableView"
             name="TradeTableView">
       </view>
+      <view
+            allowMultiple="false"
+            class="traderjournal.views.TradeStatisticsView"
+            icon="icons/binary.gif"
+            id="traderjournal.views.TradeStatisticsView"
+            name="TradeStatisticsView">
+      </view>
+      <view
+            class="traderjournal.views.InstrumentView"
+            icon="icons/bookmark.gif"
+            id="traderjournal.views.InstrumentView"
+            name="InstrumentView">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
