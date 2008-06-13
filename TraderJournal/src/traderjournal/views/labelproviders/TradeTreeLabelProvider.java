@@ -1,9 +1,13 @@
 package traderjournal.views.labelproviders;
 
+import java.text.SimpleDateFormat;
+
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
+import org.hibernate.Transaction;
 
+import traderjournal.model.DBUtils;
 import traderjournal.model.hibernate.Account;
 import traderjournal.model.hibernate.Trade;
 
@@ -31,8 +35,19 @@ public class TradeTreeLabelProvider implements ILabelProvider {
 			return a.getName();
 		}else{
 		Trade t = (Trade)element;
+		Transaction tx = DBUtils.getSessionFactory().getCurrentSession().beginTransaction();
+		DBUtils.getSessionFactory().getCurrentSession().refresh(t);
+		String ret =LabelUtils.getDateFormat().format(t.getOpenTradeDate());
+		if(t.getInstrument() != null)
+			ret =t.getInstrument().getName() +delim+ LabelUtils.getDateFormat().format(t.getOpenTradeDate());
 		
-		return t.getId() + delim + t.getInstrument() +delim+ t.getOpenTradeDate();
+			
+		tx.commit();
+		//DBUtils.refresh(Object obj);
+		
+		 
+		
+		return ret;
 		}
 		
 	}

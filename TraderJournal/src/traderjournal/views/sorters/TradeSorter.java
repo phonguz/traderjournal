@@ -41,7 +41,7 @@ public class TradeSorter extends ViewerSorter {
 			return result;
 			
 		case INSTRUMENT:
-			result = te1.getInstrument().compareTo(te2.getInstrument());
+			result = te1.getInstrument().getName().compareTo(te2.getInstrument().getName());
 
 
 			return result;

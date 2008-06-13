@@ -1,6 +1,6 @@
 package traderjournal.model.hibernate;
 
-// Generated 2008/06/10 05:26:56 by Hibernate Tools 3.2.2.GA
+// Generated 2008/06/12 11:43:13 by Hibernate Tools 3.2.2.GA
 
 import java.util.Date;
 import java.util.HashSet;
@@ -18,6 +18,7 @@ public class Tradeevent extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo
 	private Date eventDate;
 	private String description;
 	private Integer eventorder;
+	private Double newValue;
 	private Set<Tradeeventimage> tradeeventimages = new HashSet<Tradeeventimage>(
 			0);
 
@@ -32,13 +33,14 @@ public class Tradeevent extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo
 
 	public Tradeevent(int id, Tradeeventtype tradeeventtype, Trade trade,
 			Date eventDate, String description, Integer eventorder,
-			Set<Tradeeventimage> tradeeventimages) {
+			Double newValue, Set<Tradeeventimage> tradeeventimages) {
 		this.id = id;
 		this.tradeeventtype = tradeeventtype;
 		this.trade = trade;
 		this.eventDate = eventDate;
 		this.description = description;
 		this.eventorder = eventorder;
+		this.newValue = newValue;
 		this.tradeeventimages = tradeeventimages;
 	}
 
@@ -88,6 +90,14 @@ public class Tradeevent extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo
 
 	public void setEventorder(Integer eventorder) {
 		this.eventorder = eventorder;
+	}
+
+	public Double getNewValue() {
+		return this.newValue;
+	}
+
+	public void setNewValue(Double newValue) {
+		this.newValue = newValue;
 	}
 
 	public Set<Tradeeventimage> getTradeeventimages() {

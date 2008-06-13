@@ -38,6 +38,7 @@ public class TradeTreeContentProvider implements ITreeContentProvider {
 		if(parentElement  instanceof Account) {
 			Account ac = (Account)parentElement;
 			Session ses= DBUtils.getSessionFactory().getCurrentSession();
+			//ses.flush();
 			org.hibernate.Transaction tx = ses.beginTransaction();
 			ses.refresh(ac);
 			

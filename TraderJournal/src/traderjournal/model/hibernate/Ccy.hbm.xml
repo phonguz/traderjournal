@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2008/06/10 05:26:57 by Hibernate Tools 3.2.2.GA -->
+<!-- Generated 2008/06/12 11:43:13 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
     <class name="traderjournal.model.hibernate.Ccy" table="CCY" schema="PUBLIC">
         <id name="id" type="int">
@@ -16,6 +16,12 @@
                 <column name="BASE_CCY_ID" not-null="true" />
             </key>
             <one-to-many class="traderjournal.model.hibernate.Account" />
+        </set>
+        <set name="instruments" inverse="true">
+            <key>
+                <column name="BASE_CCY_ID" />
+            </key>
+            <one-to-many class="traderjournal.model.hibernate.Instrument" />
         </set>
     </class>
 </hibernate-mapping>

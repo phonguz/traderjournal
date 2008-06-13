@@ -3,17 +3,23 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2008/06/12 11:43:13 by Hibernate Tools 3.2.2.GA -->
 <hibernate-mapping>
-    <class name="traderjournal.model.hibernate.Trader" table="TRADER" schema="PUBLIC">
+    <class name="traderjournal.model.hibernate.Instrument" table="INSTRUMENT" schema="PUBLIC">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="identity" />
         </id>
+        <many-to-one name="ccy" class="traderjournal.model.hibernate.Ccy" fetch="select">
+            <column name="BASE_CCY_ID" />
+        </many-to-one>
         <property name="name" type="string">
             <column name="NAME" />
         </property>
+        <property name="valuePerPoint" type="java.lang.Double">
+            <column name="VALUE_PER_POINT" precision="0" scale="0" />
+        </property>
         <set name="trades" inverse="true">
             <key>
-                <column name="TRADER_ID" not-null="true" />
+                <column name="INSTRUMENT_ID" />
             </key>
             <one-to-many class="traderjournal.model.hibernate.Trade" />
         </set>

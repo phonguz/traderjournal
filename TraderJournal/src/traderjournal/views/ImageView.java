@@ -10,6 +10,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.PaintEvent;
@@ -70,7 +71,7 @@ public class ImageView extends ViewPart implements ISelectionListener{
         {
 
         	{
-        		cTabFolder = new CTabFolder(parent, SWT.CLOSE | SWT.TOP);
+        		cTabFolder = new CTabFolder(parent, SWT.CLOSE | SWT.TOP );
         		cTabFolder.setBorderVisible(true);
         		cTabFolder.setSimple(false);
         		parent.setLayout(new GridLayout());
@@ -223,13 +224,21 @@ public class ImageView extends ViewPart implements ISelectionListener{
 					
 				}});
 			
-			Canvas cv = new Canvas(cmp,SWT.NONE);
+			ScrolledComposite sc = new ScrolledComposite(cmp,SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 			GridData gridData = new GridData(GridData.FILL_BOTH
 					| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 			gridData.grabExcessVerticalSpace = true;
 			gridData.horizontalSpan =4;
+			sc.setLayoutData(gridData);
 			
-			cv.setLayoutData(gridData);
+			GridData gridDatacv = new GridData(GridData.FILL_BOTH
+					| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
+			gridDatacv.grabExcessVerticalSpace = true;
+			
+			Canvas cv = new Canvas(sc,SWT.NONE);
+			
+			
+			cv.setLayoutData(gridDatacv);
 			cv.setData(ti);
 			cv.addPaintListener(new PaintListener(){
 
@@ -253,6 +262,7 @@ public class ImageView extends ViewPart implements ISelectionListener{
 			cv.setFocus();
 			cv.redraw();
 			cti.setControl(cmp);
+			sc.redraw();
 			cmp.redraw();
 			cTabItemList.add(cti);
 			i++;

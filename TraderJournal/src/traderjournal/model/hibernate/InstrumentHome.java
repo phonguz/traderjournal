@@ -13,14 +13,14 @@ import static org.hibernate.criterion.Example.create;
 import traderjournal.model.DBUtils;
 
 /**
- * Home object for domain model class Tradeeventimage.
- * @see traderjournal.model.hibernate.Tradeeventimage
+ * Home object for domain model class Instrument.
+ * @see traderjournal.model.hibernate.Instrument
  * @author Hibernate Tools
  */
 
-public class TradeeventimageHome {
+public class InstrumentHome {
 
-	private static final Log log = LogFactory.getLog(TradeeventimageHome.class);
+	private static final Log log = LogFactory.getLog(InstrumentHome.class);
 	private Transaction tx;
 	private final SessionFactory sessionFactory = getSessionFactory();
 
@@ -34,8 +34,8 @@ public class TradeeventimageHome {
 		}
 	}
 
-	public void persist(Tradeeventimage transientInstance) {
-		log.debug("persisting Tradeeventimage instance");
+	public void persist(Instrument transientInstance) {
+		log.debug("persisting Instrument instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
@@ -45,8 +45,8 @@ public class TradeeventimageHome {
 		}
 	}
 
-	public void attachDirty(Tradeeventimage instance) {
-		log.debug("attaching dirty Tradeeventimage instance");
+	public void attachDirty(Instrument instance) {
+		log.debug("attaching dirty Instrument instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -56,8 +56,8 @@ public class TradeeventimageHome {
 		}
 	}
 
-	public void attachClean(Tradeeventimage instance) {
-		log.debug("attaching clean Tradeeventimage instance");
+	public void attachClean(Instrument instance) {
+		log.debug("attaching clean Instrument instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -67,8 +67,8 @@ public class TradeeventimageHome {
 		}
 	}
 
-	public void delete(Tradeeventimage persistentInstance) {
-		log.debug("deleting Tradeeventimage instance");
+	public void delete(Instrument persistentInstance) {
+		log.debug("deleting Instrument instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -78,11 +78,11 @@ public class TradeeventimageHome {
 		}
 	}
 
-	public Tradeeventimage merge(Tradeeventimage detachedInstance) {
-		log.debug("merging Tradeeventimage instance");
+	public Instrument merge(Instrument detachedInstance) {
+		log.debug("merging Instrument instance");
 		try {
-			Tradeeventimage result = (Tradeeventimage) sessionFactory
-					.getCurrentSession().merge(detachedInstance);
+			Instrument result = (Instrument) sessionFactory.getCurrentSession()
+					.merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -91,13 +91,13 @@ public class TradeeventimageHome {
 		}
 	}
 
-	public List<Tradeeventimage> findAll() {
-		log.debug("getting all Tradeeventimage instance");
+	public List<Instrument> findAll() {
+		log.debug("getting all Instrument instance");
 		try {
 			startOperation();
 			Query query = sessionFactory.getCurrentSession().createQuery(
-					"from " + "traderjournal.model.hibernate.Tradeeventimage");
-			List<Tradeeventimage> ret = (List<Tradeeventimage>) query.list();
+					"from " + "traderjournal.model.hibernate.Instrument");
+			List<Instrument> ret = (List<Instrument>) query.list();
 			tx.commit();
 			return ret;
 		} catch (RuntimeException re) {
@@ -110,13 +110,13 @@ public class TradeeventimageHome {
 		tx = sessionFactory.getCurrentSession().beginTransaction();
 	}
 
-	public Tradeeventimage findById(int id) {
-		log.debug("getting Tradeeventimage instance with id: " + id);
+	public Instrument findById(int id) {
+		log.debug("getting Instrument instance with id: " + id);
 		try {
 			startOperation();
-			Tradeeventimage instance = (Tradeeventimage) sessionFactory
-					.getCurrentSession()
-					.get("traderjournal.model.hibernate.Tradeeventimage", id);
+			Instrument instance = (Instrument) sessionFactory
+					.getCurrentSession().get(
+							"traderjournal.model.hibernate.Instrument", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -130,14 +130,14 @@ public class TradeeventimageHome {
 		}
 	}
 
-	public List<Tradeeventimage> findByExample(Tradeeventimage instance) {
-		log.debug("finding Tradeeventimage instance by example");
+	public List<Instrument> findByExample(Instrument instance) {
+		log.debug("finding Instrument instance by example");
 		try {
 			startOperation();
-			List<Tradeeventimage> results = (List<Tradeeventimage>) sessionFactory
+			List<Instrument> results = (List<Instrument>) sessionFactory
 					.getCurrentSession().createCriteria(
-							"traderjournal.model.hibernate.Tradeeventimage")
-					.add(create(instance)).list();
+							"traderjournal.model.hibernate.Instrument").add(
+							create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());
 			tx.commit();

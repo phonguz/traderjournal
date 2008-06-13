@@ -55,20 +55,39 @@ import traderjournal.model.hibernate.Tradeeventtype;
 import traderjournal.model.hibernate.TradeeventtypeHome;
 import traderjournal.views.TradeListView;
 import traderjournal.views.contentproviders.TradeEventContentProvider;
+import traderjournal.views.labelproviders.LabelUtils;
 import traderjournal.views.labelproviders.TradeEventLabelProvider;
 import traderjournal.views.sorters.TradeEventSorter;
+import traderjournal.views.verify.DoubleVerifyListener;
+import traderjournal.views.verify.IntegerVerifyListener;
 
 public class TradeEditor extends EditorPart implements ISelectionListener {
 	public static final String ID = "traderjournal.editors.TradeEditor";
-	
+
 	private Trade trade;
+
+	public static final int COL_EVENT_DATE = 1;
 	private TableColumn tblColEventDate;
 
+	public static final int COL_IMAGE = 6;
 	private TableColumn tblColImg1;
+
+	public static final int COL_EVENT_ORDER = 4;
 	private TableColumn tblColOrder;
+
+	public static final int COL_DESCRIPTION = 3;
 	private TableColumn tblColDescription;
+
+	public static final int COL_EVENT_TYPE = 2;
 	private TableColumn tblColEventType;
+
+	public static final int COL_NEW_VALUE = 5;
+	private TableColumn tblColNewValue;
+
+	public static final int COL_ID = 0;
 	private TableColumn tblColID;
+
+	public static final int COL_REMOVE = 7;
 	private TableColumn tblColRemove;
 
 	private Table tblEvents;
@@ -77,10 +96,9 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 
 	Composite rightComposite;
 	TradeeventHome tradeEventHome = new TradeeventHome();
-	
 
 	public TradeEditor() {
-		
+
 	}
 
 	@Override
@@ -94,7 +112,6 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 
 	@Override
 	public void doSaveAs() {
-		
 
 	}
 
@@ -126,14 +143,11 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 				(ISelectionListener) this);
 		getSite().setSelectionProvider(tblViewer);
 
-		
-
 		rightComposite = new Composite(parent, SWT.BORDER);
 		// Create a composite to hold the children
-		GridData gridData = new GridData( GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL
-				| GridData.GRAB_VERTICAL);
+		GridData gridData = new GridData(GridData.FILL_BOTH
+				| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 		parent.setLayout(new GridLayout());
-		
 
 		// Set numColumns to 3 for the buttons
 		GridLayout layout = new GridLayout(3, false);
@@ -141,11 +155,9 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 		rightComposite.setLayout(layout);
 		parent.setLayoutData(gridData);
 		rightComposite.setLayoutData(gridData);
-		
+
 		createTradeEventPart();
 		fillTradeEventPart();
-
-		
 
 	}
 
@@ -198,7 +210,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 				case 0:
 					return;
 
-				case 1: // date
+				case COL_EVENT_DATE: // date
 
 					Text newEditor = new Text(tblEvents, SWT.NONE);
 					newEditor.setText(item.getText(EDITABLECOLUMN));
@@ -209,16 +221,20 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 									text.getText());
 							TableItem item = (TableItem) editor.getItem();
 							Tradeevent tEvent = (Tradeevent) item.getData();
-							SimpleDateFormat sd = new SimpleDateFormat(
-									"yyyy-MM-dd");
+
 							try {
-								tEvent.setEventDate(sd.parse(text.getText()));
+								tEvent.setEventDate(LabelUtils.getDateFormat()
+										.parse(text.getText()));
 							} catch (ParseException e) {
-								//just don't update the date if it's non parsable... 
+								// just don't update the date if it's non
+								// parsable...
 							}
-							tradeEventHome.getSessionFactory().getCurrentSession().beginTransaction();
+							tradeEventHome.getSessionFactory()
+									.getCurrentSession().beginTransaction();
 							tradeEventHome.attachDirty(tEvent);
-							tradeEventHome.getSessionFactory().getCurrentSession().getTransaction().commit();
+							tradeEventHome.getSessionFactory()
+									.getCurrentSession().getTransaction()
+									.commit();
 							tblViewer.update(tEvent, null);
 
 						}
@@ -227,14 +243,15 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 					newEditor.setFocus();
 					editor.setEditor(newEditor, item, EDITABLECOLUMN);
 					return;
-				case 2: // type
+				case COL_EVENT_TYPE: // type
 					Combo tradeTypeEditor = new Combo(tblEvents, SWT.NONE);
 					TradeeventtypeHome th = new TradeeventtypeHome();
 					for (Tradeeventtype tt : th.findAll()) {
 						tradeTypeEditor.add(tt.getName(), tt.getId());
 					}
 
-					tradeTypeEditor.select(selectedEvent.getTradeeventtype().getId());
+					tradeTypeEditor.select(selectedEvent.getTradeeventtype()
+							.getId());
 					tradeTypeEditor
 							.addSelectionListener(new SelectionListener() {
 
@@ -252,17 +269,21 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 											.getItem();
 									Tradeevent tEvent = (Tradeevent) item
 											.getData();
-									
+
 									TradeeventtypeHome th = new TradeeventtypeHome();
-									Tradeeventtype t = th.findById(cmb.getSelectionIndex());
-									
+									Tradeeventtype t = th.findById(cmb
+											.getSelectionIndex());
+
 									tEvent.setTradeeventtype(t);
-									
-									
-									tradeEventHome.getSessionFactory().getCurrentSession().beginTransaction();
+
+									tradeEventHome.getSessionFactory()
+											.getCurrentSession()
+											.beginTransaction();
 									tradeEventHome.attachDirty(tEvent);
-									tradeEventHome.getSessionFactory().getCurrentSession().getTransaction().commit();
-									
+									tradeEventHome.getSessionFactory()
+											.getCurrentSession()
+											.getTransaction().commit();
+
 									tblViewer.update(tEvent, null);
 
 								}
@@ -273,7 +294,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 
 					return;
 
-				case 3: // description
+				case COL_DESCRIPTION: // description
 
 					Text descriptionEditor = new Text(tblEvents, SWT.NONE);
 					descriptionEditor.setText(item.getText(EDITABLECOLUMN));
@@ -285,9 +306,12 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 							TableItem item = (TableItem) editor.getItem();
 							Tradeevent tEvent = (Tradeevent) item.getData();
 							tEvent.setDescription(text.getText());
-							tradeEventHome.getSessionFactory().getCurrentSession().beginTransaction();
+							tradeEventHome.getSessionFactory()
+									.getCurrentSession().beginTransaction();
 							tradeEventHome.attachDirty(tEvent);
-							tradeEventHome.getSessionFactory().getCurrentSession().getTransaction().commit();
+							tradeEventHome.getSessionFactory()
+									.getCurrentSession().getTransaction()
+									.commit();
 							tblViewer.update(tEvent, null);
 
 						}
@@ -297,19 +321,11 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 					editor.setEditor(descriptionEditor, item, EDITABLECOLUMN);
 					return;
 
-				case 4: // eventorder
+				case COL_EVENT_ORDER: // eventorder
 
 					Text orderEditor = new Text(tblEvents, SWT.NONE);
-					orderEditor.addVerifyListener(
+					orderEditor.addVerifyListener(new IntegerVerifyListener());
 
-					new VerifyListener() {
-						public void verifyText(VerifyEvent e) {
-							// Here, we could use a RegExp such as the following
-							// if using JRE1.4 such as e.doit =
-							// e.text.matches("[\\-0-9]*");
-							e.doit = "0123456789".indexOf(e.text) >= 0;
-						}
-					});
 					orderEditor.setText(item.getText(EDITABLECOLUMN));
 					orderEditor.addModifyListener(new ModifyListener() {
 						public void modifyText(ModifyEvent me) {
@@ -320,9 +336,12 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 							Tradeevent tEvent = (Tradeevent) item.getData();
 							tEvent.setEventorder(Integer.parseInt(text
 									.getText()));
-							tradeEventHome.getSessionFactory().getCurrentSession().beginTransaction();
+							tradeEventHome.getSessionFactory()
+									.getCurrentSession().beginTransaction();
 							tradeEventHome.attachDirty(tEvent);
-							tradeEventHome.getSessionFactory().getCurrentSession().getTransaction().commit();
+							tradeEventHome.getSessionFactory()
+									.getCurrentSession().getTransaction()
+									.commit();
 							tblViewer.update(tEvent, null);
 
 						}
@@ -331,50 +350,83 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 					orderEditor.setFocus();
 					editor.setEditor(orderEditor, item, EDITABLECOLUMN);
 					return;
-				case 5:
+
+				case COL_NEW_VALUE: // eventorder
+
+					Text newValueEditor = new Text(tblEvents, SWT.NONE);
+					newValueEditor
+							.addVerifyListener(new DoubleVerifyListener());
+					newValueEditor.setText(item.getText(EDITABLECOLUMN));
+					newValueEditor.addModifyListener(new ModifyListener() {
+						public void modifyText(ModifyEvent me) {
+							Text text = (Text) editor.getEditor();
+							editor.getItem().setText(EDITABLECOLUMN,
+									text.getText());
+							TableItem item = (TableItem) editor.getItem();
+							Tradeevent tEvent = (Tradeevent) item.getData();
+							tEvent.setNewValue(Double.parseDouble(text
+									.getText()));
+							tradeEventHome.getSessionFactory()
+									.getCurrentSession().beginTransaction();
+							tradeEventHome.attachDirty(tEvent);
+							tradeEventHome.getSessionFactory()
+									.getCurrentSession().getTransaction()
+									.commit();
+							tblViewer.update(tEvent, null);
+
+						}
+					});
+					newValueEditor.selectAll();
+					newValueEditor.setFocus();
+					editor.setEditor(newValueEditor, item, EDITABLECOLUMN);
+					return;
+				case COL_IMAGE:
 					String txt = item.getText(5);
 					if (item.getText(5) != null && !item.getText(5).equals("")) {
 
 						FileDialog fd = new FileDialog(new Shell());
 						String filepath = fd.open();
-						
+
 						try {
 							FileReader fr = new FileReader(filepath);
-						
-						File f = new File(filepath);
-						BufferedInputStream bi = new BufferedInputStream(new FileInputStream(f));
-						
-						
-						byte [] bar = new byte[bi.available()];
-						 bi.read(bar);
-						TradeeventimageHome tih = new TradeeventimageHome();
-						Tradeeventimage ti = new Tradeeventimage();
-						
-						
-						ti.setImg(bar);
-						ti.setTradeevent(selectedEvent);
-						tih.getSessionFactory().getCurrentSession().beginTransaction();
-						tih.merge(ti);
-						tih.getSessionFactory().getCurrentSession().getTransaction().commit();
+
+							File f = new File(filepath);
+							BufferedInputStream bi = new BufferedInputStream(
+									new FileInputStream(f));
+
+							byte[] bar = new byte[bi.available()];
+							bi.read(bar);
+							TradeeventimageHome tih = new TradeeventimageHome();
+							Tradeeventimage ti = new Tradeeventimage();
+
+							ti.setImg(bar);
+							ti.setTradeevent(selectedEvent);
+							tih.getSessionFactory().getCurrentSession()
+									.beginTransaction();
+							tih.merge(ti);
+							tih.getSessionFactory().getCurrentSession()
+									.getTransaction().commit();
 						} catch (FileNotFoundException e1) {
-							
+
 							e1.printStackTrace();
 						} catch (IOException e2) {
-							
+
 							e2.printStackTrace();
 						}
-						
+
 					} else {
 					}
 
 					break;
 
-				case 6:
+				case COL_REMOVE:
 					Tradeevent te = (Tradeevent) item.getData();
-					tradeEventHome.getSessionFactory().getCurrentSession().beginTransaction();
+					tradeEventHome.getSessionFactory().getCurrentSession()
+							.beginTransaction();
 					tradeEventHome.delete(te);
-					tradeEventHome.getSessionFactory().getCurrentSession().getTransaction().commit();
-					
+					tradeEventHome.getSessionFactory().getCurrentSession()
+							.getTransaction().commit();
+
 					refresh();
 					return;
 				}
@@ -408,7 +460,6 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 				gridData.grabExcessVerticalSpace = true;
 				gridData.horizontalSpan = 3;
 				tblEvents.setLayoutData(gridData);
-				
 
 				{
 					tblColID = new TableColumn(tblEvents, SWT.LEFT);
@@ -441,10 +492,10 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 					tblColEventType.setWidth(60);
 				}
 				{
-					tblColDescription = new TableColumn(tblEvents, SWT.LEFT | SWT.WRAP);
+					tblColDescription = new TableColumn(tblEvents, SWT.LEFT
+							| SWT.WRAP);
 					tblColDescription.setText("Description");
 					tblColDescription.setWidth(600);
-					
 
 				}
 				{
@@ -460,6 +511,14 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 					});
 
 				}
+
+				{
+					tblColNewValue = new TableColumn(tblEvents, SWT.LEFT);
+					tblColNewValue.setText("NewValue");
+					tblColNewValue.setWidth(60);
+
+				}
+
 				{
 					tblColImg1 = new TableColumn(tblEvents, SWT.LEFT);
 					tblColImg1.setText("IMG1");
@@ -491,15 +550,18 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 				te.setTrade(trade);
 				te.setEventDate(new Date());
 				te.setEventorder(0);
+				te.setNewValue(0d);
 				te.setTradeeventtype(new TradeeventtypeHome().findAll().get(0));
-				tradeEventHome.getSessionFactory().getCurrentSession().beginTransaction();
+				tradeEventHome.getSessionFactory().getCurrentSession()
+						.beginTransaction();
 				tradeEventHome.getSessionFactory().getCurrentSession().flush();
-				tradeEventHome.getSessionFactory().getCurrentSession().refresh(te.getTrade());
-				tradeEventHome.getSessionFactory().getCurrentSession().refresh(te.getTradeeventtype());
+				tradeEventHome.getSessionFactory().getCurrentSession().refresh(
+						te.getTrade());
+				tradeEventHome.getSessionFactory().getCurrentSession().refresh(
+						te.getTradeeventtype());
 				tradeEventHome.persist(te);
-				tradeEventHome.getSessionFactory().getCurrentSession().getTransaction().commit();
-				
-				
+				tradeEventHome.getSessionFactory().getCurrentSession()
+						.getTransaction().commit();
 
 				refresh();
 			}
@@ -534,7 +596,9 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 	}
 
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-		if (selection instanceof IStructuredSelection) {
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection)
+				.getFirstElement() instanceof Trade) {
+			
 			Trade newTrade = (Trade) ((IStructuredSelection) selection)
 					.getFirstElement();
 			trade = newTrade;
@@ -549,9 +613,9 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 		tblViewer.refresh();
 
 		for (int i = 0, n = tblEvents.getColumnCount(); i < n; i++) {
-			//tblEvents.getColumn(i).pack();
+			// tblEvents.getColumn(i).pack();
 		}
-		
+
 		tblEvents.redraw();
 		rightComposite.pack();
 		tblEvents.select(0);

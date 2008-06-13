@@ -157,7 +157,7 @@ public class TradeListView extends ViewPart  implements ISelectionListener{
 			viewer.refresh();
 		else{
 		Trade tra = (Trade)tr.getFirstElement();
-		viewer.refresh(tra);
+		viewer.refresh();
 		}
 		viewer.setSelection(viewer.getSelection());
 		

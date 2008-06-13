@@ -1,6 +1,6 @@
 package traderjournal.model.hibernate;
 
-// Generated 2008/06/10 05:26:56 by Hibernate Tools 3.2.2.GA
+// Generated 2008/06/12 11:43:13 by Hibernate Tools 3.2.2.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,7 @@ public class Ccy extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo implements
 	private int id;
 	private String name;
 	private Set<Account> accounts = new HashSet<Account>(0);
+	private Set<Instrument> instruments = new HashSet<Instrument>(0);
 
 	public Ccy() {
 	}
@@ -23,10 +24,12 @@ public class Ccy extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo implements
 		this.name = name;
 	}
 
-	public Ccy(int id, String name, Set<Account> accounts) {
+	public Ccy(int id, String name, Set<Account> accounts,
+			Set<Instrument> instruments) {
 		this.id = id;
 		this.name = name;
 		this.accounts = accounts;
+		this.instruments = instruments;
 	}
 
 	public int getId() {
@@ -51,6 +54,14 @@ public class Ccy extends net.sf.hibernate4gwt.pojo.gwt.LazyGwtPojo implements
 
 	public void setAccounts(Set<Account> accounts) {
 		this.accounts = accounts;
+	}
+
+	public Set<Instrument> getInstruments() {
+		return this.instruments;
+	}
+
+	public void setInstruments(Set<Instrument> instruments) {
+		this.instruments = instruments;
 	}
 
 }
