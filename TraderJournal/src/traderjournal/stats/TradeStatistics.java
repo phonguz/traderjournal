@@ -46,6 +46,22 @@ public class TradeStatistics {
 		return ts;
 	}
 	
+	public Double getLatestOpenPrice(){
+		TradeeventHome teh = new TradeeventHome();
+		Transaction tx = teh.getSessionFactory().getCurrentSession().beginTransaction();
+		teh.getSessionFactory().getCurrentSession().refresh(currentTrade);
+		Set<Tradeevent> events = currentTrade.getTradeevents();
+		Double ret = currentTrade.getOpenprice();
+		for(Tradeevent te : getOrderedEvents(events)){
+			if(te.getTradeeventtype().getName().equals("Add To Position") && te.getNewValue() !=null && te.getNewValue()!= 0d){
+				ret = te.getNewValue();
+			}
+			
+		}
+		tx.commit();
+		return ret;
+	}
+	
 	public Double getLatestSL(){
 		TradeeventHome teh = new TradeeventHome();
 		Transaction tx = teh.getSessionFactory().getCurrentSession().beginTransaction();
@@ -116,14 +132,14 @@ public class TradeStatistics {
 	
 	public double getCurrentRR(){
 		if(canCalcStat())
-			return getRR(currentTrade.getOpenprice().doubleValue(),getLatestSL().doubleValue(),getLatestTP().doubleValue());
+			return getRR(getLatestOpenPrice().doubleValue(),getLatestSL().doubleValue(),getLatestTP().doubleValue());
 		else
 			return 0d;
 	}
 	
 	public double getRealisedRR(){
-		if(canCalcStat())
-		return getRR(currentTrade.getOpenprice(),currentTrade.getStoploss().doubleValue(),currentTrade.getCloseprice().doubleValue());
+		if(canCalcStat()  && currentTrade.getCloseprice() != null)
+			return getRR(getLatestOpenPrice(),currentTrade.getStoploss().doubleValue(),currentTrade.getCloseprice().doubleValue());
 		else
 			return 0d;
 	}
