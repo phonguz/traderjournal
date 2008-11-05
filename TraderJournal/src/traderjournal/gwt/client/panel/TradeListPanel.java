@@ -5,6 +5,7 @@ import java.util.List;
 
 import traderjournal.gwt.client.service.TradeInterface;
 import traderjournal.gwt.client.service.TradeInterfaceAsync;
+import traderjournal.model.hibernate.Instrument;
 import traderjournal.model.hibernate.Trade;
 
 import com.google.gwt.core.client.GWT;
@@ -67,7 +68,9 @@ public class TradeListPanel extends Composite {
 
 			for (Trade trade : result) {
 
-				fx.setText(i, 1, trade.getInstrument().getName());
+				Instrument ins = trade.getInstrument();
+				if(ins != null)
+					fx.setText(i, 1, trade.getInstrument().getName());
 
 				fx.getFlexCellFormatter().setStyleName(i, 1, "tj-Table-Cell");
 

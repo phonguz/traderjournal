@@ -4,16 +4,9 @@ import java.util.List;
 
 import net.sf.hibernate4gwt.core.HibernateBeanManager;
 import net.sf.hibernate4gwt.gwt.HibernateRemoteService;
-
-import org.hibernate.Query;
-import org.hibernate.StatelessSession;
-import org.hibernate.Transaction;
-
 import traderjournal.gwt.client.service.TradeInterface;
 import traderjournal.model.DBUtils;
 import traderjournal.model.hibernate.Trade;
-
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class TradeServiceImpl extends HibernateRemoteService implements
 		TradeInterface {
@@ -23,7 +16,7 @@ public class TradeServiceImpl extends HibernateRemoteService implements
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public TradeServiceImpl() {
+	public TradeServiceImpl() { 
 		 DBUtils.setupHBM();
 		 HibernateBeanManager.getInstance().setSessionFactory(DBUtils.getSessionFactory());
 	}
