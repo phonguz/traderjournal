@@ -9,5 +9,5 @@ import com.google.gwt.user.client.rpc.RemoteService;
 public interface TradeInterface extends RemoteService {
 
 	public List<Trade> findAll();
-	
+	public Trade findTradeByTradeID(int tradeID);
 }

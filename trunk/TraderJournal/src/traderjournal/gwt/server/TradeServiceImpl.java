@@ -47,5 +47,12 @@ public class TradeServiceImpl extends HibernateRemoteService implements
 //		else
 //			return null;
 	}
+	
+	
+	public Trade findTradeByTradeID(int tradeID){
+		TradeRemoteImpl ti = new TradeRemoteImpl();
+		return ti.findTradeByTradeID(tradeID);
+		
+	}
 
 }

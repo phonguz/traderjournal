@@ -19,5 +19,11 @@ public class TradeRemoteImpl  {
 		
 	}
 	
+	public Trade findTradeByTradeID(int tradeID){
+		TradeHome th = new TradeHome();
+		return th.findById(tradeID);
+		
+	}
+	
 
 }
