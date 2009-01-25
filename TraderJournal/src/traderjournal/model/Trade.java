@@ -7,8 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import com.extjs.gxt.ui.client.data.ModelData;
 
 public class Trade {
 
@@ -378,4 +382,5 @@ public class Trade {
 		this.reference = reference;
 	}
 
+	
 }
