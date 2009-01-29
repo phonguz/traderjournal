@@ -112,7 +112,7 @@ public class AccountDetailView extends ViewPart implements ISelectionListener, I
 					
 						Account ac = new Account();
 						ac.setName("NewAccount");
-						ac.setBalance(0);
+						ac.setBalance(0.0);
 						ac.setCcy(new CcyHome().findAll().get(0));
 						
 						int biggestID =0;
