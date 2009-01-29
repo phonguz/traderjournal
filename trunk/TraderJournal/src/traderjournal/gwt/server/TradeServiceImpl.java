@@ -6,6 +6,7 @@ import net.sf.hibernate4gwt.core.HibernateBeanManager;
 import net.sf.hibernate4gwt.gwt.HibernateRemoteService;
 import traderjournal.gwt.client.service.TradeInterface;
 import traderjournal.model.DBUtils;
+import traderjournal.model.hibernate.Instrument;
 import traderjournal.model.hibernate.Trade;
 
 public class TradeServiceImpl extends HibernateRemoteService implements
@@ -52,6 +53,12 @@ public class TradeServiceImpl extends HibernateRemoteService implements
 	public Trade findTradeByTradeID(int tradeID){
 		TradeRemoteImpl ti = new TradeRemoteImpl();
 		return ti.findTradeByTradeID(tradeID);
+		
+	}
+	
+	public List <Instrument>  findAllInstruments(){
+		TradeRemoteImpl ti = new TradeRemoteImpl();
+		return ti.findAllInstruments();
 		
 	}
 
