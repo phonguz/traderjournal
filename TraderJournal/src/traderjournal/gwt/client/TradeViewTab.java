@@ -2,14 +2,15 @@ package traderjournal.gwt.client;
 
 import java.util.List;
 
+
+
 import traderjournal.gwt.client.service.TradeInterface;
 import traderjournal.gwt.client.service.TradeInterfaceAsync;
 import traderjournal.model.hibernate.Account;
 import traderjournal.model.hibernate.Trade;
 
 import com.extjs.gxt.ui.client.Events;
-import com.extjs.gxt.ui.client.Style.Orientation;
-import com.extjs.gxt.ui.client.Style.SelectionMode;
+import com.extjs.gxt.ui.client.Style.LayoutRegion;
 import com.extjs.gxt.ui.client.binder.TreeBinder;
 import com.extjs.gxt.ui.client.binding.FormBinding;
 import com.extjs.gxt.ui.client.data.BaseTreeLoader;
@@ -18,20 +19,21 @@ import com.extjs.gxt.ui.client.data.ModelStringProvider;
 import com.extjs.gxt.ui.client.data.RpcProxy;
 import com.extjs.gxt.ui.client.data.TreeLoader;
 import com.extjs.gxt.ui.client.event.Listener;
-import com.extjs.gxt.ui.client.event.SelectionEvent;
 import com.extjs.gxt.ui.client.event.TreeEvent;
 import com.extjs.gxt.ui.client.store.Store;
 import com.extjs.gxt.ui.client.store.StoreSorter;
 import com.extjs.gxt.ui.client.store.TreeStore;
+import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.form.DateField;
 import com.extjs.gxt.ui.client.widget.form.FormPanel;
 import com.extjs.gxt.ui.client.widget.form.NumberField;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
+import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
+import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
 import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
 import com.extjs.gxt.ui.client.widget.layout.RowData;
-import com.extjs.gxt.ui.client.widget.layout.RowLayout;
 import com.extjs.gxt.ui.client.widget.tree.Tree;
 import com.extjs.gxt.ui.client.widget.treetable.TreeTable;
 import com.google.gwt.core.client.GWT;
@@ -54,7 +56,16 @@ public class TradeViewTab extends LayoutContainer   {
 	    cp.setHeading("Form Bindings");  
 	    cp.setFrame(true);  
 	    cp.setSize(800, 400);  
-	    cp.setLayout(new RowLayout(Orientation.HORIZONTAL));  
+	    cp.setLayout(new BorderLayout());  
+	    BorderLayoutData westData = new BorderLayoutData(LayoutRegion.WEST,200);
+	    westData.setSplit(true);   
+	    westData.setCollapsible(true);   
+	    westData.setMargins(new Margins(5));   
+	    BorderLayoutData eastData = new BorderLayoutData(LayoutRegion.EAST,400);
+	    eastData.setSplit(true);   
+	    eastData.setCollapsible(true);   
+	    eastData.setMargins(new Margins(5));   
+	    
 	  TreeTable tt = new TreeTable();
 	  Grid<Trade> g ;
 	  
@@ -69,12 +80,12 @@ public class TradeViewTab extends LayoutContainer   {
 	          }  
 	        });
 	         
-	    cp.add(tree, new RowData(.6, 1));  
+	    cp.add(tree,westData);  
 	  
 	    FormPanel panel = createForm();  
 	    formBindings = new FormBinding(panel, true);  
 	  
-	    cp.add(panel, new RowData(.4, 1));  
+	    cp.add(panel, eastData);  
 	  
 	    add(cp);  
 	  }  
@@ -96,6 +107,12 @@ public class TradeViewTab extends LayoutContainer   {
 	    openPrice.setFieldLabel("OpenPrice");  
 	    openPrice.setFormat(NumberFormat.getDecimalFormat());  
 	    panel.add(openPrice);  
+	    
+	    com.extjs.gxt.ui.client.widget.form.ComboBox<ModelData> instruments = new com.extjs.gxt.ui.client.widget.form.ComboBox<ModelData> ();  
+	    instruments.setName("instrument");  
+	    openPrice.setFieldLabel("OpenPrice");  
+	    openPrice.setFormat(NumberFormat.getDecimalFormat());  
+	    panel.add(openPrice); 
 	  
 	    return panel;  
 	  }  
