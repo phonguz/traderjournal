@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2009/01/29 04:12:23 by Hibernate Tools 3.2.4.CR1 -->
+<hibernate-mapping>
+    <class name="traderjournal.model.hibernate.Ccy" table="CCY" schema="PUBLIC">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="NAME" length="25" not-null="true" />
+        </property>
+        <set name="accounts" inverse="true">
+            <key>
+                <column name="BASE_CCY_ID" not-null="true" />
+            </key>
+            <one-to-many class="traderjournal.model.hibernate.Account" />
+        </set>
+        <set name="instruments" inverse="true">
+            <key>
+                <column name="BASE_CCY_ID" />
+            </key>
+            <one-to-many class="traderjournal.model.hibernate.Instrument" />
+        </set>
+    </class>
+</hibernate-mapping>
