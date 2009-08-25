@@ -48,6 +48,7 @@ public class ImageView extends ViewPart implements ISelectionListener {
 	Tradeeventimage eventImage;
 	Tradeevent tradeEvent;
 	Composite parentComposite;
+	
 
 	/**
 	 * 
@@ -153,7 +154,7 @@ public class ImageView extends ViewPart implements ISelectionListener {
 					| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 			Composite cmp = new Composite(cTabFolder, SWT.NONE);
 			cmp.setLayoutData(gData);
-			cmp.setLayout(new GridLayout(4, false));
+			cmp.setLayout(new GridLayout(5, false));
 
 			Label lbl = new Label(cmp, SWT.NONE);
 			lbl.setText("Description");
@@ -178,6 +179,7 @@ public class ImageView extends ViewPart implements ISelectionListener {
 
 				}
 			});
+			
 			Button btnSAVE = new Button(cmp, SWT.PUSH);
 			btnSAVE.setText("SAVE");
 			btnSAVE.setData(ti);
@@ -224,11 +226,36 @@ public class ImageView extends ViewPart implements ISelectionListener {
 
 				}
 			});
-			SWTImageCanvas sic = new SWTImageCanvas(cmp);
+			
+			Button btnFitToScreen = new Button(cmp, SWT.PUSH);
+			
+			SWTImageCanvas  sic = new SWTImageCanvas(cmp);
+			
+			
+			btnFitToScreen.setText("FIT");
+			btnFitToScreen.setData(sic);
+			btnFitToScreen.addSelectionListener(new SelectionListener() {
+
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+
+				}
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					SWTImageCanvas si = (SWTImageCanvas)e.widget.getData();
+					si.fitCanvas();
+
+				}
+			});
+
+		
+			
+			
 			 GridData gridData = new GridData(GridData.FILL_BOTH
 			 | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 			 gridData.grabExcessVerticalSpace = true;
-			 gridData.horizontalSpan = 4;
+			 gridData.horizontalSpan = 5;
 			 sic.setLayoutData(gridData);
 			
 			
@@ -289,8 +316,9 @@ public class ImageView extends ViewPart implements ISelectionListener {
 			cTabItemList.add(cti);
 			i++;
 			cTabFolder.setSelection(i);
-
+			
 		}
+			
 		th.getSessionFactory().getCurrentSession().getTransaction().commit();
 		cTabFolder.setSelection(0);
 		cTabFolder.redraw();
