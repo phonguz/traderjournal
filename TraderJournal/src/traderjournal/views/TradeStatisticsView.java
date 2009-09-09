@@ -47,6 +47,7 @@ public class TradeStatisticsView extends ViewPart implements ISelectionListener 
 		Label lblOr = new Label(composite1, SWT.NONE);
 		lblOr.setText("Ori RR");
 		originalRR = new Text(composite1, SWT.NONE);
+		originalRR.setSize(30, 8);
 		originalRR.setText("");
 
 		Label lblcur = new Label(composite1, SWT.NONE);
