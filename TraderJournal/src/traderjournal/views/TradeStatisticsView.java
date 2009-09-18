@@ -33,6 +33,9 @@ public class TradeStatisticsView extends ViewPart implements ISelectionListener 
 
 		getSite().getPage().addSelectionListener(TradeListView.ID,
 				(ISelectionListener) this);
+		GridData gridData2 = new GridData();
+		GridData gridData1 = new GridData();
+		GridData gridData = new GridData();
 		parent.setLayout(new GridLayout());
 		GridData gd = new GridData(GridData.FILL_BOTH
 				| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
@@ -47,19 +50,23 @@ public class TradeStatisticsView extends ViewPart implements ISelectionListener 
 		Label lblOr = new Label(composite1, SWT.NONE);
 		lblOr.setText("Ori RR");
 		originalRR = new Text(composite1, SWT.NONE);
-		originalRR.setSize(30, 8);
 		originalRR.setText("");
 
+		originalRR.setLayoutData(gridData1);
+
+		originalRR.setSize(30, 8);
 		Label lblcur = new Label(composite1, SWT.NONE);
 		lblcur.setText("Cur RR");
 		currentRR = new Text(composite1, SWT.NONE);
 		currentRR.setText("");
 
+		currentRR.setLayoutData(gridData);
 		Label lblreal = new Label(composite1, SWT.NONE);
 		lblreal.setText("Real RR");
 		realisedRR = new Text(composite1, SWT.NONE);
 		realisedRR.setText("");
 
+		realisedRR.setLayoutData(gridData2);
 	}
 
 	@Override

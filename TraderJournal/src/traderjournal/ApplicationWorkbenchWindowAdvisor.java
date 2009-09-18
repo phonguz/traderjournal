@@ -1,6 +1,9 @@
 package traderjournal;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.ui.IWorkbenchPreferenceConstants;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
@@ -24,5 +27,10 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setInitialSize(new Point(1024, 768));
         configurer.setShowCoolBar(true);
         configurer.setShowStatusLine(false);
+        configurer.setShowPerspectiveBar(true);
+        IPreferenceStore apiStore = PlatformUI.getPreferenceStore();
+		apiStore.setValue(IWorkbenchPreferenceConstants.DOCK_PERSPECTIVE_BAR,
+				"TOP_RIGHT");
+
     }
 }

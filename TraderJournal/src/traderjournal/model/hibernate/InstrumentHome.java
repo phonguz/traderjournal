@@ -1,6 +1,6 @@
 package traderjournal.model.hibernate;
 
-// Generated 2008/06/12 11:43:14 by Hibernate Tools 3.2.2.GA
+// Generated 2009/09/11 03:55:58 by Hibernate Tools 3.2.5.Beta
 
 import java.util.List;
 import org.apache.commons.logging.Log;
@@ -9,7 +9,7 @@ import org.hibernate.LockMode;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import static org.hibernate.criterion.Example.create;
+import org.hibernate.criterion.Example;
 import traderjournal.model.DBUtils;
 
 /**
@@ -130,14 +130,13 @@ public class InstrumentHome {
 		}
 	}
 
-	public List<Instrument> findByExample(Instrument instance) {
+	public List findByExample(Instrument instance) {
 		log.debug("finding Instrument instance by example");
 		try {
 			startOperation();
-			List<Instrument> results = (List<Instrument>) sessionFactory
-					.getCurrentSession().createCriteria(
-							"traderjournal.model.hibernate.Instrument").add(
-							create(instance)).list();
+			List results = sessionFactory.getCurrentSession().createCriteria(
+					"traderjournal.model.hibernate.Instrument").add(
+					Example.create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());
 			tx.commit();

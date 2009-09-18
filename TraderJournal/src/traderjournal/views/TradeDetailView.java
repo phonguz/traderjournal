@@ -1,5 +1,6 @@
 package traderjournal.views;
 
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +13,10 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -41,6 +46,8 @@ import traderjournal.model.hibernate.TraderHome;
 import traderjournal.views.labelproviders.LabelUtils;
 import traderjournal.views.verify.DoubleVerifyListener;
 import traderjournal.views.verify.IntegerVerifyListener;
+import org.eclipse.jface.viewers.ComboViewer;
+import org.hibernate.Transaction;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -84,11 +91,25 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 	private Text txtCarryCost;
 	private Label lblAccount;
 	private Combo cmbAccounts;
-	private CDateTime dateTime;
-	private Trade trade = new Trade();
-	private TradeHome th = new TradeHome();
+	private Label lblAccountBalance;
+	private Text txtAccountBalance;
+	private Label lblAccountPercentRisk;
+	private Text txtAccountPercentRisk;
+	
+	private Label lblSugTradeValue;
+	private Text txtSugTradeValue;
+	
+	
+	private Label lblSugTradeSize;
+	private Text txtSugTradeSize;
+	
+	
+	private Trade trade = new Trade();  //  @jve:decl-index=0:
+	private TradeHome th = new TradeHome();  //  @jve:decl-index=0:
 	Composite composite1;
-
+	
+	SuggestModifyListener mySugModifyListener = new SuggestModifyListener();
+    
 	/**
 	 * 
 	 */
@@ -96,6 +117,38 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
+	
+	private class SuggestModifyListener implements ModifyListener{
+
+		@Override
+		public void modifyText(ModifyEvent e) {
+			double sl =0;
+			double open = 0;
+			double acbalance =0;
+			double acrisk = 0;
+			double rpp = 1;
+			try{
+				sl = getDoubleFromtTextBox(txtSL);
+				open = getDoubleFromtTextBox(txtOpenPrice);
+				acbalance = getDoubleFromtTextBox(txtAccountBalance);
+				acrisk = getDoubleFromtTextBox(txtAccountPercentRisk);
+				rpp = ((Instrument)cmbIns.getData( cmbIns.getItem(cmbIns.getSelectionIndex()))).getValuePerPoint();
+				double sugqty = calcSugQTY(sl, open, acbalance, acrisk,rpp);
+				
+			}catch(Exception ee){
+				ee.printStackTrace();
+				
+			}
+			
+			
+			
+		}
+		
+	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -113,6 +166,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 				parent.setLayout(new GridLayout());
 				GridData gd = new GridData(GridData.FILL_BOTH
 						| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
+				gd.verticalSpan = 2;
 				GridLayout gl = new GridLayout();
 				gl.numColumns = 2;
 				composite1 = new Composite(parent, SWT.NULL);
@@ -126,6 +180,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 			
 					cmbIns = new Combo(composite1,SWT.NONE);
 					cmbIns.setToolTipText("DoubleClick me to add new Instruments");
+					comboViewer = new ComboViewer(cmbIns);
 					cmbIns.addListener(SWT.MouseDoubleClick, new Listener(){
 
 						@Override
@@ -145,11 +200,6 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 
 					txtOpenDate = new Text(composite1, SWT.NONE);
 
-					Label l2 = new Label(composite1, SWT.NONE);
-					l2.setText("ODate2");
-					dateTime = new CDateTime(composite1, CDT.BORDER
-							| CDT.SPINNER );
-					dateTime.setPattern("yyyy-MM-dd HH:mm");
 					
 				}
 				{
@@ -158,6 +208,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 
 					txtOpenPrice = new Text(composite1, SWT.NONE);
 					txtOpenPrice.addVerifyListener(new DoubleVerifyListener());
+					txtOpenPrice.addModifyListener(mySugModifyListener);
 
 				}
 				{
@@ -167,8 +218,8 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 				}
 				{
 					txtQty = new Text(composite1, SWT.NONE);
-					txtQty.setText("" + trade.getTp());
-					txtQty.setBounds(39, 88, 70, 13);
+					//txtQty.setText("" + trade.getTp());
+					
 					txtQty.addVerifyListener(new DoubleVerifyListener());
 				}
 
@@ -180,6 +231,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 				{
 					txtSL = new Text(composite1, SWT.NONE);
 					txtSL.addVerifyListener(new DoubleVerifyListener());
+					txtSL.addModifyListener( mySugModifyListener);
 				}
 				{
 					label1 = new Label(composite1, SWT.NONE);
@@ -226,6 +278,44 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 					cmbAccounts = new Combo(composite1, SWT.NONE);
 
 				}
+				
+				{
+					lblAccountBalance = new Label(composite1, SWT.NONE);
+					lblAccountBalance.setText("AcctBalance");
+
+					txtAccountBalance = new Text(composite1, SWT.NONE);
+					txtAccountBalance.addVerifyListener(new DoubleVerifyListener());
+					txtAccountBalance.addModifyListener( mySugModifyListener);
+					
+				}	
+				
+				{
+					lblAccountPercentRisk = new Label(composite1, SWT.NONE);
+					lblAccountPercentRisk.setText("Acc % Risk");
+
+					txtAccountPercentRisk = new Text(composite1, SWT.NONE);
+					txtAccountPercentRisk.addVerifyListener(new DoubleVerifyListener());
+					txtAccountPercentRisk.addModifyListener( mySugModifyListener);
+					
+				}
+				{
+					lblSugTradeSize = new Label(composite1, SWT.NONE);
+					lblSugTradeSize.setText("Sug QTY");
+
+					txtSugTradeSize = new Text(composite1, SWT.NONE);
+					txtSugTradeSize.addVerifyListener(new DoubleVerifyListener());
+					
+				}
+				
+				{
+					lblSugTradeValue = new Label(composite1, SWT.NONE);
+					lblSugTradeValue.setText("Sug QTY");
+
+					txtSugTradeValue = new Text(composite1, SWT.NONE);
+					txtSugTradeValue.addVerifyListener(new DoubleVerifyListener());
+					
+				}
+				
 
 				{
 					btnSave = new Button(composite1, SWT.PUSH | SWT.CENTER);
@@ -235,13 +325,13 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 						public void widgetSelected(SelectionEvent evt) {
 
 							trade
-									.setOpenprice(getDoubleFromtTextBox(txtOpenPrice));
+									.setOpenprice(getDoubleOrZeroFromtTextBox(txtOpenPrice));
 
 							trade
-									.setCloseprice(getDoubleFromtTextBox(txtClose));
-							trade.setStoploss(getDoubleFromtTextBox(txtSL));
-							trade.setTp(getDoubleFromtTextBox(txtTP));
-							trade.setQty(getDoubleFromtTextBox(txtQty));
+									.setCloseprice(getDoubleOrZeroFromtTextBox(txtClose));
+							trade.setStoploss(getDoubleOrZeroFromtTextBox(txtSL));
+							trade.setTp(getDoubleOrZeroFromtTextBox(txtTP));
+							trade.setQty(getDoubleOrZeroFromtTextBox(txtQty));
 							
 							trade.setInstrument((Instrument)cmbIns.getData(cmbIns.getItem(cmbIns.getSelectionIndex())));
 							
@@ -256,7 +346,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 							}
 							trade.setReference(txtReference.getText());
 							trade
-									.setCarrycost(getDoubleFromtTextBox(txtCarryCost));
+									.setCarrycost(getDoubleOrZeroFromtTextBox(txtCarryCost));
 							AccountHome ach = new AccountHome();
 							List<Account> li = ach.findAll();
 							for (Account ac : li) {
@@ -342,14 +432,18 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 
 	}
 
-	private Double getDoubleFromtTextBox(Text box) {
-		try {
-			return Double.parseDouble(box.getText());
-		} catch (NumberFormatException ne) {
-			// Leave as was;
-		}
-		return null;
+	private Double getDoubleFromtTextBox(Text box) throws NumberFormatException{
+			String txt = box.getText();
+			txt = txt.replaceAll(",", "");
+			return Double.parseDouble(txt);
 	}
+	
+	private Double getDoubleOrZeroFromtTextBox(Text box) {
+		try{
+		return Double.parseDouble(box.getText());
+		}catch(NumberFormatException ne){}
+		return 0.0;
+}
 
 	private Integer getIntegerFromtTextBox(Text box) {
 		try {
@@ -420,6 +514,23 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 					txtCarryCost.setText("" + trade.getCarrycost());
 				else
 					txtCarryCost.setText("");
+				
+				if (trade.getAccount() != null ){
+					Transaction tx = th.getSessionFactory().getCurrentSession().beginTransaction();
+					th.getSessionFactory().getCurrentSession().refresh(trade);
+					txtAccountBalance.setText("" + LabelUtils.priceFormat.format(trade.getAccount().getBalance()));
+					tx.commit();
+				}else
+					txtAccountBalance.setText("");
+				
+				if (trade.getAccount() != null  ){
+					Transaction tx1 = th.getSessionFactory().getCurrentSession().beginTransaction();
+				th.getSessionFactory().getCurrentSession().refresh(trade);
+					txtAccountPercentRisk.setText("" + trade.getAccount().getPercentRisk());
+					tx1.commit();
+				}else
+					txtAccountPercentRisk.setText("");
+				
 
 				cmbAccounts.clearSelection();
 				cmbAccounts.removeAll();
@@ -459,6 +570,25 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 
 		}
 	}
+	
+	public double calcSugQTY(double sl,  double open, double acbalance, double acrisk, double rpp){
+		
+		double ret = 0;
+		double valrisk = acbalance * acrisk /100;
+		double riskpts = (open - sl) * rpp;
+		if(riskpts < 0) {//short
+			ret = valrisk / -riskpts;
+		}else{ //long
+			ret = valrisk / riskpts;
+			
+		}
+		
+		txtSugTradeSize.setText(ret + "");	
+		
+		return ret;
+		
+		
+	}
 
 	public void dispose() {
 		super.dispose();
@@ -467,6 +597,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 	}
 
 	List<ISelectionChangedListener> listenerList = new ArrayList<ISelectionChangedListener>();
+	private ComboViewer comboViewer = null;
 
 	@Override
 	public void addSelectionChangedListener(ISelectionChangedListener listener) {

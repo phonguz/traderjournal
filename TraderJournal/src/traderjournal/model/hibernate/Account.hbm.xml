@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2009/01/29 04:12:23 by Hibernate Tools 3.2.4.CR1 -->
+<!-- Generated 2009/09/11 03:55:57 by Hibernate Tools 3.2.5.Beta -->
 <hibernate-mapping>
     <class name="traderjournal.model.hibernate.Account" table="ACCOUNT" schema="PUBLIC">
-        <id name="id" type="java.lang.Integer">
+        <id name="id" type="int">
             <column name="ID" />
             <generator class="identity" />
         </id>
@@ -14,8 +14,11 @@
         <property name="name" type="string">
             <column name="NAME" length="250" not-null="true" />
         </property>
-        <property name="balance" type="java.lang.Double">
+        <property name="balance" type="double">
             <column name="BALANCE" precision="0" scale="0" not-null="true" />
+        </property>
+        <property name="percentRisk" type="java.lang.Double">
+            <column name="PERCENT_RISK" precision="0" scale="0" />
         </property>
         <set name="trades" inverse="true">
             <key>

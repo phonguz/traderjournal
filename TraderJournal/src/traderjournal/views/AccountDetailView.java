@@ -39,6 +39,8 @@ public class AccountDetailView extends ViewPart implements ISelectionListener, I
 	Label lblBalance = null;
 	Text txtBalance = null;
 	
+	Label lblPercentRisk = null;
+	Text txtPercentRisk = null;
 	
 	
 	Button btnSave;
@@ -83,6 +85,10 @@ public class AccountDetailView extends ViewPart implements ISelectionListener, I
 			lblBalance.setText("Balance");
 			txtBalance = new Text(composite1,SWT.NONE);
 			
+			lblPercentRisk = new Label(composite1,SWT.NONE);
+			lblPercentRisk.setText("% Risk");
+			txtPercentRisk = new Text(composite1,SWT.NONE);
+			
 			
 		}
 		{
@@ -96,6 +102,7 @@ public class AccountDetailView extends ViewPart implements ISelectionListener, I
 					
 					account.setCcy(list.get(cmbCCY.getSelectionIndex())  );
 					account.setBalance(Double.parseDouble(txtBalance.getText()));
+					account.setPercentRisk(Double.parseDouble(txtPercentRisk.getText()));
 					acHome.getSessionFactory().getCurrentSession().beginTransaction();
 					acHome.attachDirty(account);
 					acHome.getSessionFactory().getCurrentSession().getTransaction().commit();
@@ -114,7 +121,7 @@ public class AccountDetailView extends ViewPart implements ISelectionListener, I
 						ac.setName("NewAccount");
 						ac.setBalance(0.0);
 						ac.setCcy(new CcyHome().findAll().get(0));
-						
+						ac.setPercentRisk(2.0);
 						int biggestID =0;
 						for(Account acl:acHome.findAll()){
 							if(acl.getId() > biggestID)
@@ -174,7 +181,7 @@ public class AccountDetailView extends ViewPart implements ISelectionListener, I
 				
 				cmbCCY.select(account.getCcy().getId());
 				txtBalance.setText(Double.toString(account.getBalance()));
-	
+				txtPercentRisk.setText(Double.toString(account.getPercentRisk()));
 		}
 		
 		
