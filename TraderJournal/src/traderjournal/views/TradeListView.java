@@ -9,6 +9,7 @@ import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -55,6 +56,26 @@ public class TradeListView extends ViewPart  implements ISelectionListener{
 
 
 	class NameSorter extends ViewerSorter {
+
+		@Override
+		public int compare(Viewer viewer, Object e1, Object e2) {
+			if(e1 instanceof Account){
+				Account ac1 = (Account)e1;
+				Account ac2 = (Account)e2;
+				
+			}
+			if(e1 instanceof Trade){
+				Trade t1 = (Trade)e1;
+				Trade t2 = (Trade)e2;
+				return t1.getOpenTradeDate().compareTo(t2.getOpenTradeDate());
+				//return collator.compare(t1.getOpenTradeDate(), t2.getOpenTradeDate());
+			}
+			return super.compare(viewer, e1, e2);
+			
+			
+			
+			
+		}
 	}
 
 	/**
