@@ -1,5 +1,6 @@
 package traderjournal.views;
 
+
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -584,11 +585,13 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 		}
 		
 		txtSugTradeSize.setText(ret + "");	
+		txtSugTradeValue.setText((ret * open) + "");
 		
 		return ret;
 		
 		
 	}
+	
 
 	public void dispose() {
 		super.dispose();
