@@ -10,7 +10,6 @@ import org.eclipse.ui.PlatformUI;
 import org.hsqldb.HsqlServerFactory;
 import org.hsqldb.Server;
 
-import sun.security.action.GetLongAction;
 import traderjournal.model.DBUtils;
 
 /**
@@ -27,7 +26,7 @@ public class Application implements IApplication {
 	throws Exception {
 		
 		hs.setDatabaseName(0, "TradeTrack");
-		hs.setDatabasePath(0, "file:c:/dev/galileoworkspace/traderjournal/dbdata/TradeTrack");
+		hs.setDatabasePath(0, "file:c:/dev/eclipseheliosrcp/traderjournal/dbdata/TradeTrack");
 		hs.start();
 		
 		

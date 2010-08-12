@@ -6,7 +6,6 @@ import java.util.TreeSet;
 
 import org.hibernate.Transaction;
 
-import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
 
 import traderjournal.model.hibernate.Trade;
 import traderjournal.model.hibernate.Tradeevent;

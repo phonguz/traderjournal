@@ -5,7 +5,7 @@ import org.eclipse.ui.IPerspectiveFactory;
 
 import traderjournal.views.AccountListView;
 import traderjournal.views.ImageView;
-import traderjournal.views.ReportView;
+//import traderjournal.views.ReportView;
 import traderjournal.views.TradeDetailView;
 import traderjournal.views.TradeListView;
 import traderjournal.views.TradeReportListView;
@@ -19,7 +19,7 @@ public class ReportPerspective implements IPerspectiveFactory {
 		String editorArea = layout.getEditorArea();
 		layout.setEditorAreaVisible(false);
 		layout.addView(TradeReportListView.ID, IPageLayout.LEFT,0.2f, editorArea);
-		layout.addView(ReportView.ID, IPageLayout.RIGHT, 0.2f, TradeListView.ID);
+		//layout.addView(ReportView.ID, IPageLayout.RIGHT, 0.2f, TradeListView.ID);
 		
 	}
 
