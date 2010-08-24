@@ -20,4 +20,5 @@ Bundle-ClassPath: lib/commons-collections-2.1.1.jar,
  lib/cglib-2.1.3.jar,
  lib/asm-attrs.jar,
  lib/asm.jar,
- lib/antlr-2.7.6.jar
+ lib/antlr-2.7.6.jar,
+ lib/jta.jar
