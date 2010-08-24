@@ -1,13 +1,14 @@
 package traderjournal.editors;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -16,13 +17,18 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.dnd.Clipboard;
+import org.eclipse.swt.dnd.ImageTransfer;
+import org.eclipse.swt.dnd.TextTransfer;
+import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
@@ -31,6 +37,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
@@ -44,6 +51,7 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
 
 import traderjournal.model.hibernate.Trade;
@@ -53,6 +61,7 @@ import traderjournal.model.hibernate.Tradeeventimage;
 import traderjournal.model.hibernate.TradeeventimageHome;
 import traderjournal.model.hibernate.Tradeeventtype;
 import traderjournal.model.hibernate.TradeeventtypeHome;
+import traderjournal.views.SWTImageCanvas;
 import traderjournal.views.TradeListView;
 import traderjournal.views.contentproviders.TradeEventContentProvider;
 import traderjournal.views.labelproviders.LabelUtils;
@@ -86,8 +95,11 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 
 	public static final int COL_ID = 0;
 	private TableColumn tblColID;
+	
+	public static final int COL_DND_UPLOAD = 7;
+	private TableColumn tblColImgDNDUpload;
 
-	public static final int COL_REMOVE = 7;
+	public static final int COL_REMOVE = 8;
 	private TableColumn tblColRemove;
 
 	private Table tblEvents;
@@ -280,6 +292,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 											.getCurrentSession()
 											.beginTransaction();
 									tradeEventHome.attachDirty(tEvent);
+									tradeEventHome.getSessionFactory().getCurrentSession().save(t);
 									tradeEventHome.getSessionFactory()
 											.getCurrentSession()
 											.getTransaction().commit();
@@ -418,6 +431,58 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 					}
 
 					break;
+				case COL_DND_UPLOAD:
+			//		Display display = new Display();
+
+					Display display = PlatformUI.getWorkbench().getDisplay();
+					final Clipboard clipboard = new Clipboard(display);
+					TransferData[] td = clipboard.getAvailableTypes();
+
+					 String data = (String) clipboard.getContents(TextTransfer
+					            .getInstance());
+
+					ImageData imageData = (ImageData)clipboard.getContents(ImageTransfer.getInstance());
+
+					Image image = null;
+					if (imageData != null) {
+						
+						
+						if (image != null) image.dispose();
+						
+						image = new Image(display, imageData);
+						/*SWTImageCanvas swtimgc = new SWTImageCanvas(rightComposite);
+						swtimgc.loadImage(image);
+						refresh();
+						*/
+						ImageLoader imgl = new ImageLoader();
+						ImageData [] imar = {imageData};
+						imgl.data = imar;
+						
+					
+						ByteArrayOutputStream byo = new ByteArrayOutputStream();
+						imgl.save(byo,SWT.IMAGE_JPEG );
+						byte [] bytes = byo.toByteArray();
+						
+						
+						
+						TradeeventimageHome tih = new TradeeventimageHome();
+						Tradeeventimage ti = new Tradeeventimage();
+
+						ti.setImg(bytes);
+						ti.setTradeevent(selectedEvent);
+						tih.getSessionFactory().getCurrentSession()
+								.beginTransaction();
+						tih.merge(ti);
+						tih.getSessionFactory().getCurrentSession()
+								.getTransaction().commit();
+						
+						
+						
+					}
+
+					
+					
+					break;
 
 				case COL_REMOVE:
 					Tradeevent te = (Tradeevent) item.getData();
@@ -523,6 +588,11 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 					tblColImg1 = new TableColumn(tblEvents, SWT.LEFT);
 					tblColImg1.setText("IMG1");
 					tblColImg1.setWidth(60);
+				}
+				{
+					tblColImgDNDUpload  = new TableColumn(tblEvents, SWT.LEFT);
+					tblColImgDNDUpload.setText("dnd");
+					tblColImgDNDUpload.setWidth(60);
 				}
 
 				{

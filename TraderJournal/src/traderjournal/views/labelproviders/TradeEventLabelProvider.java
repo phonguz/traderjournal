@@ -111,6 +111,13 @@ public class TradeEventLabelProvider implements ITableLabelProvider {
 //
 //				else
 					return "add";
+			case TradeEditor.COL_DND_UPLOAD: // / img1
+//				if (te.getAllImages() != null && te.getAllImages().size() > 0
+//						&& te.getAllImages().get(0) != null)
+//					return null;
+//
+//				else
+					return "dnd";
 
 			case TradeEditor.COL_REMOVE:
 				return null;

@@ -19,6 +19,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -260,9 +261,9 @@ public class ImageView extends ViewPart implements ISelectionListener {
 			
 			
 			ByteArrayInputStream bi = new ByteArrayInputStream(ti.getImg());
-
+			ImageData imd = new ImageData(bi);
 			Image img = new Image(Activator.getDefault().getWorkbench()
-					.getDisplay(), bi);
+					.getDisplay(), imd);
 			sic.loadImage(img);
 
 			//
