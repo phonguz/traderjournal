@@ -1,5 +1,7 @@
 package traderjournal.views;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
@@ -95,7 +97,7 @@ public class InstrumentView extends ViewPart {
 				Instrument ins = new Instrument();
 				ih.getSessionFactory().getCurrentSession().refresh(ccy);
 				ins.setCcy(ccy);
-				ins.setName("New");
+				ins.setName("1New");
 				ins.setValuePerPoint(0d);
 				ih.persist(ins);
 				tx.commit();
@@ -192,6 +194,7 @@ public class InstrumentView extends ViewPart {
 		cmbIns.removeAll();
 
 		List<Instrument> li = ih.findAll();
+		Collections.sort(li);
 		if (li != null && li.size() > 0) {
 
 			for (Instrument ins : li) {

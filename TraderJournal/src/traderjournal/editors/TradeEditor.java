@@ -1,7 +1,6 @@
 package traderjournal.editors;
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,7 +8,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import org.hibernate.Transaction;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.ISelection;
@@ -54,14 +59,16 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
 
+import traderjournal.model.TradeEvent;
 import traderjournal.model.hibernate.Trade;
+import traderjournal.model.hibernate.TradeEventOrderComparotor;
+import traderjournal.model.hibernate.TradeHome;
 import traderjournal.model.hibernate.Tradeevent;
 import traderjournal.model.hibernate.TradeeventHome;
 import traderjournal.model.hibernate.Tradeeventimage;
 import traderjournal.model.hibernate.TradeeventimageHome;
 import traderjournal.model.hibernate.Tradeeventtype;
 import traderjournal.model.hibernate.TradeeventtypeHome;
-import traderjournal.views.SWTImageCanvas;
 import traderjournal.views.TradeListView;
 import traderjournal.views.contentproviders.TradeEventContentProvider;
 import traderjournal.views.labelproviders.LabelUtils;
@@ -95,7 +102,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 
 	public static final int COL_ID = 0;
 	private TableColumn tblColID;
-	
+
 	public static final int COL_DND_UPLOAD = 7;
 	private TableColumn tblColImgDNDUpload;
 
@@ -292,7 +299,8 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 											.getCurrentSession()
 											.beginTransaction();
 									tradeEventHome.attachDirty(tEvent);
-									tradeEventHome.getSessionFactory().getCurrentSession().save(t);
+									tradeEventHome.getSessionFactory()
+											.getCurrentSession().save(t);
 									tradeEventHome.getSessionFactory()
 											.getCurrentSession()
 											.getTransaction().commit();
@@ -432,39 +440,38 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 
 					break;
 				case COL_DND_UPLOAD:
-			//		Display display = new Display();
+					// Display display = new Display();
 
 					Display display = PlatformUI.getWorkbench().getDisplay();
 					final Clipboard clipboard = new Clipboard(display);
 					TransferData[] td = clipboard.getAvailableTypes();
 
-					 String data = (String) clipboard.getContents(TextTransfer
-					            .getInstance());
+					String data = (String) clipboard.getContents(TextTransfer
+							.getInstance());
 
-					ImageData imageData = (ImageData)clipboard.getContents(ImageTransfer.getInstance());
+					ImageData imageData = (ImageData) clipboard
+							.getContents(ImageTransfer.getInstance());
 
 					Image image = null;
 					if (imageData != null) {
-						
-						
-						if (image != null) image.dispose();
-						
+
+						if (image != null)
+							image.dispose();
+
 						image = new Image(display, imageData);
-						/*SWTImageCanvas swtimgc = new SWTImageCanvas(rightComposite);
-						swtimgc.loadImage(image);
-						refresh();
-						*/
+						/*
+						 * SWTImageCanvas swtimgc = new
+						 * SWTImageCanvas(rightComposite);
+						 * swtimgc.loadImage(image); refresh();
+						 */
 						ImageLoader imgl = new ImageLoader();
-						ImageData [] imar = {imageData};
+						ImageData[] imar = { imageData };
 						imgl.data = imar;
-						
-					
+
 						ByteArrayOutputStream byo = new ByteArrayOutputStream();
-						imgl.save(byo,SWT.IMAGE_JPEG );
-						byte [] bytes = byo.toByteArray();
-						
-						
-						
+						imgl.save(byo, SWT.IMAGE_JPEG);
+						byte[] bytes = byo.toByteArray();
+
 						TradeeventimageHome tih = new TradeeventimageHome();
 						Tradeeventimage ti = new Tradeeventimage();
 
@@ -475,13 +482,9 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 						tih.merge(ti);
 						tih.getSessionFactory().getCurrentSession()
 								.getTransaction().commit();
-						
-						
-						
+
 					}
 
-					
-					
 					break;
 
 				case COL_REMOVE:
@@ -590,7 +593,7 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 					tblColImg1.setWidth(60);
 				}
 				{
-					tblColImgDNDUpload  = new TableColumn(tblEvents, SWT.LEFT);
+					tblColImgDNDUpload = new TableColumn(tblEvents, SWT.LEFT);
 					tblColImgDNDUpload.setText("dnd");
 					tblColImgDNDUpload.setWidth(60);
 				}
@@ -619,16 +622,30 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 				Tradeevent te = new Tradeevent();
 				te.setTrade(trade);
 				te.setEventDate(new Date());
-				te.setEventorder(0);
+				Integer lastord = 0;
+
+
+				te.setEventorder(lastord.intValue());
 				te.setNewValue(0d);
 				te.setTradeeventtype(new TradeeventtypeHome().findAll().get(0));
 				tradeEventHome.getSessionFactory().getCurrentSession()
 						.beginTransaction();
 				tradeEventHome.getSessionFactory().getCurrentSession().flush();
-				tradeEventHome.getSessionFactory().getCurrentSession().refresh(
-						te.getTrade());
-				tradeEventHome.getSessionFactory().getCurrentSession().refresh(
-						te.getTradeeventtype());
+				tradeEventHome.getSessionFactory().getCurrentSession()
+						.refresh(te.getTrade());
+				Set<Tradeevent> tSet = te.getTrade().getTradeevents();
+				if (tSet.size() > 0) {
+					List<Tradeevent> li = new ArrayList<Tradeevent>(tSet);
+
+					Collections.sort(li, new TradeEventOrderComparotor());
+
+					int neword = li.get(li.size() - 1).getEventorder();
+					te.setEventorder(neword + 1);
+				}
+
+				tradeEventHome.getSessionFactory().getCurrentSession()
+						.refresh(te.getTradeeventtype());
+
 				tradeEventHome.persist(te);
 				tradeEventHome.getSessionFactory().getCurrentSession()
 						.getTransaction().commit();
@@ -666,9 +683,9 @@ public class TradeEditor extends EditorPart implements ISelectionListener {
 	}
 
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection)
-				.getFirstElement() instanceof Trade) {
-			
+		if (selection instanceof IStructuredSelection
+				&& ((IStructuredSelection) selection).getFirstElement() instanceof Trade) {
+
 			Trade newTrade = (Trade) ((IStructuredSelection) selection)
 					.getFirstElement();
 			trade = newTrade;

@@ -266,51 +266,8 @@ public class ImageView extends ViewPart implements ISelectionListener {
 					.getDisplay(), imd);
 			sic.loadImage(img);
 
-			//
-			// ScrolledComposite sc = new ScrolledComposite(cmp, SWT.V_SCROLL |
-			// SWT.H_SCROLL);
-			// GridData gridData = new GridData(GridData.FILL_BOTH
-			// | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
-			// gridData.grabExcessVerticalSpace = true;
-			// gridData.horizontalSpan = 4;
-			// sc.setLayoutData(gridData);
-			//
-			// GridData gridDatacv = new GridData(GridData.FILL_BOTH
-			// | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
-			// gridDatacv.grabExcessVerticalSpace = true;
-			//
-			//		
-			// sc.setAlwaysShowScrollBars(true);
-			//
-			// Canvas canvas = new Canvas(sc, SWT.COLOR_BLUE);
-			// sc.setContent(canvas);
-			//
-			// canvas.setLayoutData(gridDatacv);
-			// canvas.setData(ti);
-			// canvas.addPaintListener(new PaintListener() {
-			//
-			//
-			// public void paintControl(PaintEvent e) {
-			//
-			//					
-			// Tradeeventimage ti = (Tradeeventimage) e.widget.getData();
-			//
-			// ByteArrayInputStream bi = new ByteArrayInputStream(ti
-			// .getImg());
-			//
-			// Image img = new Image(Activator.getDefault().getWorkbench()
-			// .getDisplay(), bi);
-			//
-			// if (img.getImageData().width > 1024
-			// || img.getImageData().height > 768)
-			// e.gc.drawImage(new Image(img.getDevice(), img
-			// .getImageData().scaledTo(1024, 768)), 0, 0);
-			// else
-			// e.gc.drawImage(img, 0, 0);
-			// img.dispose();
-			// }
-			//
-			// });
+	
+			
 
 			cti.setControl(cmp);
 
