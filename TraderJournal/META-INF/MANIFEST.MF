@@ -5,20 +5,13 @@ Bundle-SymbolicName: TraderJournal; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: traderjournal.Activator
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ TraderJournalDataPlugin;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ClassPath: lib/commons-collections-2.1.1.jar,
- lib/commons-dbcp-1.2.2.jar,
- lib/commons-logging-1.1.1.jar,
- lib/commons-pool-1.3.jar,
- lib/hibernate3.jar,
- lib/hsqldb.jar,
- lib/nebula_cdatetime_0.9.0.jar,
+Bundle-ClassPath: lib/nebula_cdatetime_0.9.0.jar,
  .,
  lib/dom4j-1.6.1.jar,
- lib/cglib-2.1.3.jar,
- lib/asm-attrs.jar,
- lib/asm.jar,
- lib/antlr-2.7.6.jar,
  lib/jta.jar
+Bundle-Vendor: tinus
+Import-Package: org.eclipse.jface.viewers

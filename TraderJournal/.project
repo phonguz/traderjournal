@@ -3,6 +3,7 @@
 	<name>TraderJournal</name>
 	<comment></comment>
 	<projects>
+		<project>TraderJournalDataPlugin</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
