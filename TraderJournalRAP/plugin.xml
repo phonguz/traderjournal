@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.rap.ui.entrypoint">
+      <entrypoint
+            class="traderjournal.ui.rap.Application"
+            parameter="view"
+            id="traderjournal.ui.rap.Application">
+      </entrypoint>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RAP Perspective"
+            class="traderjournal.ui.rap.Perspective"
+            id="TraderJournalRAP.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="traderjournal.ui.views.InstrumentView"
+            id="traderjournal.ui.views.InstrumentView"
+            name="View">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.rap.ui.branding">
+      <branding
+            servletName="view"
+            themeId="org.eclipse.rap.design.example.fancy.theme"
+            defaultEntrypointId="traderjournal.ui.rap.Application"
+            title="RAP Single View"
+            id="traderjournal.ui.rap.branding">
+      </branding>
+   </extension>
+
+</plugin>
