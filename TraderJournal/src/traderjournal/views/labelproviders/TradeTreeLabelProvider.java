@@ -1,7 +1,5 @@
 package traderjournal.views.labelproviders;
 
-import java.text.SimpleDateFormat;
-
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
@@ -35,14 +33,16 @@ public class TradeTreeLabelProvider implements ILabelProvider {
 			return a.getName();
 		}else{
 		Trade t = (Trade)element;
+		
 		Transaction tx = DBUtils.getSessionFactory().getCurrentSession().beginTransaction();
 		DBUtils.getSessionFactory().getCurrentSession().refresh(t);
+
 		String ret =LabelUtils.getDateFormat().format(t.getOpenTradeDate());
 		if(t.getInstrument() != null)
 			ret =t.getInstrument().getName() +delim+ LabelUtils.getDateFormat().format(t.getOpenTradeDate());
-		
-			
 		tx.commit();
+			
+	
 		//DBUtils.refresh(Object obj);
 		
 		 

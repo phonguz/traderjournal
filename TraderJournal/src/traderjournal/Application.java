@@ -7,10 +7,6 @@ import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-import org.hsqldb.HsqlServerFactory;
-import org.hsqldb.Server;
-
-import traderjournal.model.DBUtils;
 
 /**
  * This class controls all aspects of the application's execution
@@ -18,16 +14,14 @@ import traderjournal.model.DBUtils;
 public class Application implements IApplication {
 	public static ILog log;
 	public final static String PLUGIN_ID = "TraderJournal";
-	Server hs = new Server();
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.equinox.app.IApplication#start(org.eclipse.equinox.app.IApplicationContext)
 	 */
 	public Object start(IApplicationContext context) 
 	throws Exception {
 		
-		hs.setDatabaseName(0, "TradeTrack");
-		hs.setDatabasePath(0, "file:c:/dev/eclipseheliosrcp/traderjournal/dbdata/TradeTrack");
-		hs.start();
+
 		
 		
 		Display display = PlatformUI.createDisplay();
@@ -60,8 +54,7 @@ public class Application implements IApplication {
 					workbench.close();
 			}
 		});
-		hs.stop();
-		hs.shutdown();
+
 		
 		
 	}

@@ -14,8 +14,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import org.hibernate.Transaction;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -59,10 +57,8 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
 
-import traderjournal.model.TradeEvent;
 import traderjournal.model.hibernate.Trade;
 import traderjournal.model.hibernate.TradeEventOrderComparotor;
-import traderjournal.model.hibernate.TradeHome;
 import traderjournal.model.hibernate.Tradeevent;
 import traderjournal.model.hibernate.TradeeventHome;
 import traderjournal.model.hibernate.Tradeeventimage;
