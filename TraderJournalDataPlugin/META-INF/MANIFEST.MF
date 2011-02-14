@@ -4,7 +4,6 @@ Bundle-Name: TraderJournalDataPlugin
 Bundle-SymbolicName: TraderJournalDataPlugin
 Bundle-Version: 1.0.0
 Bundle-Activator: traderjournal.model.Activator
-Require-Bundle: org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: .,
@@ -198,7 +197,8 @@ Export-Package: .,
  org.objectweb.asm,
  org.objectweb.asm.attrs,
  traderjournal.model;uses:="org.hibernate,org.osgi.framework",
- traderjournal.model.hibernate;uses:="org.hibernate"
+ traderjournal.model.hibernate;uses:="org.hibernate",
+ traderjournal.stats
 Bundle-ClassPath: lib/commons-collections-2.1.1.jar,
  lib/commons-dbcp-1.2.2.jar,
  lib/commons-logging-1.1.1.jar,
@@ -215,3 +215,4 @@ Bundle-ClassPath: lib/commons-collections-2.1.1.jar,
  lib/asm-attrs.jar,
  lib/asm.jar,
  lib/antlr-2.7.6.jar
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.6.0"
