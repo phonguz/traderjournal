@@ -23,7 +23,17 @@
       <view
             class="traderjournal.ui.views.InstrumentView"
             id="traderjournal.ui.views.InstrumentView"
-            name="View">
+            name="InstrumentView">
+      </view>
+      <view
+            class="traderjournal.ui.views.AccountDetailView"
+            id="traderjournal.ui.views.AccountDetailView"
+            name="AccountDetailView">
+      </view>
+      <view
+            class="traderjournal.ui.views.TradeDetailView"
+            id="traderjournal.ui.views.TradeDetailView"
+            name="TradeDetailView">
       </view>
    </extension>
    <extension

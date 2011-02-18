@@ -3,7 +3,9 @@ package traderjournal.ui.rap;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
+import traderjournal.ui.views.AccountDetailView;
 import traderjournal.ui.views.InstrumentView;
+import traderjournal.ui.views.TradeDetailView;
 
 
 /**
@@ -19,5 +21,11 @@ public class Perspective implements IPerspectiveFactory {
 
 		layout.addStandaloneView(InstrumentView.ID, false, IPageLayout.LEFT, 1.0f,
 				editorArea);
+		layout.addStandaloneView(TradeDetailView.ID, false, IPageLayout.BOTTOM, 1.0f,
+				editorArea);
+		
+		layout.addStandaloneView(AccountDetailView.ID, false, IPageLayout.RIGHT, 1.0f,
+				editorArea);
+		
 	}
 }
