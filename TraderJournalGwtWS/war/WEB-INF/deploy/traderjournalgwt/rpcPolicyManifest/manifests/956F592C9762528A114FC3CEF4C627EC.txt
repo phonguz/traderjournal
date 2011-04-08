@@ -1,0 +1,2 @@
+serviceClass: org.traderjournal.web.client.svc.InstrumentService
+path: 96F23496067BFF74CC55F2490083B175.gwt.rpc

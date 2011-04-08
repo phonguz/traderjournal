@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 06 Apr 2011 7:43:22 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.traderjournal.model.gen.Transaction" table="TRANSACTION" schema="PUBLIC">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="transactionType" class="org.traderjournal.model.gen.TransactionType" fetch="select">
+            <column name="TRANSACTION_TYPE_ID" not-null="true" />
+        </many-to-one>
+        <property name="transactionValue" type="double">
+            <column name="TRANSACTION_VALUE" precision="0" scale="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
