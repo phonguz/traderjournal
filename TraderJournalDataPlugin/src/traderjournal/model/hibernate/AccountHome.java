@@ -91,6 +91,7 @@ public class AccountHome {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Account> findAll() {
 		log.debug("getting all Account instance");
 		try {
