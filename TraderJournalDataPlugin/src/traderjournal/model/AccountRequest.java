@@ -2,8 +2,8 @@ package traderjournal.model;
 
 import java.util.List;
 
-import traderjournal.model.hibernate.Account;
-import traderjournal.model.hibernate.proxy.AccountProxy;
+import traderjournal.model.entities.Account;
+import traderjournal.model.entities.proxy.AccountProxy;
 
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;

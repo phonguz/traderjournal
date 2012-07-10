@@ -1,6 +1,6 @@
 package traderjournal.model;
 
-import traderjournal.model.hibernate.Ccy;
+import traderjournal.model.entities.Ccy;
 
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;

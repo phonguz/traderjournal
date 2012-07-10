@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import com.gonevertical.server.data.UserData;
+import traderjournal.model.entities.Trader;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.FetchOptions;
@@ -20,8 +20,6 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 
 public abstract class RequestFactoryUtilsJpa {
 
@@ -31,29 +29,19 @@ public abstract class RequestFactoryUtilsJpa {
     return EMF.get().createEntityManager();
   }
 
-  /**
-   * get Google User
-   * @return
-   */
-  private static User getGoogleUser() {
-    UserService userService = UserServiceFactory.getUserService();
-    if (userService.isUserLoggedIn() == false) {
-      return null;
-    }
-    User user = userService.getCurrentUser();
-    return user;
-  }
+
 
   /**
    * get person logged in
    * @return
    */
-  public static Long getLoggedInUserId() {
-    User user = getGoogleUser();
+  public static Integer getLoggedInUserId() {
+    User user = GoogleUserHelper.getGoogleUser();
     if (user == null) {
+    	log.log(Level.WARNING, "no logged in user");
       return null;
     }
-    UserData userData = UserData.findUserDataByGoogleUserId(user.getUserId());
+    Trader  userData = GoogleUserHelper.findTraderByGoogleUserId(user.getUserId());
     if (userData == null) {
       return null;
     }
@@ -61,12 +49,7 @@ public abstract class RequestFactoryUtilsJpa {
       return null;
     }
 
-    Key key = userData.getKey();
-    if (key == null) {
-      return null;
-    }
-
-    return key.getId();
+    return userData.getId();
   }
 
   /**
@@ -148,8 +131,8 @@ public abstract class RequestFactoryUtilsJpa {
    */
   public static <T> boolean removeByAdminOnly(T o) {
 
-    UserData user = UserData.findLoggedInUserPrivileges();  
-    if (user.canAdmin() == false) {
+    Trader user = GoogleUserHelper.findLoggedInTrader();  
+    if (user.getcanadmin() == false) {
       return false;
     }
 
