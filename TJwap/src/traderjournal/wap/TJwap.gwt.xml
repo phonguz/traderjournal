@@ -19,7 +19,7 @@
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
   <!-- Other module inherits                                      -->
-	<inherits name='traderjournal.model.entities'/>
+
 	
   <!-- Specify the app entry point class.                         -->
   <entry-point class='traderjournal.wap.client.TJwap'/>
@@ -27,5 +27,7 @@
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
   <source path='shared'/>
+  <source path='model'/>
+  <source path='model/entities'/>
 
 </module>

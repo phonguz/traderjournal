@@ -1,6 +1,12 @@
 package traderjournal.wap.client;
 
+import java.util.List;
+
+import traderjournal.wap.model.AccountRequest;
+import traderjournal.wap.model.TJRequestFactory;
+import traderjournal.wap.model.entities.proxy.AccountProxy;
 import traderjournal.wap.shared.FieldVerifier;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -8,7 +14,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
@@ -17,6 +22,9 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.event.shared.SimpleEventBus;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -36,11 +44,18 @@ public class TJwap implements EntryPoint {
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
 
+	TJRequestFactory requestFactory;
+	
 	/**
 	 * This is the entry point method.
 	 */
 	@Override
 	public void onModuleLoad() {
+		final EventBus eventBus = new SimpleEventBus();
+		 requestFactory = GWT.create(TJRequestFactory.class);
+		requestFactory.initialize(eventBus);
+		
+		
 		final Button sendButton = new Button("Send");
 		final TextBox nameField = new TextBox();
 		nameField.setText("GWT User");
@@ -124,7 +139,34 @@ public class TJwap implements EntryPoint {
 				sendButton.setEnabled(false);
 				textToServerLabel.setText(textToServer);
 				serverResponseLabel.setText("");
-				greetingService.greetServer(textToServer,
+				
+				AccountRequest req = requestFactory.accountRequest();
+				req.findAllAccounts().fire(
+						new Receiver<List<AccountProxy>>() {
+				
+					
+					@Override
+					public void onSuccess(List<AccountProxy> val){
+						dialogBox.setText("Remote Procedure Call");
+						String html = "";
+						
+						for (AccountProxy acp : val) {
+							html = acp.getName() + "</br>";
+						}
+						serverResponseLabel.setHTML("" + html);
+						dialogBox.center();
+						closeButton.setFocus(true);
+					}
+					
+		
+					
+				});
+				
+				
+				
+				
+				
+				/*greetingService.greetServer(textToServer,
 						new AsyncCallback<String>() {
 							@Override
 							public void onFailure(Throwable caught) {
@@ -147,7 +189,9 @@ public class TJwap implements EntryPoint {
 								dialogBox.center();
 								closeButton.setFocus(true);
 							}
-						});
+						});*/
+				
+				
 			}
 		}
 

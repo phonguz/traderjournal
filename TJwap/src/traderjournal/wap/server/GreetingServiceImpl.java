@@ -1,8 +1,17 @@
 package traderjournal.wap.server;
 
-import traderjournal.model.RequestFactoryUtilsJpa;
+import java.util.ArrayList;
+import java.util.List;
+
 import traderjournal.wap.client.GreetingService;
+import traderjournal.wap.model.Filter;
+import traderjournal.wap.model.FilterOperator;
+import traderjournal.wap.model.RequestFactoryUtilsJpa;
+import traderjournal.wap.model.entities.Account;
+import traderjournal.wap.model.entities.Trade;
+import traderjournal.wap.model.entities.Trader;
 import traderjournal.wap.shared.FieldVerifier;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
@@ -12,6 +21,24 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
 
+	public final static void main(String [] args){
+		
+		Long li = RequestFactoryUtilsJpa.getLoggedInUserId();
+		List<Filter> fil = new ArrayList<Filter>();
+		Filter fi = new Filter("openprice",FilterOperator.GREATERTHAN, 1.00);
+		
+		fil.add(fi);
+		List<Trade> tr = RequestFactoryUtilsJpa.findList(Trade.class, fil,0L,100L);
+		
+		
+		
+		for (Trade account : tr) {
+			System.out.println(account.getAccount().getName());
+			
+		}
+		
+	}
+	
 	@Override
 	public String greetServer(String input) throws IllegalArgumentException {
 		// Verify that the input is valid. 
@@ -29,9 +56,11 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		input = escapeHtml(input);
 		userAgent = escapeHtml(userAgent);
 		
-		Integer li = RequestFactoryUtilsJpa.getLoggedInUserId();
+		Long li = RequestFactoryUtilsJpa.getLoggedInUserId();
+		Trader tr = RequestFactoryUtilsJpa.find(Trader.class, li);
+		
 
-		return "Hello, " + li + "!<br><br>I am running " + serverInfo
+		return "Hello, " + tr.getEmail()+ "!<br><br>I am running " +tr.getAccounts().size() + serverInfo
 				+ ".<br><br>It looks like you are using:<br>" + userAgent;
 		
 		
