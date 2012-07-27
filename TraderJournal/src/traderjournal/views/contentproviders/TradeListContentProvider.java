@@ -5,17 +5,17 @@ import java.util.List;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import traderjournal.model.hibernate.Trade;
-import traderjournal.model.hibernate.TradeHome;
+import traderjournal.model.RequestFactoryUtilsJpa;
+import traderjournal.model.entities.Trade;
 
 public class TradeListContentProvider implements IStructuredContentProvider {
 
 	
 	public Object[] getElements(Object inputElement) {
-		TradeHome th = new TradeHome();
+
 		
 		
-		List<Trade> l = th.findAll();
+		List<Trade> l = RequestFactoryUtilsJpa.findAll(Trade.class);
 
 		return l.toArray();
 	}

@@ -3,28 +3,22 @@ package traderjournal.views;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
@@ -36,10 +30,9 @@ import org.eclipse.ui.part.ViewPart;
 
 import traderjournal.Activator;
 import traderjournal.editors.TradeEditor;
-import traderjournal.model.hibernate.Tradeevent;
-import traderjournal.model.hibernate.TradeeventHome;
-import traderjournal.model.hibernate.Tradeeventimage;
-import traderjournal.model.hibernate.TradeeventimageHome;
+import traderjournal.model.RequestFactoryUtilsJpa;
+import traderjournal.model.entities.Tradeevent;
+import traderjournal.model.entities.Tradeeventimage;
 
 public class ImageView extends ViewPart implements ISelectionListener {
 	public static final String ID_VIEW = "traderjournal.views.ImageView"; //$NON-NLS-1$
@@ -135,10 +128,8 @@ public class ImageView extends ViewPart implements ISelectionListener {
 		//		
 		cTabFolder.setTopRight(null);
 
-		TradeeventHome th = new TradeeventHome();
-		th.getSessionFactory().getCurrentSession().beginTransaction();
-		th.getSessionFactory().getCurrentSession().refresh(tradeEvent);
-		Set<Tradeeventimage> trSet = tradeEvent.getTradeeventimages();
+
+		List<Tradeeventimage> trSet = tradeEvent.getTradeeventimages();
 
 		int i = 1;
 		for (Tradeeventimage ti : trSet) {
@@ -194,12 +185,9 @@ public class ImageView extends ViewPart implements ISelectionListener {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					Tradeeventimage it = (Tradeeventimage) e.widget.getData();
-					TradeeventimageHome th = new TradeeventimageHome();
-					th.getSessionFactory().getCurrentSession()
-							.beginTransaction();
-					th.attachDirty(it);
-					th.getSessionFactory().getCurrentSession().getTransaction()
-							.commit();
+
+					RequestFactoryUtilsJpa.persist(it);
+					
 
 				}
 			});
@@ -217,12 +205,9 @@ public class ImageView extends ViewPart implements ISelectionListener {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					Tradeeventimage it = (Tradeeventimage) e.widget.getData();
-					TradeeventimageHome th = new TradeeventimageHome();
-					th.getSessionFactory().getCurrentSession()
-							.beginTransaction();
-					th.delete(it);
-					th.getSessionFactory().getCurrentSession().getTransaction()
-							.commit();
+					
+					RequestFactoryUtilsJpa.remove(it);
+					
 					cTabFolder.redraw();
 
 				}
@@ -277,7 +262,7 @@ public class ImageView extends ViewPart implements ISelectionListener {
 			
 		}
 			
-		th.getSessionFactory().getCurrentSession().getTransaction().commit();
+		
 		cTabFolder.setSelection(0);
 		cTabFolder.redraw();
 		cTabFolder.update();

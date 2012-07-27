@@ -2,6 +2,13 @@ package traderjournal.views;
 
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.inject.Inject;
+
+import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.services.events.IEventBroker;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.DoubleClickEvent;
@@ -19,12 +26,15 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
 
 import traderjournal.editors.TradeEditor;
 import traderjournal.editors.TradeEditorInput;
-import traderjournal.model.hibernate.Account;
-import traderjournal.model.hibernate.AccountHome;
-import traderjournal.model.hibernate.Trade;
+import traderjournal.event.TJEvent;
+import traderjournal.event.TJEventTopics;
+import traderjournal.model.entities.Account;
+import traderjournal.model.entities.Trade;
 import traderjournal.views.TradeDetailView.TradeStructerdSelection;
 import traderjournal.views.contentproviders.TradeTreeContentProvider;
 import traderjournal.views.labelproviders.TradeTreeLabelProvider;
@@ -48,10 +58,12 @@ import traderjournal.views.labelproviders.TradeTreeLabelProvider;
  * <p>
  */
 
-public class TradeListView extends ViewPart  implements ISelectionListener{
+public class TradeListView extends TJViewPart  implements ISelectionListener{
 	public final static String ID = "traderjournal.views.TradeListView";
 	private TreeViewer viewer;
 
+
+	
 	private Action doubleClickAction;
 
 
@@ -77,6 +89,8 @@ public class TradeListView extends ViewPart  implements ISelectionListener{
 			
 		}
 	}
+	@Inject
+	IEventBroker eventBroker  ;
 
 	/**
 	 * The constructor.
@@ -96,8 +110,20 @@ public class TradeListView extends ViewPart  implements ISelectionListener{
 		viewer.setLabelProvider(new TradeTreeLabelProvider());
 		viewer.setSorter(new NameSorter());
 		viewer.setInput(getAllAccounts());
-		
+		logger.log(Level.FINE, "TEST");
 	
+		EventHandler eventHandler = new EventHandler() {
+			
+			@Override
+			public void handleEvent(Event event) {
+				String action = (String)event.getProperty(TJEvent.ACTION_PROPERTY_NAME);
+				viewer.refresh();
+				
+			}
+		};
+		
+		eventBroker.subscribe( TJEventTopics.TOPIC_TRADE , eventHandler);
+		
 		hookDoubleClickAction();
 		contributeActions();
 		getSite().setSelectionProvider(viewer);
@@ -107,8 +133,8 @@ public class TradeListView extends ViewPart  implements ISelectionListener{
 
 	
 	private List<Account> getAllAccounts() {
-		AccountHome ach = new AccountHome();
-		return ach.findAll();
+		
+		return Account.findAll();
 	}
 
 	public void refreshData(){

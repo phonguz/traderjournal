@@ -3,10 +3,8 @@ package traderjournal.views.labelproviders;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
-import org.hibernate.Transaction;
 
-import traderjournal.model.DBUtils;
-import traderjournal.model.hibernate.Trade;
+import traderjournal.model.entities.Trade;
 import traderjournal.stats.TradeStatistics;
 import traderjournal.views.TradeTableView;
 
@@ -25,19 +23,16 @@ public class TradeLabelProvider implements ITableLabelProvider {
 		String ret ="";
 		switch (columnIndex) {
 		case TradeTableView.COL_colID:
-			return Integer.toString(t.getId());
+			return new Long(t.getId()).toString();
 		case TradeTableView.COL_colInstrument:
-			Transaction tx = DBUtils.getSessionFactory().getCurrentSession().beginTransaction();
-			DBUtils.getSessionFactory().getCurrentSession().refresh(t);
-			try{
+			
+			
 				if(t.getInstrument() != null)
 					ret = t.getInstrument().getName();
 				else
 					ret = "";
-			tx.commit();
-			}catch(Exception e){
-				tx.rollback();
-			}
+		
+			
 					
 			
 			

@@ -7,6 +7,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -29,17 +33,13 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.part.ViewPart;
-import org.hibernate.Transaction;
 
-import traderjournal.model.hibernate.Account;
-import traderjournal.model.hibernate.AccountHome;
-import traderjournal.model.hibernate.Instrument;
-import traderjournal.model.hibernate.InstrumentHome;
-import traderjournal.model.hibernate.Trade;
-import traderjournal.model.hibernate.TradeHome;
-import traderjournal.model.hibernate.Trader;
-import traderjournal.model.hibernate.TraderHome;
+import traderjournal.event.TJEvent;
+import traderjournal.event.TJEventTopics;
+import traderjournal.model.RequestFactoryUtilsJpa;
+import traderjournal.model.entities.Account;
+import traderjournal.model.entities.Instrument;
+import traderjournal.model.entities.Trade;
 import traderjournal.views.labelproviders.LabelUtils;
 import traderjournal.views.verify.DoubleVerifyListener;
 
@@ -53,7 +53,7 @@ import traderjournal.views.verify.DoubleVerifyListener;
  * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
  * ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
-public class TradeDetailView extends ViewPart implements ISelectionListener,
+public class TradeDetailView extends TJViewPart implements ISelectionListener,
 		ISelectionProvider {
 	public static final String ID_VIEW = "traderjournal.views.TradeDetailView"; //$NON-NLS-1$
 	private Label labelIns;
@@ -97,11 +97,15 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 	private Text txtSugTradeSize;
 
 	private Trade trade = new Trade(); // @jve:decl-index=0:
-	private TradeHome th = new TradeHome(); // @jve:decl-index=0:
+
 	Composite composite1;
 
 	SuggestModifyListener mySugModifyListener = new SuggestModifyListener();
 
+	@Inject
+	IEventBroker eventBroker  ;
+	
+	
 	/**
 	 * 
 	 */
@@ -120,10 +124,15 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 			double acrisk = 0;
 			double rpp = 1;
 			try {
-				sl = getDoubleFromtTextBox(txtSL);
-				open = getDoubleFromtTextBox(txtOpenPrice);
-				acbalance = getDoubleFromtTextBox(txtAccountBalance);
-				acrisk = getDoubleFromtTextBox(txtAccountPercentRisk);
+				if (txtSL.getText().length() > 1)
+					sl = getDoubleFromtTextBox(txtSL);
+				if (txtOpenPrice.getText().length() > 1)
+					open = getDoubleFromtTextBox(txtOpenPrice);
+				if (txtAccountBalance.getText().length() > 1)
+					acbalance = getDoubleFromtTextBox(txtAccountBalance);
+				if (txtAccountPercentRisk.getText().length() > 1)
+					acrisk = getDoubleFromtTextBox(txtAccountPercentRisk);
+				if(cmbIns.getItemCount() > 1)
 				rpp = ((Instrument) cmbIns.getData(cmbIns.getItem(cmbIns
 						.getSelectionIndex()))).getValuePerPoint();
 				double sugqty = calcSugQTY(sl, open, acbalance, acrisk, rpp);
@@ -337,8 +346,8 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 							}
 							trade.setReference(txtReference.getText());
 							trade.setCarrycost(getDoubleOrZeroFromtTextBox(txtCarryCost));
-							AccountHome ach = new AccountHome();
-							List<Account> li = ach.findAll();
+
+							List<Account> li = Account.findAll();
 							for (Account ac : li) {
 								if (ac.getName().equals(
 										cmbAccounts.getItem(cmbAccounts
@@ -348,16 +357,8 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 
 							}
 
-							th.getSessionFactory().getCurrentSession()
-									.beginTransaction();
-							th.getSessionFactory().getCurrentSession()
-									.refresh(trade.getAccount());
-							th.getSessionFactory().getCurrentSession()
-									.refresh(trade.getInstrument());
-							th.attachDirty(trade);
+							RequestFactoryUtilsJpa.persist(trade);
 
-							th.getSessionFactory().getCurrentSession()
-									.getTransaction().commit();
 							setSelection(new TradeStructerdSelection("save"));
 						}
 					});
@@ -372,36 +373,17 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 							Trade t = new Trade();
 
 							t.setOpenTradeDate(new Date());
-							AccountHome ach = new AccountHome();
+
 							Account ac = null;
 							if (trade != null) {
 								ac = trade.getAccount();
 							} else {
-								ac = ach.findAll().get(0);
+								ac = Account.findAll().get(0);
 							}
 							t.setAccount(ac);
-							TraderHome traderHome = new TraderHome();
-							Trader trader = traderHome.findAll().get(0);
-							t.setTrader(trader);
-							org.hibernate.Transaction tx = th
-									.getSessionFactory().getCurrentSession()
-									.beginTransaction();
-							try {
-								th.getSessionFactory().getCurrentSession()
-										.refresh(trader);
-								th.getSessionFactory().getCurrentSession()
-										.refresh(ac);
-								th.persist(t);
-								tx.commit();
-								setSelection(new TradeStructerdSelection("add"));
 
-							} catch (Exception ex) {
-								tx.rollback();
-							} finally {
+							RequestFactoryUtilsJpa.persist(t);
 
-							}
-
-							;
 						}
 					});
 				}
@@ -411,12 +393,12 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 
 					btnRemove.addSelectionListener(new SelectionAdapter() {
 						public void widgetSelected(SelectionEvent evt) {
-							th.getSessionFactory().getCurrentSession()
-									.beginTransaction();
-							th.delete(trade);
-							th.getSessionFactory().getCurrentSession()
-									.getTransaction().commit();
+							RequestFactoryUtilsJpa.remove(trade);
+
 							setSelection(new TradeStructerdSelection("remove"));
+							
+							TJEvent tjevent = new TJEvent(TJEvent.EVENT_ACTION_REMOVE, trade);
+							eventBroker.post(TJEventTopics.TOPIC_TRADE, tjevent.getMap());
 						}
 					});
 				}
@@ -425,6 +407,7 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 		}
 
 	}
+	
 
 	private Double getDoubleFromtTextBox(Text box) throws NumberFormatException {
 		String txt = box.getText();
@@ -511,30 +494,26 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 					txtCarryCost.setText("");
 
 				if (trade.getAccount() != null) {
-					Transaction tx = th.getSessionFactory().getCurrentSession()
-							.beginTransaction();
-					th.getSessionFactory().getCurrentSession().refresh(trade);
+
 					txtAccountBalance.setText(""
 							+ LabelUtils.priceFormat.format(trade.getAccount()
 									.getBalance()));
-					tx.commit();
+
 				} else
 					txtAccountBalance.setText("");
 
 				if (trade.getAccount() != null) {
-					Transaction tx1 = th.getSessionFactory()
-							.getCurrentSession().beginTransaction();
-					th.getSessionFactory().getCurrentSession().refresh(trade);
+
 					txtAccountPercentRisk.setText(""
 							+ trade.getAccount().getPercentRisk());
-					tx1.commit();
+
 				} else
 					txtAccountPercentRisk.setText("");
 
 				cmbAccounts.clearSelection();
 				cmbAccounts.removeAll();
-				AccountHome achome = new AccountHome();
-				List<Account> aclist = achome.findAll();
+
+				List<Account> aclist = Account.findAll();
 				int i = 0;
 				int selectedAccountid = 0;
 				for (Account ac : aclist) {
@@ -546,11 +525,10 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 				cmbAccounts.select(selectedAccountid);
 
 				cmbIns.removeAll();
-				InstrumentHome ih = new InstrumentHome();
-				List<Instrument> li = ih.findAll();
+
+				List<Instrument> li = Instrument.findAll();
 				Collections.sort(li);
 				i = 0;
-
 
 				for (Instrument ins : li) {
 					cmbIns.add(ins.getName());
@@ -558,13 +536,11 @@ public class TradeDetailView extends ViewPart implements ISelectionListener,
 
 				}
 				if (trade != null) {
-					Transaction tx3 = th.getSessionFactory()
-							.getCurrentSession().beginTransaction();
-					th.getSessionFactory().getCurrentSession().refresh(trade);
+
 					if (trade.getInstrument() != null)
 						cmbIns.select(cmbIns.indexOf(trade.getInstrument()
 								.getName()));
-					tx3.commit();
+
 				}
 			}
 

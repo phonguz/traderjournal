@@ -17,7 +17,7 @@ import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
 
-import traderjournal.model.hibernate.Account;
+import traderjournal.model.entities.Account;
 import traderjournal.views.contentproviders.TradeContentProvider;
 import traderjournal.views.labelproviders.TradeLabelProvider;
 import traderjournal.views.sorters.TradeSorter;

@@ -3,7 +3,7 @@ package traderjournal.views.sorters;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 
-import traderjournal.model.hibernate.Tradeevent;
+import traderjournal.model.entities.Tradeevent;
 
 public class TradeEventSorter extends ViewerSorter {
 	public static final int EVENTDATE = 1;
@@ -29,8 +29,8 @@ public class TradeEventSorter extends ViewerSorter {
 			
 			return te1.getEventDate().compareTo(te2.getEventDate());
 		case ID:
-			result = te1.getId() - te2.getId();
-			result = result < 0 ? -1 : (result > 0) ? 1 : 0;  
+			long lresult = te1.getId() - te2.getId();
+			result = lresult < 0 ? -1 : (lresult > 0) ? 1 : 0;  
 			return result;
 			
 		case EVENTORDER:

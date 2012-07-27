@@ -16,7 +16,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import traderjournal.model.hibernate.Account;
+import traderjournal.model.entities.Account;
 import traderjournal.views.contentproviders.AccountContentProvider;
 import traderjournal.views.labelproviders.AccountLabelProvider;
 

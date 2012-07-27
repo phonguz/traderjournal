@@ -1,13 +1,12 @@
 package traderjournal.views.contentproviders;
 
-import java.util.Set;
+import java.util.List;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import traderjournal.model.hibernate.Trade;
-import traderjournal.model.hibernate.TradeHome;
-import traderjournal.model.hibernate.Tradeevent;
+import traderjournal.model.entities.Trade;
+import traderjournal.model.entities.Tradeevent;
 
 public class TradeEventContentProvider implements IStructuredContentProvider {
 
@@ -34,16 +33,14 @@ public class TradeEventContentProvider implements IStructuredContentProvider {
 	@Override
 	public Object[] getElements(Object inputElement) {
 		Trade t =  (Trade)inputElement;
-		TradeHome th = new TradeHome();
-		th.getSessionFactory().getCurrentSession().beginTransaction();
-		th.getSessionFactory().getCurrentSession().refresh(t);
 		
 		
-		Set<Tradeevent> l = t.getTradeevents();
+		
+		List<Tradeevent> l = t.getTradeevents();
 		
 		
 		Object [] ret = l.toArray();
-		th.getSessionFactory().getCurrentSession().getTransaction().commit();
+		
 		return ret;
 		
 	}

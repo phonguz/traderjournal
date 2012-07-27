@@ -3,10 +3,8 @@ package traderjournal.views.labelproviders;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
-import org.hibernate.Transaction;
 
-import traderjournal.model.DBUtils;
-import traderjournal.model.hibernate.Trade;
+import traderjournal.model.entities.Trade;
 
 public class TradeListLabelProvider implements ILabelProvider {
 
@@ -29,10 +27,9 @@ public class TradeListLabelProvider implements ILabelProvider {
 	public String getText(Object element) {
 		Trade t = (Trade)element;
 		String ret = "";
-		Transaction tx = DBUtils.getSessionFactory().getCurrentSession().beginTransaction();
-		DBUtils.getSessionFactory().getCurrentSession().refresh(t);
+		
 		ret =  LabelUtils.df.format(t.getOpenTradeDate()) + delim + t.getInstrument().getName() +delim+ t.getId();
-		tx.commit();
+		
 		return ret;
 	}
 

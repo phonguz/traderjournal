@@ -1,6 +1,5 @@
 package traderjournal.views;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import org.eclipse.jface.viewers.ISelection;
@@ -15,7 +14,7 @@ import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
 
-import traderjournal.model.hibernate.Trade;
+import traderjournal.model.entities.Trade;
 import traderjournal.stats.TradeStatistics;
 import traderjournal.views.labelproviders.LabelUtils;
 

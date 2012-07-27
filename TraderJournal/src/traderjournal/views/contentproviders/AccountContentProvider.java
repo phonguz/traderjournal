@@ -5,16 +5,16 @@ import java.util.List;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import traderjournal.model.hibernate.Account;
-import traderjournal.model.hibernate.AccountHome;
+import traderjournal.model.RequestFactoryUtilsJpa;
+import traderjournal.model.entities.Account;
 
 public class AccountContentProvider implements IStructuredContentProvider {
 
 	@Override
 	public Object[] getElements(Object inputElement) {
-		AccountHome ach = new AccountHome();
 		
-		List<Account> l = ach.findAll();
+		
+		List<Account> l = RequestFactoryUtilsJpa.findAll(Account.class);
 
 		return l.toArray();
 	}
