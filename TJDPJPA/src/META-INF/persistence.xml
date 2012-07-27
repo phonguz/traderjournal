@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
+
+    <persistence-unit name="transactions-optional">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>traderjournal.model.entities.Account</class>
+        <class>traderjournal.model.entities.Ccy</class>
+        <class>traderjournal.model.entities.Instrument</class>
+        <class>traderjournal.model.entities.Trade</class>
+        <class>traderjournal.model.entities.Tradeevent</class>
+        <class>traderjournal.model.entities.Tradeeventimage</class>
+        <class>traderjournal.model.entities.Tradeeventtype</class>
+        <class>traderjournal.model.entities.Trader</class>
+        <class>traderjournal.model.entities.Transaction</class>
+        <class>traderjournal.model.entities.TransactionType</class>
+        <properties>
+			<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:hsqldb:hsql://localhost/TradeTrack" />
+			<property name="javax.persistence.jdbc.user" value="sa" />
+			<property name="javax.persistence.jdbc.password" value="" />
+
+			
+		</properties>
+    </persistence-unit>
+</persistence>
