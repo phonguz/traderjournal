@@ -1,0 +1,16 @@
+<service.UsersServiceTest-stats timestamp="1386147068228"><stats time="2105" expectations="1" successes="1" examples="1"></stats></service.UsersServiceTest-stats>
+<service.UsersServiceTest-stats timestamp="1386159138729"><stats time="2256" expectations="1" successes="1" examples="1"></stats></service.UsersServiceTest-stats>
+<service.UsersServiceTest-stats timestamp="1391144307579"><stats time="4115" expectations="1" successes="1" examples="1"></stats></service.UsersServiceTest-stats>
+<service.UsersServiceTest-stats timestamp="1391144807851"><stats time="2176" expectations="1" successes="1" examples="1"></stats></service.UsersServiceTest-stats>
+<service.UsersServiceTest-results timestamp="1391147783026"><result location="service.UsersServiceTest (UsersServiceTest.scala:13)" id="879821636"><stats time="437" expectations="1" errors="1" examples="1"></stats></result>
+</service.UsersServiceTest-results>
+<service.UsersServiceTest-stats timestamp="1391147783040"><stats time="443" expectations="1" errors="1" examples="1"><trend><stats time="443" errors="1" successes="-1"></stats></trend></stats></service.UsersServiceTest-stats>
+<service.UsersServiceTest-results timestamp="1391150323699"><result location="service.UsersServiceTest (UsersServiceTest.scala:13)" id="879821636"><stats time="424" expectations="1" errors="1" examples="1"></stats></result>
+</service.UsersServiceTest-results>
+<service.UsersServiceTest-stats timestamp="1391150323709"><stats time="430" expectations="1" errors="1" examples="1"></stats></service.UsersServiceTest-stats>
+<service.UsersServiceTest-results timestamp="1391150338476"><result location="service.UsersServiceTest (UsersServiceTest.scala:13)" id="879821636"><stats time="414" expectations="1" errors="1" examples="1"></stats></result>
+</service.UsersServiceTest-results>
+<service.UsersServiceTest-stats timestamp="1391150338489"><stats time="421" expectations="1" errors="1" examples="1"></stats></service.UsersServiceTest-stats>
+<service.UsersServiceTest-results timestamp="1391150419868"><result location="service.UsersServiceTest (UsersServiceTest.scala:13)" id="879821636"><stats time="428" expectations="1" errors="1" examples="1"></stats></result>
+</service.UsersServiceTest-results>
+<service.UsersServiceTest-stats timestamp="1391150419879"><stats time="435" expectations="1" errors="1" examples="1"></stats></service.UsersServiceTest-stats>
