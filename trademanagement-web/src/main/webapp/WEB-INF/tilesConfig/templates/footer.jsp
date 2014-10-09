@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-md-5">
         <div class="main_trade"><a href="<%=request.getContextPath() %>/trade" class="navbar-brand-footer-logo">Trader Journal</a>
-          <div class="add">10 000 hours starts here. Dedicated practice delivers results.</div>
+          <div class="add">10 000 hours starts here. <a href="http://www.raaskop.com/?p=489">Deliberate practice!</a></div>
         </div>
       </div>
       <div class="col-md-4">
