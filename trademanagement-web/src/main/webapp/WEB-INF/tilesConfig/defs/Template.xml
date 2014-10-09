@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<!-- Base Layout -->
+	<definition name="base.layout" template="/WEB-INF/tilesConfig/templates/baseLayout.jsp">
+		<put-attribute name="header" value="/WEB-INF/tilesConfig/templates/header.jsp" />
+		<put-attribute name="defaultBody" value="/WEB-INF/tilesConfig/templates/body.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/tilesConfig/templates/footer.jsp" />
+	</definition>
+
+	<!-- Login Layout -->
+	<definition name="login.home" extends="base.layout">
+		<put-attribute name="header" value="" />
+		<put-attribute name="footer" value="" />
+		<put-attribute name="defaultBody" value="/WEB-INF/view/login.jsp"/>
+	</definition>
+	 
+	<!--SignUp Layout -->
+	<!-- <definition name="signup.home" extends="base.layout">
+		<put-attribute name="header" value="" />
+		<put-attribute name="footer" value="" />
+		<put-attribute name="defaultBody" value="/WEB-INF/view/user/signup.jsp"/>
+	</definition> -->
+	
+	<!--Home Layout -->
+	<definition name="main.home" extends="base.layout">
+		<put-attribute name="header" value="/WEB-INF/tilesConfig/templates/header.jsp" />
+		<put-attribute name="defaultBody" value="/WEB-INF/view/trader/home.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tilesConfig/templates/footer.jsp" />
+	</definition>
+		
+	<!--Manage User Layout -->
+	<definition name="managetrader.home" extends="base.layout">
+		<put-attribute name="header" value="/WEB-INF/tilesConfig/templates/header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/tilesConfig/templates/footer.jsp" />
+		<put-attribute name="defaultBody" value="/WEB-INF/view/trader/managetrader.jsp"/>
+	</definition>
+	
+	<!--Update User Layout -->
+	<definition name="updatetrader.home" extends="base.layout">
+		<put-attribute name="header" value="/WEB-INF/tilesConfig/templates/header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/tilesConfig/templates/footer.jsp" />
+		<put-attribute name="defaultBody" value="/WEB-INF/view/trader/trader.jsp"/>
+	</definition>
+	
+	<definition name="currency.home" extends="base.layout">
+		<put-attribute name="defaultBody" value="/WEB-INF/view/admin/currency.jsp"/>
+	</definition>
+	
+	<definition name="instrument.home" extends="base.layout">
+		<put-attribute name="defaultBody" value="/WEB-INF/view/admin/instrument.jsp"/>
+	</definition>
+
+	<definition name="accounts.home" extends="base.layout">
+		<put-attribute name="defaultBody" value="/WEB-INF/view/trader/accounts.jsp"/>
+	</definition>
+
+	<definition name="confirmPassword.home" extends="base.layout">
+		<put-attribute name="defaultBody" value="/WEB-INF/view/trader/confirmPassword.jsp"/>
+	</definition>
+
+	<definition name="forgotPassword.home" extends="base.layout">
+		<put-attribute name="defaultBody" value="/WEB-INF/view/trader/forgotPassword.jsp"/>
+	</definition>
+
+
+	<definition name="tradeeventtype.home" extends="base.layout">
+		<put-attribute name="defaultBody" value="/WEB-INF/view/trader/tradeeventtype.jsp"/>
+	</definition>
+	
+	<definition name="transactiontype.home" extends="base.layout">
+		<put-attribute name="defaultBody" value="/WEB-INF/view/trader/transactiontype.jsp"/>
+	</definition>
+	
+	<!--Manage Trade Layout -->
+	<definition name="managetrade.home" extends="base.layout">
+		<put-attribute name="header" value="/WEB-INF/tilesConfig/templates/header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/tilesConfig/templates/footer.jsp" />
+		<put-attribute name="defaultBody" value="/WEB-INF/view/trader/managetrade.jsp"/>
+	</definition>
+	
+	<definition name="tradeattachment.home" extends="base.layout">
+		<put-attribute name="defaultBody" value="/WEB-INF/view/trader/tradeattachment.jsp"/>
+	</definition>
+	
+	<definition name="tradeevent.trade" extends="base.layout">
+		<put-attribute name="defaultBody" value="/WEB-INF/view/trader/tradeevent.jsp"/>
+	</definition>
+	
+	<definition name="report.home" extends="base.layout">
+		<put-attribute name="header" value="/WEB-INF/tilesConfig/templates/header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/tilesConfig/templates/footer.jsp" />
+		<put-attribute name="defaultBody" value="/WEB-INF/view/trader/report.jsp"/>
+	</definition>
+</tiles-definitions>
