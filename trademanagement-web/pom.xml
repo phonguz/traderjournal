@@ -4,15 +4,15 @@
 
 	<groupId>com.tm</groupId>
 	<artifactId>trademanagement-web</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<packaging>war</packaging>
 	<name>trademanagement-web Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<scm>
-		<connection>scm:svn:https://traderjournal.googlecode.com/svn</connection>
-		<developerConnection>scm:svn:https://traderjournal.googlecode.com/svn</developerConnection>
-		<url>https://traderjournal.googlecode.com/svn</url>
+		<connection>scm:svn:https://traderjournal.googlecode.com/svn/tags/trademanagement-web-1.1</connection>
+		<developerConnection>scm:svn:https://traderjournal.googlecode.com/svn/tags/trademanagement-web-1.1</developerConnection>
+		<url>https://traderjournal.googlecode.com/svn/tags/trademanagement-web-1.1</url>
 
 	</scm>
 
