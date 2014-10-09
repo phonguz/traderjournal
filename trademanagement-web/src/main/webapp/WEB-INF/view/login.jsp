@@ -17,7 +17,7 @@
 <div class="navbar navbar-default navbar-static-top" >
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="<%=request.getContextPath() %>">Trade Management</a>
+          <a class="navbar-brand" href="<%=request.getContextPath() %>">Trader Journal</a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
