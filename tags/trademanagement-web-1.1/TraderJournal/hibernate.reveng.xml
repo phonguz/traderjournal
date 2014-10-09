@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+
+	<table-filter match-schema="PUBLIC" match-name="ACCOUNT" />
+	<table-filter match-schema="PUBLIC" match-name="CCY" />
+	<table-filter match-schema="PUBLIC" match-name="TRADE" />
+	<table-filter match-schema="PUBLIC" match-name="TRADEEVENT" />
+	<table-filter match-schema="PUBLIC" match-name="TRADEEVENTIMAGE" />
+	<table-filter match-schema="PUBLIC" match-name="TRADEEVENTTYPE" />
+	<table-filter match-schema="PUBLIC" match-name="TRANSACTION" />
+	<table-filter match-schema="PUBLIC" match-name="TRANSACTION_TYPE" />
+
+	<table schema="PUBLIC" name="TRADEEVENTIMAGE">
+		<column name="ID" jdbc-type=''></column>
+		<column name="EVENT_ID" jdbc-type=''></column>
+		<column name="DESCRIPTION" jdbc-type=''></column>
+		<column name="ID2" jdbc-type=''></column>
+		<column name="IMG2" jdbc-type=''></column>
+	</table>
+	<table schema="PUBLIC" name="TRADE">
+		<column name="ID" jdbc-type=''></column>
+		<column name="OPEN_TRADE_DATE" jdbc-type=''></column>
+		<column name="OPENPRICE" jdbc-type=''></column>
+		<column name="CLOSE_TRADE_DATE" jdbc-type=''></column>
+		<column name="CLOSEPRICE" jdbc-type=''></column>
+		<column name="STOPLOSS" jdbc-type=''></column>
+		<column name="TP" jdbc-type=''></column>
+		<column name="QTY" jdbc-type=''></column>
+		<column name="INSTRUMENT" jdbc-type=''></column>
+		<column name="ENTRYCOMS" jdbc-type=''></column>
+		<column name="EXITCOMS" jdbc-type=''></column>
+		<column name="ENTRYFEE" jdbc-type=''></column>
+		<column name="EXITFEE" jdbc-type=''></column>
+		<column name="PL" jdbc-type=''></column>
+		<column name="REFERENCE" jdbc-type=''></column>
+		<column name="CARRYCOST" jdbc-type=''></column>
+	</table>
+	<table schema="PUBLIC" name="TRANSACTION_TYPE">
+		<column name="TYPE" jdbc-type=''></column>
+	</table>
+	<table schema="PUBLIC" name="CCY">
+		<column name="NAME" jdbc-type=''></column>
+	</table>
+	<table schema="PUBLIC" name="TRANSACTION">
+		<column name="TRANSACTION_TYPE_ID" jdbc-type=''></column>
+		<column name="TRANSACTION_VALUE" jdbc-type=''></column>
+	</table>
+	<table schema="PUBLIC" name="ACCOUNT">
+		<column name="NAME" jdbc-type=''></column>
+		<column name="BALANCE" jdbc-type=''></column>
+		<column name="BASE_CCY_ID" jdbc-type=''></column>
+	</table>
+	<table schema="PUBLIC" name="TRADEEVENTTYPE">
+		<column name="ID" jdbc-type=''></column>
+		<column name="NAME" jdbc-type=''></column>
+	</table>
+	<table schema="PUBLIC" name="TRADEEVENT">
+		<column name="ID" jdbc-type=''></column>
+		<column name="EVENT_DATE" jdbc-type=''></column>
+		<column name="EVENT_TYPE_ID" jdbc-type=''></column>
+		<column name="DESCRIPTION" jdbc-type=''></column>
+		<column name="EVENTORDER" jdbc-type=''></column>
+		<column name="TRADEID" jdbc-type=''></column>
+	</table>
+</hibernate-reverse-engineering>

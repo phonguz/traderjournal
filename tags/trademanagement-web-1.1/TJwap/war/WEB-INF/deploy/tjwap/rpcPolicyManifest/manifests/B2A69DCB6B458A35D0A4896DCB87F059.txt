@@ -1,0 +1,2 @@
+serviceClass: traderjournal.wap.client.GreetingService
+path: 2153F635B925966D89959920B2CA886C.gwt.rpc

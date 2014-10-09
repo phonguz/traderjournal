@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Report_TradeDetails" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="56506906-28dc-4f5d-bf2a-70b6e9ff8e62">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="events" uuid="9cc9db48-bf01-40ae-9e02-9a8b81d74447">
+		<queryString language="SQL">
+			<![CDATA[]]>
+		</queryString>
+		<field name="eventdescription" class="java.lang.String">
+			<fieldDescription><![CDATA[_THIS]]></fieldDescription>
+		</field>
+		<field name="eventdate" class="java.util.Date">
+			<fieldDescription><![CDATA[_THIS]]></fieldDescription>
+		</field>
+		<field name="newvalue" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[_THIS]]></fieldDescription>
+		</field>
+		<field name="eventtype" class="java.lang.String">
+			<fieldDescription><![CDATA[_THIS]]></fieldDescription>
+		</field>
+		<field name="attachdescription" class="java.lang.String">
+			<fieldDescription><![CDATA[_THIS]]></fieldDescription>
+		</field>
+		<field name="filename" class="java.lang.String">
+			<fieldDescription><![CDATA[_THIS]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\apache-tomcat-7.0.27\\webapps\\trademanagement-web\\pdf\\"]]></defaultValueExpression>
+	</parameter>
+	<field name="accname" class="java.lang.String"/>
+	<field name="bal" class="java.math.BigDecimal"/>
+	<field name="instmnt" class="java.lang.String"/>
+	<field name="qnt" class="java.lang.Integer"/>
+	<field name="openprc" class="java.math.BigDecimal"/>
+	<field name="closeprc" class="java.math.BigDecimal"/>
+	<field name="stoploss" class="java.math.BigDecimal"/>
+	<field name="opendt" class="java.util.Date"/>
+	<field name="closedt" class="java.util.Date"/>
+	<field name="risk" class="java.lang.Integer"/>
+	<field name="events" class="java.util.Collection">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="73" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="4cf02ede-041b-457a-a008-d1d4b637d69e" x="86" y="11" width="580" height="59"/>
+				<textElement textAlignment="Center">
+					<font size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Trade Report]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="b9b8ab90-648d-43bb-8e5a-412521f8a617" x="652" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="188" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="1e88f6ee-6d26-4f6d-8f65-4797de462c60" x="156" y="50" width="72" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{instmnt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="0c497cb2-aae0-40ad-b25b-21d7aa24b7e2" x="517" y="50" width="88" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{opendt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="3c28c68b-06b1-49a8-8f3a-1ac87eaf4d18" x="446" y="50" width="64" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{stoploss}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="34bbdc74-22b0-4375-bb54-56fb001a7324" x="369" y="50" width="68" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{closeprc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="3eedb563-b0c2-4616-9a2d-626b623b2405" x="96" y="50" width="54" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{bal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ee504d46-92d3-4db3-a893-f95f043786dd" x="290" y="50" width="71" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{openprc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="a04e7432-24c8-420f-995d-90c84264dff4" x="0" y="50" width="86" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{accname}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="6241cd2b-a2b3-4d13-83cd-418fd80d9ba7" x="704" y="50" width="21" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{risk}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ec0a0856-9554-4a46-b8e8-f43fc35c75f1" x="615" y="50" width="83" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{closedt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="72fcfffc-9dd8-4921-9551-aff8a6d92ff7" x="232" y="50" width="52" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{qnt}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a13cea25-3e3e-4acd-afda-bc0691a8d972" x="232" y="26" width="52" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8397c50c-0ee8-40c4-aa49-86016c9fa0ff" x="289" y="26" width="72" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Open Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d09272ba-939e-47cb-8776-394eeab6fea6" x="0" y="26" width="86" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Account]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="da85055d-c25a-4262-99bd-b328f3e186db" x="95" y="26" width="54" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Balance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7f462475-c267-4f76-bd33-94ad273073af" x="155" y="26" width="72" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Instrument]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b3446c56-771f-4ed8-848a-d28132945ad7" x="368" y="26" width="68" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Close Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9ddcb48b-0857-402b-9310-55c6f871aec0" x="445" y="26" width="64" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Stop Loss]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="37236a75-a7d7-417a-a681-fb2eefc019b2" x="517" y="26" width="88" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Open Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3bd9bbb8-e98a-4906-9f27-a1923504d086" x="704" y="26" width="47" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Risk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4a0ec232-15df-4f56-846a-1c76279e5e42" x="615" y="26" width="83" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Close Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5e5ce6b9-6715-42a9-8702-b2b599f9f2d5" x="356" y="104" width="100" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Event Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4badec72-f98b-49d4-b06f-478b60d34797" x="245" y="104" width="100" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[New Value]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dd0adddb-6438-422f-8730-c0e41a7efeb9" x="139" y="103" width="100" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Event Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="577380fb-81a4-45b8-a780-0f18dd1f2ad4" x="14" y="103" width="100" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="170211a4-a2fb-4c16-ab11-91872536fe8d" x="0" y="80" width="100" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Event]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a32e83b2-9429-49bf-b7d2-b89df9a2ac6e" x="474" y="100" width="113" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Attach Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a7dea03e-72e4-4dff-86fe-93e73c40c24b" x="651" y="100" width="85" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Images]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement uuid="a548f542-4f4b-4c6b-9ea8-695277d46ef1" x="2" y="128" width="748" height="57"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Horizontal">
+					<datasetRun subDataset="events" uuid="7686faa1-bb2d-433e-97cc-0e58f2e68601">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{events},false)]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="57" width="748">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement uuid="cdeab735-ec59-4397-853c-1639fd177e01" x="12" y="5" width="100" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{eventdescription}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement uuid="12760bb2-5aa3-4a3b-92a9-7c436f9e233a" x="136" y="5" width="100" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{eventdate}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement uuid="6603b386-5516-447c-a06e-b53c94b23568" x="243" y="5" width="100" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{newvalue}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement uuid="3d3e97af-98aa-417b-b7e9-f7cbbecc0c74" x="353" y="5" width="100" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{eventtype}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement uuid="2c24cc8e-18d5-46e9-85ab-56c04277dea5" x="475" y="5" width="110" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{attachdescription}]]></textFieldExpression>
+						</textField>
+						<image>
+							<reportElement uuid="b3731375-7ab0-4988-9087-d80789552ce6" x="634" y="1" width="100" height="50"/>
+							<imageExpression><![CDATA[$F{filename}]]></imageExpression>
+						</image>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<staticText>
+				<reportElement uuid="89831226-001b-4336-95dc-3dfcf2917d4f" x="0" y="1" width="100" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Trade]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="4ad6e015-a920-44d3-8d01-22e908e22e52" x="0" y="48" width="752" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="b69cfbdb-fcce-4c97-81f5-86e796ea314e" x="0" y="124" width="752" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="31090629-847e-4bbe-95c1-9934c5d1ff96" x="719" y="50" width="17" height="20"/>
+				<textElement/>
+				<text><![CDATA[%]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

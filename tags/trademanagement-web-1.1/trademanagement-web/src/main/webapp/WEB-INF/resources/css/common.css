@@ -1,0 +1,75 @@
+@CHARSET "ISO-8859-1";
+.datatable {border-collapse:collapse;}
+.datatable tr th{background:#428bca;color:#fff; padding:10px;}
+.datatable tr td{border: #eee 1px solid; padding:10px;}
+.clr{ clear:both; font-size:0px; height:0px;}
+.errorDiv{
+	background-color: #f2dede;
+	border-radius: 5px;
+	margin:7px 7px 0px 6px !important;
+	color:#a94442 !important;
+	width: 100%;
+	display: table;
+}
+
+.error{
+	color:#a94442 !important;
+	font-family: 'Ubuntu', 'sans-serif';
+	font-size:13px;
+	font-weight: normal;
+	margin:3px 10px !important;
+	display: block;
+	clear: both
+}
+.success{
+	color: rgb(0, 0, 71);
+	font-size: 14px;
+	background-color: #dbeefc;
+	border-radius: 5px;
+	padding: 2px 8px !important;
+	margin: 6px auto 0 !important;
+	width: 95%
+}
+.wrapword{
+	word-break:break-all;
+}
+
+.trade_header {width:100%;}
+.navbar-default .trade_header .navbar-nav li a {
+	color: #fff;
+}
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+  margin-left: auto;
+}
+.navbar.navbar-default {
+  padding: 15px 0 0;
+}
+.navbar-default .trade_header .navbar-nav li .dropdown-menu a {color:#999;}
+label.add_delete a{margin: 0;}
+.add_delete {
+  width: 46px;
+}
+#dvLoading
+{
+   background: url(../images/loading.gif) no-repeat scroll center center rgba(0, 0, 0, 0);
+   height: 100px;
+   width: 100px;
+   position: fixed;
+   z-index: 1000;
+   left: 25%;
+   top: 58%; 
+   margin: -25px 0 0 -25px;
+}
+
+.custom-slide.left.carousel-control.fa.fa-chevron-left.fa-2x, .custom-slide.right.carousel-control.fa.fa-chevron-right.fa-2x{
+	top:50%;
+	background: none;
+}
+
+/* ------slider----- */
+
+#carouselButtons {
+    margin-left: 46%;
+    position: absolute;
+    bottom: 0px;
+}

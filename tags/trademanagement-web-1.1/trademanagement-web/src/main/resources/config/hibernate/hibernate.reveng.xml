@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="trademgmt" match-name="accounts"/>
+  <table-filter match-catalog="trademgmt" match-name="ccy"/>
+  <table-filter match-catalog="trademgmt" match-name="instrument"/>
+  <table-filter match-catalog="trademgmt" match-name="trade"/>
+  <table-filter match-catalog="trademgmt" match-name="tradeattachment"/>
+  <table-filter match-catalog="trademgmt" match-name="tradeevent"/>
+  <table-filter match-catalog="trademgmt" match-name="tradeeventtype"/>
+  <table-filter match-catalog="trademgmt" match-name="trader"/>
+  <table-filter match-catalog="trademgmt" match-name="transaction"/>
+  <table-filter match-catalog="trademgmt" match-name="transactiontype"/>
+  <table-filter match-catalog="trademgmt" match-name="sharedaccount"/>
+</hibernate-reverse-engineering>
