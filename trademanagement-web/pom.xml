@@ -10,9 +10,9 @@
 	<url>http://maven.apache.org</url>
 
 	<scm>
-		<connection>scm:svn:https://traderjournal.googlecode.com/svn/trademanagement-web</connection>
-		<developerConnection>scm:svn:https://traderjournal.googlecode.com/svn/trademanagement-web</developerConnection>
-		<url>https://traderjournal.googlecode.com/svn/trademanagement-web</url>
+		<connection>scm:svn:https://traderjournal.googlecode.com/svn</connection>
+		<developerConnection>scm:svn:https://traderjournal.googlecode.com/svn</developerConnection>
+		<url>https://traderjournal.googlecode.com/svn</url>
 
 	</scm>
 
