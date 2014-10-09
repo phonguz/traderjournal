@@ -41,6 +41,9 @@
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1</version>
+				<configuration>
+	<outputDirectory>//var/lib/tomcat7/webapps/</outputDirectory>
+				</configuration>
 			</plugin>
 
 			<plugin>
