@@ -8,7 +8,10 @@
 package traderjournal.views;
 
 
+import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
@@ -44,6 +47,7 @@ public class SWTImageCanvas extends Canvas {
 	private Image sourceImage; /* original image */
 	private Image screenImage; /* screen image */
 	private AffineTransform transform = new AffineTransform();
+	
 
 	private String currentDir=""; /* remembering file open directory */
 
@@ -88,8 +92,12 @@ public class SWTImageCanvas extends Canvas {
 	private void paint(GC gc) {
 		Rectangle clientRect = getClientArea(); /* Canvas' painting area */
 		if (sourceImage != null) {
+
+			
 			Rectangle imageRect =
 				SWT2Dutil.inverseTransformRect(transform, clientRect);
+			
+			
 			int gap = 2; /* find a better start point to render */
 			imageRect.x -= gap; imageRect.y -= gap;
 			imageRect.width += 2 * gap; imageRect.height += 2 * gap;
@@ -104,6 +112,8 @@ public class SWTImageCanvas extends Canvas {
 				new Image(getDisplay(), clientRect.width, clientRect.height);
 			GC newGC = new GC(screenImage);
 			newGC.setClipping(clientRect);
+			newGC.setInterpolation(SWT.HIGH);
+			newGC.setAntialias(SWT.ON);
 			newGC.drawImage(
 				sourceImage,
 				imageRect.x,
@@ -115,13 +125,14 @@ public class SWTImageCanvas extends Canvas {
 				destRect.width,
 				destRect.height);
 			newGC.dispose();
-
+			
 			gc.drawImage(screenImage, 0, 0);
 		} else {
 			gc.setClipping(clientRect);
 			gc.fillRectangle(clientRect);
 			initScrollBars();
 		}
+		
 	}
 
 	/* Initalize the scrollbar and register listeners. */
@@ -260,7 +271,10 @@ public class SWTImageCanvas extends Canvas {
 		}
 		sourceImage = img;
 		showOriginal();
+		
+		
 		return sourceImage;
+		
 	}
 
 	/**

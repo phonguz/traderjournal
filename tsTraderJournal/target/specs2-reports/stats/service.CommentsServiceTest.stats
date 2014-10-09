@@ -1,0 +1,33 @@
+<service.CommentsServiceTest-stats timestamp="1386147068408"><stats time="105" expectations="1" successes="1" examples="1"></stats></service.CommentsServiceTest-stats>
+<service.CommentsServiceTest-stats timestamp="1386159138878"><stats time="70" expectations="1" successes="1" examples="1"></stats></service.CommentsServiceTest-stats>
+<service.CommentsServiceTest-stats timestamp="1391144307925"><stats time="80" expectations="1" successes="1" examples="1"></stats></service.CommentsServiceTest-stats>
+<service.CommentsServiceTest-stats timestamp="1391144808018"><stats time="80" expectations="1" successes="1" examples="1"></stats></service.CommentsServiceTest-stats>
+<service.CommentsServiceTest-results timestamp="1391147783181"><result location="service.CommentsServiceTest (CommentsServiceTest.scala:14)" id="229107278"><stats time="19" expectations="1" errors="1" examples="1"></stats></result>
+</service.CommentsServiceTest-results>
+<service.CommentsServiceTest-stats timestamp="1391147783185"><stats time="19" expectations="1" errors="1" examples="1"><trend><stats time="19" errors="1" successes="-1"></stats></trend></stats></service.CommentsServiceTest-stats>
+<service.CommentsServiceTest-results timestamp="1391150323833"><result location="service.CommentsServiceTest (CommentsServiceTest.scala:14)" id="229107278"><stats time="26" expectations="1" errors="1" examples="1"></stats></result>
+</service.CommentsServiceTest-results>
+<service.CommentsServiceTest-stats timestamp="1391150323841"><stats time="26" expectations="1" errors="1" examples="1"></stats></service.CommentsServiceTest-stats>
+<service.CommentsServiceTest-results timestamp="1391150338600"><result location="service.CommentsServiceTest (CommentsServiceTest.scala:14)" id="229107278"><stats time="25" expectations="1" errors="1" examples="1"></stats></result>
+</service.CommentsServiceTest-results>
+<service.CommentsServiceTest-stats timestamp="1391150338608"><stats time="26" expectations="1" errors="1" examples="1"></stats></service.CommentsServiceTest-stats>
+<service.CommentsServiceTest-results timestamp="1391150419975"><result location="service.CommentsServiceTest (CommentsServiceTest.scala:14)" id="229107278"><stats time="16" expectations="1" errors="1" examples="1"></stats></result>
+</service.CommentsServiceTest-results>
+<service.CommentsServiceTest-stats timestamp="1391150419984"><stats time="16" expectations="1" errors="1" examples="1"></stats></service.CommentsServiceTest-stats>
+<service.CommentsServiceTest-results timestamp="1391150503144"><result location="service.CommentsServiceTest (CommentsServiceTest.scala:14)" id="229107278"><stats time="449" expectations="1" errors="1" examples="1"></stats></result>
+</service.CommentsServiceTest-results>
+<service.CommentsServiceTest-stats timestamp="1391150503152"><stats time="455" expectations="1" errors="1" examples="1"></stats></service.CommentsServiceTest-stats>
+<service.CommentsServiceTest-results timestamp="1391150518055"><result location="service.CommentsServiceTest (CommentsServiceTest.scala:14)" id="229107278"><stats time="418" expectations="1" errors="1" examples="1"></stats></result>
+</service.CommentsServiceTest-results>
+<service.CommentsServiceTest-stats timestamp="1391150518065"><stats time="423" expectations="1" errors="1" examples="1"></stats></service.CommentsServiceTest-stats>
+<service.CommentsServiceTest-results timestamp="1391150580588"><result location="service.CommentsServiceTest (CommentsServiceTest.scala:14)" id="229107278"><stats time="600" expectations="1" errors="1" examples="1"></stats></result>
+</service.CommentsServiceTest-results>
+<service.CommentsServiceTest-stats timestamp="1391150580599"><stats time="606" expectations="1" errors="1" examples="1"></stats></service.CommentsServiceTest-stats>
+<service.CommentsServiceTest-results timestamp="1391150734417"><result location="service.CommentsServiceTest (CommentsServiceTest.scala:14)" id="229107278"><stats time="2252" expectations="1" errors="1" examples="1"></stats></result>
+</service.CommentsServiceTest-results>
+<service.CommentsServiceTest-stats timestamp="1391150734427"><stats time="2258" expectations="1" errors="1" examples="1"></stats></service.CommentsServiceTest-stats>
+<service.CommentsServiceTest-results timestamp="1391150895515"><result location="service.CommentsServiceTest (CommentsServiceTest.scala:14)" id="229107278"><stats time="2029" expectations="1" errors="1" examples="1"></stats></result>
+</service.CommentsServiceTest-results>
+<service.CommentsServiceTest-stats timestamp="1391150895524"><stats time="2035" expectations="1" errors="1" examples="1"></stats></service.CommentsServiceTest-stats>
+<service.CommentsServiceTest-stats timestamp="1391173236222"><stats time="2392" expectations="1" successes="1" examples="1"><trend><stats time="2392" errors="-1" successes="1"></stats></trend></stats></service.CommentsServiceTest-stats>
+<service.CommentsServiceTest-stats timestamp="1391173799767"><stats time="2454" expectations="1" successes="1" examples="1"></stats></service.CommentsServiceTest-stats>

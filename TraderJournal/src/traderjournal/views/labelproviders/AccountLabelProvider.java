@@ -4,7 +4,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
 
-import traderjournal.model.hibernate.Account;
+import traderjournal.model.entities.Account;
 
 public class AccountLabelProvider implements ILabelProvider {
 	private String delim = null;

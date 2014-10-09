@@ -1,9 +1,11 @@
 package traderjournal.views;
 
+import java.util.Collections;
 import java.util.List;
 
+import javax.transaction.Transaction;
+
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -14,12 +16,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
-import org.hibernate.Transaction;
 
-import traderjournal.model.hibernate.Ccy;
-import traderjournal.model.hibernate.CcyHome;
-import traderjournal.model.hibernate.Instrument;
-import traderjournal.model.hibernate.InstrumentHome;
+import traderjournal.model.RequestFactoryUtilsJpa;
+import traderjournal.model.entities.Ccy;
+import traderjournal.model.entities.Instrument;
 
 public class InstrumentView extends ViewPart {
 	Composite composite1;
@@ -27,7 +27,7 @@ public class InstrumentView extends ViewPart {
 	Text txtName;
 	Combo cmbCCY;
 	Text txtValuePerPoint;
-	InstrumentHome ih = new InstrumentHome();
+	
 	Instrument currentIns;
 	public final static String ID = "traderjournal.views.InstrumentView";
 
@@ -87,18 +87,16 @@ public class InstrumentView extends ViewPart {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				CcyHome ch = new CcyHome();
-				Ccy ccy = ch.findAll().get(0);
+				
+				Ccy ccy = Ccy.findAll().get(0);
 
-				Transaction tx = ih.getSessionFactory().getCurrentSession()
-						.beginTransaction();
+				
 				Instrument ins = new Instrument();
-				ih.getSessionFactory().getCurrentSession().refresh(ccy);
+	
 				ins.setCcy(ccy);
-				ins.setName("New");
+				ins.setName("1New");
 				ins.setValuePerPoint(0d);
-				ih.persist(ins);
-				tx.commit();
+				RequestFactoryUtilsJpa.persist(ins);
 				refreshAll();
 
 			}
@@ -116,12 +114,8 @@ public class InstrumentView extends ViewPart {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 
-				Transaction tx = ih.getSessionFactory().getCurrentSession()
-						.beginTransaction();
-
-				ih.getSessionFactory().getCurrentSession().refresh(currentIns);
-				ih.delete(currentIns);
-				tx.commit();
+				RequestFactoryUtilsJpa.remove(currentIns);
+				
 
 				refreshAll();
 
@@ -143,15 +137,12 @@ public class InstrumentView extends ViewPart {
 				
 				Ccy ccy = (Ccy)cmbCCY.getData(cmbCCY.getText());
 
-				Transaction tx = ih.getSessionFactory().getCurrentSession()
-						.beginTransaction();
-				ih.getSessionFactory().getCurrentSession().refresh(currentIns);
-				ih.getSessionFactory().getCurrentSession().refresh(ccy);
+				
 				currentIns.setCcy(ccy);
 				currentIns.setName(txtName.getText());
 				currentIns.setValuePerPoint(Double.parseDouble(txtValuePerPoint.getText()));
-				ih.merge(currentIns);
-				tx.commit();
+				RequestFactoryUtilsJpa.persist(currentIns);
+				
 				refreshAll();
 				
 				
@@ -173,8 +164,8 @@ public class InstrumentView extends ViewPart {
 			else
 				txtValuePerPoint.setText("0");
 			cmbCCY.removeAll();
-			CcyHome ch = new CcyHome();
-			List<Ccy> li = ch.findAll();
+			
+			List<Ccy> li = Ccy.findAll();
 			int i = 0;
 			for (Ccy cc : li) {
 				cmbCCY.add(cc.getName());
@@ -191,7 +182,8 @@ public class InstrumentView extends ViewPart {
 	public void refreshAll() {
 		cmbIns.removeAll();
 
-		List<Instrument> li = ih.findAll();
+		List<Instrument> li = Instrument.findAll();
+		Collections.sort(li);
 		if (li != null && li.size() > 0) {
 
 			for (Instrument ins : li) {

@@ -8,22 +8,20 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 
-import sun.security.action.GetLongAction;
-import traderjournal.model.DBUtils;
-
 /**
  * This class controls all aspects of the application's execution
  */
 public class Application implements IApplication {
 	public static ILog log;
 	public final static String PLUGIN_ID = "TraderJournal";
-
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.equinox.app.IApplication#start(org.eclipse.equinox.app.IApplicationContext)
 	 */
 	public Object start(IApplicationContext context) 
 	throws Exception {
 		
+
 		
 		
 		Display display = PlatformUI.createDisplay();
@@ -38,6 +36,7 @@ public class Application implements IApplication {
 		} finally {
 			display.dispose();
 		}
+	
 		
 	}
 
@@ -55,6 +54,9 @@ public class Application implements IApplication {
 					workbench.close();
 			}
 		});
+
+		
+		
 	}
 	
 	public static void logError(String message){

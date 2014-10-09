@@ -1,0 +1,2 @@
+serviceClass: org.traderjournal.web.client.svc.AccountService
+path: 583D454177DDD19403A8531CFB875840.gwt.rpc

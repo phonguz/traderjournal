@@ -1,6 +1,5 @@
 package traderjournal.views;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import org.eclipse.jface.viewers.ISelection;
@@ -15,7 +14,7 @@ import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
 
-import traderjournal.model.hibernate.Trade;
+import traderjournal.model.entities.Trade;
 import traderjournal.stats.TradeStatistics;
 import traderjournal.views.labelproviders.LabelUtils;
 
@@ -33,6 +32,9 @@ public class TradeStatisticsView extends ViewPart implements ISelectionListener 
 
 		getSite().getPage().addSelectionListener(TradeListView.ID,
 				(ISelectionListener) this);
+		GridData gridData2 = new GridData();
+		GridData gridData1 = new GridData();
+		GridData gridData = new GridData();
 		parent.setLayout(new GridLayout());
 		GridData gd = new GridData(GridData.FILL_BOTH
 				| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
@@ -49,16 +51,21 @@ public class TradeStatisticsView extends ViewPart implements ISelectionListener 
 		originalRR = new Text(composite1, SWT.NONE);
 		originalRR.setText("");
 
+		originalRR.setLayoutData(gridData1);
+
+		originalRR.setSize(30, 8);
 		Label lblcur = new Label(composite1, SWT.NONE);
 		lblcur.setText("Cur RR");
 		currentRR = new Text(composite1, SWT.NONE);
 		currentRR.setText("");
 
+		currentRR.setLayoutData(gridData);
 		Label lblreal = new Label(composite1, SWT.NONE);
 		lblreal.setText("Real RR");
 		realisedRR = new Text(composite1, SWT.NONE);
 		realisedRR.setText("");
 
+		realisedRR.setLayoutData(gridData2);
 	}
 
 	@Override

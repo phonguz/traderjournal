@@ -3,27 +3,22 @@ package traderjournal.views;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
@@ -35,10 +30,9 @@ import org.eclipse.ui.part.ViewPart;
 
 import traderjournal.Activator;
 import traderjournal.editors.TradeEditor;
-import traderjournal.model.hibernate.Tradeevent;
-import traderjournal.model.hibernate.TradeeventHome;
-import traderjournal.model.hibernate.Tradeeventimage;
-import traderjournal.model.hibernate.TradeeventimageHome;
+import traderjournal.model.RequestFactoryUtilsJpa;
+import traderjournal.model.entities.Tradeevent;
+import traderjournal.model.entities.Tradeeventimage;
 
 public class ImageView extends ViewPart implements ISelectionListener {
 	public static final String ID_VIEW = "traderjournal.views.ImageView"; //$NON-NLS-1$
@@ -48,6 +42,7 @@ public class ImageView extends ViewPart implements ISelectionListener {
 	Tradeeventimage eventImage;
 	Tradeevent tradeEvent;
 	Composite parentComposite;
+	
 
 	/**
 	 * 
@@ -133,10 +128,8 @@ public class ImageView extends ViewPart implements ISelectionListener {
 		//		
 		cTabFolder.setTopRight(null);
 
-		TradeeventHome th = new TradeeventHome();
-		th.getSessionFactory().getCurrentSession().beginTransaction();
-		th.getSessionFactory().getCurrentSession().refresh(tradeEvent);
-		Set<Tradeeventimage> trSet = tradeEvent.getTradeeventimages();
+
+		List<Tradeeventimage> trSet = tradeEvent.getTradeeventimages();
 
 		int i = 1;
 		for (Tradeeventimage ti : trSet) {
@@ -153,7 +146,7 @@ public class ImageView extends ViewPart implements ISelectionListener {
 					| GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 			Composite cmp = new Composite(cTabFolder, SWT.NONE);
 			cmp.setLayoutData(gData);
-			cmp.setLayout(new GridLayout(4, false));
+			cmp.setLayout(new GridLayout(5, false));
 
 			Label lbl = new Label(cmp, SWT.NONE);
 			lbl.setText("Description");
@@ -178,6 +171,7 @@ public class ImageView extends ViewPart implements ISelectionListener {
 
 				}
 			});
+			
 			Button btnSAVE = new Button(cmp, SWT.PUSH);
 			btnSAVE.setText("SAVE");
 			btnSAVE.setData(ti);
@@ -191,12 +185,9 @@ public class ImageView extends ViewPart implements ISelectionListener {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					Tradeeventimage it = (Tradeeventimage) e.widget.getData();
-					TradeeventimageHome th = new TradeeventimageHome();
-					th.getSessionFactory().getCurrentSession()
-							.beginTransaction();
-					th.attachDirty(it);
-					th.getSessionFactory().getCurrentSession().getTransaction()
-							.commit();
+
+					RequestFactoryUtilsJpa.persist(it);
+					
 
 				}
 			});
@@ -214,84 +205,64 @@ public class ImageView extends ViewPart implements ISelectionListener {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					Tradeeventimage it = (Tradeeventimage) e.widget.getData();
-					TradeeventimageHome th = new TradeeventimageHome();
-					th.getSessionFactory().getCurrentSession()
-							.beginTransaction();
-					th.delete(it);
-					th.getSessionFactory().getCurrentSession().getTransaction()
-							.commit();
+					
+					RequestFactoryUtilsJpa.remove(it);
+					
 					cTabFolder.redraw();
 
 				}
 			});
-			SWTImageCanvas sic = new SWTImageCanvas(cmp);
+			
+			Button btnFitToScreen = new Button(cmp, SWT.PUSH);
+			
+			SWTImageCanvas  sic = new SWTImageCanvas(cmp);
+			
+			
+			btnFitToScreen.setText("FIT");
+			btnFitToScreen.setData(sic);
+			btnFitToScreen.addSelectionListener(new SelectionListener() {
+
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+
+				}
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					SWTImageCanvas si = (SWTImageCanvas)e.widget.getData();
+					si.fitCanvas();
+
+				}
+			});
+
+		
+			
+			
 			 GridData gridData = new GridData(GridData.FILL_BOTH
 			 | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 			 gridData.grabExcessVerticalSpace = true;
-			 gridData.horizontalSpan = 4;
+			 gridData.horizontalSpan = 5;
 			 sic.setLayoutData(gridData);
 			
 			
 			ByteArrayInputStream bi = new ByteArrayInputStream(ti.getImg());
-
+			ImageData imd = new ImageData(bi);
 			Image img = new Image(Activator.getDefault().getWorkbench()
-					.getDisplay(), bi);
+					.getDisplay(), imd);
 			sic.loadImage(img);
 
-			//
-			// ScrolledComposite sc = new ScrolledComposite(cmp, SWT.V_SCROLL |
-			// SWT.H_SCROLL);
-			// GridData gridData = new GridData(GridData.FILL_BOTH
-			// | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
-			// gridData.grabExcessVerticalSpace = true;
-			// gridData.horizontalSpan = 4;
-			// sc.setLayoutData(gridData);
-			//
-			// GridData gridDatacv = new GridData(GridData.FILL_BOTH
-			// | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
-			// gridDatacv.grabExcessVerticalSpace = true;
-			//
-			//		
-			// sc.setAlwaysShowScrollBars(true);
-			//
-			// Canvas canvas = new Canvas(sc, SWT.COLOR_BLUE);
-			// sc.setContent(canvas);
-			//
-			// canvas.setLayoutData(gridDatacv);
-			// canvas.setData(ti);
-			// canvas.addPaintListener(new PaintListener() {
-			//
-			//
-			// public void paintControl(PaintEvent e) {
-			//
-			//					
-			// Tradeeventimage ti = (Tradeeventimage) e.widget.getData();
-			//
-			// ByteArrayInputStream bi = new ByteArrayInputStream(ti
-			// .getImg());
-			//
-			// Image img = new Image(Activator.getDefault().getWorkbench()
-			// .getDisplay(), bi);
-			//
-			// if (img.getImageData().width > 1024
-			// || img.getImageData().height > 768)
-			// e.gc.drawImage(new Image(img.getDevice(), img
-			// .getImageData().scaledTo(1024, 768)), 0, 0);
-			// else
-			// e.gc.drawImage(img, 0, 0);
-			// img.dispose();
-			// }
-			//
-			// });
+	
+			
 
 			cti.setControl(cmp);
 
 			cTabItemList.add(cti);
 			i++;
 			cTabFolder.setSelection(i);
-
+			
 		}
-		th.getSessionFactory().getCurrentSession().getTransaction().commit();
+			
+		
 		cTabFolder.setSelection(0);
 		cTabFolder.redraw();
 		cTabFolder.update();

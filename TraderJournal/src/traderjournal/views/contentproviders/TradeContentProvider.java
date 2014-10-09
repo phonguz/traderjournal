@@ -5,28 +5,30 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
-import traderjournal.model.hibernate.Account;
-import traderjournal.model.hibernate.Trade;
-import traderjournal.model.hibernate.TradeHome;
+import traderjournal.model.Filter;
+import traderjournal.model.FilterOperator;
+import traderjournal.model.RequestFactoryUtilsJpa;
+import traderjournal.model.entities.Account;
+import traderjournal.model.entities.Trade;
 
 public class TradeContentProvider implements IStructuredContentProvider {
 
 	@Override
 	public Object[] getElements(Object inputElement) {
 		Account ac = (Account)inputElement;
-		TradeHome th = new TradeHome();
-	
-		Session session = th.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		Integer accid =  new Integer(ac.getId());
-		List <Trade> tradeList  = session.createCriteria(Trade.class).createCriteria("account").add(Restrictions.eq("id",accid )).list();
+		
+		
+		Filter f = new Filter("o.account.id",FilterOperator.EQUAL,ac.getId());
+		List<Filter> fl = new ArrayList<Filter>();
+		fl.add(f);
+		List <Trade> tradeList  =   RequestFactoryUtilsJpa.findList(Trade.class, fl,0l,100l);
+		
+				//session.createCriteria(Trade.class).createCriteria("account").add(Restrictions.eq("id",accid )).list();
 		
 		
 		
-		session.getTransaction().commit();
+		
 		if (tradeList != null && tradeList.size() >0)
 			return tradeList.toArray();
 		else{

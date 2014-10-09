@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Report_AllTrades" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43068d2b-20a8-406c-b5b2-30b5da56fd5d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="accname" class="java.lang.String"/>
+	<field name="risk" class="java.lang.Integer"/>
+	<field name="closedt" class="java.util.Date"/>
+	<field name="opendt" class="java.util.Date"/>
+	<field name="stoploss" class="java.math.BigDecimal"/>
+	<field name="closeprc" class="java.math.BigDecimal"/>
+	<field name="openprc" class="java.math.BigDecimal"/>
+	<field name="qnt" class="java.lang.Integer"/>
+	<field name="instmnt" class="java.lang.String"/>
+	<field name="bal" class="java.math.BigDecimal"/>
+	<field name="trader" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d266eca3-ca51-48c5-81b3-befbf16c0209" x="85" y="10" width="580" height="59"/>
+				<textElement textAlignment="Center">
+					<font size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Trade Report]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="2c8ddb30-719c-4fde-80a7-ff01ae94acfc" x="652" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="1064dad9-b4c8-4499-a727-aa65ef85580e" x="58" y="0" width="71" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Account]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9abdc798-b381-4db5-ba09-776988f7b890" x="0" y="0" width="51" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Trader]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="00b6c77d-2a46-44ef-8391-d23a78ea801a" x="134" y="0" width="54" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Balance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="95252e04-5b1d-4104-ad0c-496056d946dd" x="194" y="0" width="72" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Instrument]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6b95d376-f276-47bd-8194-ac20c060cd2a" x="272" y="0" width="52" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="25700474-bdd0-492a-ac24-e64b89b739f6" x="329" y="0" width="67" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Open Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2c165633-1b88-41af-9314-218870b56dd1" x="405" y="0" width="68" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Close Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="88c0d29b-a032-41fb-8110-4c1f089bc44e" x="484" y="0" width="64" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Stop Loss]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6fcc32b5-23b3-435e-ac44-7dc1094f1613" x="558" y="0" width="70" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Open Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2027a551-3b40-4465-b224-7a39dc8a8134" x="640" y="0" width="65" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Close Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4b9afe7a-b149-412b-a68b-dea49129df63" x="717" y="0" width="35" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Risk]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="d12768c2-c9a9-4a18-b514-2cbe37e68aaf" x="0" y="30" width="752" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="34" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="74c613ec-33ee-4826-9191-7e2d0eef8beb" x="58" y="0" width="70" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{accname}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="88008f05-52f1-4602-a320-f4e42f33b08b" x="0" y="0" width="51" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{trader}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="46eb767b-0502-4994-b949-cf70292bad92" x="135" y="0" width="54" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{bal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="e9baf52c-af1e-4a7e-ab6d-e22bd7829a92" x="194" y="0" width="72" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{instmnt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="8556d768-bea2-4cbc-a817-0775bd04cd1b" x="272" y="0" width="55" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{qnt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="e94d90b1-6686-484c-bd41-bf98c0f47590" x="332" y="0" width="62" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{openprc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="aafa0c10-2316-40bc-bb1a-00e0e5755b51" x="405" y="0" width="68" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{closeprc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="db973e90-f0e9-4df8-863f-f3a932862af0" x="484" y="0" width="64" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{stoploss}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="b21a43fe-d48e-4b56-a036-427fd167e587" x="557" y="0" width="70" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{opendt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="d824092a-a9f9-47fa-800b-89e63e16d77a" x="640" y="0" width="65" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{closedt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="a75d77cf-4809-4322-a28f-281cdb89746f" x="717" y="0" width="18" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{risk}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d1568145-8bbf-40cd-b80e-5a0e976bfc8e" x="729" y="0" width="17" height="20"/>
+				<textElement/>
+				<text><![CDATA[%]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

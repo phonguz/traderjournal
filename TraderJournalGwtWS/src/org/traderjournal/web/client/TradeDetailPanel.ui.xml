@@ -1,0 +1,79 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:com.google.gwt.user.datepicker.client">
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel ui:field="panel">
+		<g:Grid width="405px" height="353px">
+			<g:row>
+				
+				<g:customCell>
+					<g:Label text="Instrument"/>
+				</g:customCell>
+				<g:customCell>
+					<g:ListBox name="insCmb" ui:field="instrument"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				
+				<g:customCell>
+					<g:Label text="OpenPrice"/>
+				</g:customCell>
+				<g:customCell>
+					<g:DoubleBox ui:field="openPrice"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label text="Open Date"/>
+				</g:customCell>
+				<g:customCell>
+					<p1:DateBox ui:field="openDate"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label text="Quantity"/>
+				</g:customCell>
+				<g:customCell>
+					<g:DoubleBox ui:field="quantity"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label text="CloseValue"/>
+				</g:customCell>
+				<g:customCell>
+					<g:DoubleBox ui:field="closePrice"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label text="Close Date"/>
+				</g:customCell>
+				<g:customCell>
+					<p1:DateBox ui:field="closeDate"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Label text="Account"/>
+				</g:customCell>
+				<g:customCell>
+					<g:ListBox name="cmbAccount" ui:field="account"/>
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell>
+					<g:Button ui:field="btnSave">Save</g:Button>
+				</g:customCell>
+				<g:customCell>
+					<g:Button ui:field="btnDelete">Delete</g:Button>
+				</g:customCell>
+			</g:row>
+		</g:Grid>
+	</g:HTMLPanel>
+</ui:UiBinder> 

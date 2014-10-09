@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: dgeraskov
+Build-Jdk: 1.6.0_20
+Implementation-Title: Hibernate Tools Core
+Implementation-URL: http://www.hibernate.org/subprojects/tools.html
+Implementation-Vendor: hibernate.org
+Implementation-Vendor-Id: hibernate.org
+Implementation-Version: 3.4.0.CR1
+

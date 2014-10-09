@@ -23,10 +23,9 @@ import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
 
-import traderjournal.model.hibernate.Account;
-import traderjournal.model.hibernate.AccountHome;
-import traderjournal.model.hibernate.Ccy;
-import traderjournal.model.hibernate.CcyHome;
+import traderjournal.model.RequestFactoryUtilsJpa;
+import traderjournal.model.entities.Account;
+import traderjournal.model.entities.Ccy;
 
 public class AccountDetailView extends ViewPart implements ISelectionListener, ISelectionProvider{
 	public static final String ID = "traderjournal.views.AccountDetailView";
@@ -39,12 +38,14 @@ public class AccountDetailView extends ViewPart implements ISelectionListener, I
 	Label lblBalance = null;
 	Text txtBalance = null;
 	
+	Label lblPercentRisk = null;
+	Text txtPercentRisk = null;
 	
 	
 	Button btnSave;
 	Button btnAdd;
 	Button btnRemove;
-	AccountHome acHome = new AccountHome();
+	
 	
 	@Override
 	public void createPartControl(Composite parent) {
@@ -71,17 +72,21 @@ public class AccountDetailView extends ViewPart implements ISelectionListener, I
 			
 			cmbCCY = new Combo(composite1,SWT.NONE);
 			
-			List<Ccy> listAll = new CcyHome().findAll();
+			List<Ccy> listAll = RequestFactoryUtilsJpa.findAll(Ccy.class);
 			cmbCCY.setData(listAll);
 			for(Ccy c : listAll){
-				cmbCCY.add(c.getName(),c.getId());
+				cmbCCY.add(c.getName(),(int)c.getId());
 			}
-			cmbCCY.select(listAll.get(0).getId());
+			cmbCCY.select((int)listAll.get(0).getId());
 			
 			
 			lblBalance = new Label(composite1,SWT.NONE);
 			lblBalance.setText("Balance");
 			txtBalance = new Text(composite1,SWT.NONE);
+			
+			lblPercentRisk = new Label(composite1,SWT.NONE);
+			lblPercentRisk.setText("% Risk");
+			txtPercentRisk = new Text(composite1,SWT.NONE);
 			
 			
 		}
@@ -96,9 +101,9 @@ public class AccountDetailView extends ViewPart implements ISelectionListener, I
 					
 					account.setCcy(list.get(cmbCCY.getSelectionIndex())  );
 					account.setBalance(Double.parseDouble(txtBalance.getText()));
-					acHome.getSessionFactory().getCurrentSession().beginTransaction();
-					acHome.attachDirty(account);
-					acHome.getSessionFactory().getCurrentSession().getTransaction().commit();
+					account.setPercentRisk(Double.parseDouble(txtPercentRisk.getText()));
+					RequestFactoryUtilsJpa.persist(account);
+					
 					setSelection(new AccountStructerdSelection());			
 				}
 			});
@@ -113,17 +118,17 @@ public class AccountDetailView extends ViewPart implements ISelectionListener, I
 						Account ac = new Account();
 						ac.setName("NewAccount");
 						ac.setBalance(0.0);
-						ac.setCcy(new CcyHome().findAll().get(0));
-						
-						int biggestID =0;
-						for(Account acl:acHome.findAll()){
+						ac.setCcy(RequestFactoryUtilsJpa.findAll(Ccy.class).get(0));
+						ac.setPercentRisk(2.0);
+						long biggestID =0;
+						for(Account acl:RequestFactoryUtilsJpa.findAll(Account.class)){
 							if(acl.getId() > biggestID)
 								biggestID = acl.getId();
 						}
 						ac.setId(biggestID +1);
-						acHome.getSessionFactory().getCurrentSession().beginTransaction();	
-						acHome.persist(ac);
-						acHome.getSessionFactory().getCurrentSession().getTransaction().commit();	
+						
+						RequestFactoryUtilsJpa.persist(ac);
+							
 						account = ac;
 						setSelection(new AccountStructerdSelection());
 						
@@ -137,9 +142,9 @@ public class AccountDetailView extends ViewPart implements ISelectionListener, I
 			
 			btnRemove.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
-					acHome.getSessionFactory().getCurrentSession().beginTransaction();
-					acHome.delete(account);
-					acHome.getSessionFactory().getCurrentSession().getTransaction().commit();
+					
+					RequestFactoryUtilsJpa.remove(account);
+					
 					setSelection(new AccountStructerdSelection());
 				}
 			});
@@ -172,9 +177,9 @@ public class AccountDetailView extends ViewPart implements ISelectionListener, I
 			if(account.getName() != null )
 				txtName.setText(account.getName());
 				
-				cmbCCY.select(account.getCcy().getId());
+				cmbCCY.select((int)account.getCcy().getId());
 				txtBalance.setText(Double.toString(account.getBalance()));
-	
+				txtPercentRisk.setText(Double.toString(account.getPercentRisk()));
 		}
 		
 		

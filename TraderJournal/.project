@@ -3,6 +3,7 @@
 	<name>TraderJournal</name>
 	<comment></comment>
 	<projects>
+		<project>TraderJournalDataPlugin</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -20,15 +21,9 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
-		<buildCommand>
-			<name>org.hibernate.eclipse.console.hibernateBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>org.hibernate.eclipse.console.hibernateNature</nature>
 	</natures>
 </projectDescription>

@@ -15,4 +15,6 @@ public class LabelUtils {
 	}
 	public static NumberFormat nf =new DecimalFormat("####.##"); 
 	
+	public static NumberFormat priceFormat = new DecimalFormat("###,###,###,###.##");
+	
 }

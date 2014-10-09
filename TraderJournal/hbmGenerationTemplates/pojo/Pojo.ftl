@@ -15,7 +15,7 @@ ${pojo.getPackageDeclaration()}
 
 <#include "PojoEqualsHashcode.ftl"/>
 
-<#include "PojoGxtModelRequirements.ftl"/>
+
 
 
 <#else>

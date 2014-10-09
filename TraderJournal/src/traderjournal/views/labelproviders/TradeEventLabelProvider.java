@@ -1,7 +1,5 @@
 package traderjournal.views.labelproviders;
 
-import java.text.SimpleDateFormat;
-
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -9,8 +7,7 @@ import org.eclipse.swt.graphics.Image;
 
 import traderjournal.Activator;
 import traderjournal.editors.TradeEditor;
-import traderjournal.model.hibernate.Tradeevent;
-import traderjournal.model.hibernate.TradeeventHome;
+import traderjournal.model.entities.Tradeevent;
 
 public class TradeEventLabelProvider implements ITableLabelProvider {
 
@@ -82,11 +79,9 @@ public class TradeEventLabelProvider implements ITableLabelProvider {
 				else
 					return "";
 			case TradeEditor.COL_EVENT_TYPE: // type
-				TradeeventHome th = new TradeeventHome();
-				th.getSessionFactory().getCurrentSession().beginTransaction();
-				th.getSessionFactory().getCurrentSession().refresh(te);
+				
 				String ret = te.getTradeeventtype().getName();
-				th.getSessionFactory().getCurrentSession().getTransaction().commit();
+				
 				return ret;
 			case TradeEditor.COL_DESCRIPTION: // description
 				if (te.getDescription() != null)
@@ -111,6 +106,13 @@ public class TradeEventLabelProvider implements ITableLabelProvider {
 //
 //				else
 					return "add";
+			case TradeEditor.COL_DND_UPLOAD: // / img1
+//				if (te.getAllImages() != null && te.getAllImages().size() > 0
+//						&& te.getAllImages().get(0) != null)
+//					return null;
+//
+//				else
+					return "dnd";
 
 			case TradeEditor.COL_REMOVE:
 				return null;
