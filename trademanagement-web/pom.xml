@@ -15,7 +15,13 @@
 		<url>https://traderjournal.googlecode.com/svn</url>
 
 	</scm>
-
+	<distributionManagement>
+    	<repository>
+      	<id>raaskopID</id>
+      	<name>raaskopRepo</name>
+      	<url>file://var/lib/tomcat7/webapps/</url>
+    	</repository>
+  	</distributionManagement>
 
 	<properties>
 		<org.springframework.version>4.0.6.RELEASE</org.springframework.version>
