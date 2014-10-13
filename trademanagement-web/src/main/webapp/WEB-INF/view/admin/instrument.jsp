@@ -43,6 +43,14 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-5 control-label">Google Code Id (Finance.google.com)</label>
+							<div class="col-sm-4">
+								<input type="text" size="100" class="form-control" id="google_code_id" name="google_code_id" 
+								placeholder="Enter google code id" title="Enter Alphanumeric of length 3 to 20" required>
+							
+							</div>
+						</div>
+						<div class="form-group">
 						<div class="col-sm-5"></div>
 							<div class="col-sm-3">
 								<button type="submit" class="btn btn-primary" name="save" id="save">Save</button>
@@ -58,6 +66,8 @@
 						<tr>
 							<th>Instrument Name</th>
 							<th>Currency Name</th>
+							<th>Google Code Id</th>
+							<th>Last</th>
 							<th><i class="fa fa-edit fa-2x"></i></th>
 							<th><i class="fa fa-trash-o fa-2x"></i></th>
 						</tr>
@@ -65,7 +75,8 @@
 							<tr>
 								<td class="wrapword" name="instrumentName" id="instrumentName" value="${instrument.name}">${instrument.name}</td>
 								<td name="instrumentName" id="instrumentName" value="${instrument.ccy.name}">${instrument.ccy.name}</td>
-								<td><a id="editInstrument" name="editInstrument"  onclick="editInstrument('${instrument.id}','${instrument.name}','${instrument.ccy.id}');" style="cursor: pointer;" title="Edit Instrument"><i class="fa fa-edit fa-2x"></i></a>
+								<td name="google_code_id" id="google_code_id" value="${instrument.google_code_id}">${instrument.google_code_id}</td>
+								<td><a id="editInstrument" name="editInstrument"  onclick="editInstrument('${instrument.id}','${instrument.name}','${instrument.ccy.id}','${instrument.google_code_id}');" style="cursor: pointer;" title="Edit Instrument"><i class="fa fa-edit fa-2x"></i></a>
 								<input type="hidden" value="${instrument.id}" name="instrumentId" id="instrumentId"></td>
 								<td><a class="delete_icon btn" style="cursor: pointer;" id="${instrument.id},${instrument.name}" title="Delete Instrument"><i class="fa fa-trash-o fa-2x"></i></a></td>
 							</tr>
@@ -104,10 +115,12 @@ $('.delete_icon').click(function() {
         }]
     });
 });
-function editInstrument(id, name, ccyId){
+function editInstrument(id, name, ccyId,googleCodeID){
 	$("#instrumentName").val(name);
 	$("#instrumentId").val(id);
 	$("#ccyId").val(ccyId);
+	$("#google_code_id").val(googleCodeID);
+	
 	$("#update").css("display","");
 	$("#save").css("display","none");
 	$("#instrumentForm").attr("action","${pageContext.request.contextPath}/admin/updateInstrument");

@@ -30,6 +30,8 @@ public class Instrument implements java.io.Serializable {
 	private String name;
 	private Date lastupdtdate;
 	private Integer updatedby;
+	private String google_code_id;
+	
 	private Set<Trade> trades = new HashSet<Trade>(0);
 
 	public Instrument() {
@@ -40,12 +42,13 @@ public class Instrument implements java.io.Serializable {
 	}
 
 	public Instrument(Ccy ccy, String name, Date lastupdtdate,
-			Integer updatedby, Set<Trade> trades) {
+			Integer updatedby, Set<Trade> trades, String google_code_id) {
 		this.ccy = ccy;
 		this.name = name;
 		this.lastupdtdate = lastupdtdate;
 		this.updatedby = updatedby;
 		this.trades = trades;
+		this.google_code_id = google_code_id;
 	}
 
 	@Id
@@ -67,6 +70,15 @@ public class Instrument implements java.io.Serializable {
 
 	public void setCcy(Ccy ccy) {
 		this.ccy = ccy;
+	}
+
+	@Column(name = "google_code_id", length = 20)
+	public String getGoogle_code_id() {
+		return google_code_id;
+	}
+
+	public void setGoogle_code_id(String google_code_id) {
+		this.google_code_id = google_code_id;
 	}
 
 	@Column(name = "name", length = 200)
