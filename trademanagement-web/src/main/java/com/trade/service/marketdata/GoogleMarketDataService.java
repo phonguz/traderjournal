@@ -124,13 +124,16 @@ public class GoogleMarketDataService {
 		
 		Response res = c.target(preURL + gcode).request().get();
 		String sr = res.readEntity(String.class);
+		if (sr == null || sr.length() <3)
+			return 0;
+		
 		String subsr= sr.substring(3);
 		ObjectMapper om = new ObjectMapper();
 		try {
 			JsonNode js = om.readTree(subsr);
 			String last = js.get(0) .path("l").textValue();
 			last = last.replace(",","");
-			return Math.round( Double.parseDouble(last));
+			return Math.round( Double.parseDouble(last) / 100);
 			//System.out.println(js.toString());
 			//GInfo g = om.readValue(sr, GInfo.class);
 			

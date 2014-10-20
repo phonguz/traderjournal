@@ -47,6 +47,7 @@ import com.trade.model.Tradeattachment;
 import com.trade.model.Tradeevent;
 import com.trade.model.Tradeeventtype;
 import com.trade.model.Trader;
+import com.trade.model.nonpersistent.TradeMetrics;
 import com.trade.service.HibernateEntityService;
 import com.trade.util.ObjectErrorFactory;
 import com.trade.util.ViewConstant;
@@ -77,6 +78,11 @@ public class TradeMgmtController {
 	TradeEventValidator tradeEventValidator;
 	@Autowired
 	HibernateEntityService<Sharedaccount> sharedAccountService;
+	
+	@Autowired
+	TradeMetricsController tradeMetricsService;
+	
+
 
 	@RequestMapping(method = {RequestMethod.GET,RequestMethod.POST})
 	public String mainHome(@ModelAttribute("tradeBean") TradeBean tradeBean,Model model,HttpServletRequest request){
@@ -200,6 +206,7 @@ public class TradeMgmtController {
 			trade.setCloseprice(new BigDecimal(tradeBean.getCloseprice()));
 		}
 		trade.setStoploss(new BigDecimal(tradeBean.getStoploss()));
+		trade.setTp(new BigDecimal(tradeBean.getTargetprice()));
 		trade.setOpentradedate(fromdate);
 		if(!tradeBean.getClosetradedate().equalsIgnoreCase("") && tradeBean.getClosetradedate() != null){
 			Date todate = (Date)df.parse(tradeBean.getClosetradedate());
@@ -339,6 +346,7 @@ public class TradeMgmtController {
 		tradeBean.setTradetype(String.valueOf(trade.getTradetype()));
 		tradeBean.setQuantity(String.valueOf(trade.getQuantity()));
 		tradeBean.setOpenprice(String.valueOf(trade.getOpenprice()));
+		tradeBean.setTargetprice(String.valueOf(trade.getTp()));
 		if(trade.getCloseprice() != null){
 			tradeBean.setCloseprice(String.valueOf(trade.getCloseprice()));
 		}else{
@@ -511,14 +519,25 @@ public class TradeMgmtController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}*/
+		
+		
+		
 		List<Tradeeventtype> eventTypeList = tradeEventTypeService.getDataList(new Tradeeventtype());
 		model.addAttribute("eventTypeList", eventTypeList);
 		//List<Tradeevent> eventList = tradeEventService.getDataList(new Tradeevent());
 		Object tradeObj = tradeService.getById(new Trade(), Integer.parseInt(String.valueOf(request.getParameter("refId"))));
 		model.addAttribute("tradeObj",tradeObj);
+		String refid = request.getParameter("refId");
+		
+		TradeMetrics tmetrics = tradeMetricsService.getTradeMetrics(refid, request);
+		model.addAttribute("metricObject", tmetrics);
+		//q=AEG&x=JSE
+		Object googleIdObject = "q=" + ((Trade)tradeObj).getInstrument().getGoogle_code_id() + "&x=" +((Trade)tradeObj).getInstrument().getGoogle_exchange_id() ;
+		model.addAttribute("instrumentGoogleChartId",googleIdObject);
 		List<Tradeevent> eventList = tradeEventService.getByName(new Tradeevent(), "trade_id", Integer.parseInt(String.valueOf(request.getParameter("refId"))));
 		model.addAttribute("refId", request.getParameter("refId"));
-		model.addAttribute("eventList", eventList);	
+		model.addAttribute("eventList", eventList);
+		
 		return ViewConstant.TRADEATTACHMENT_HOME;
 	}
 	

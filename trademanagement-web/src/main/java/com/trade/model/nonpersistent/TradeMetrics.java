@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class TradeMetrics {
 	
 	private BigDecimal currentRiskReward;
-	private BigDecimal originalRiskRewad;
+	private BigDecimal originalRiskReward;
 	private BigDecimal lastPrice;
 	private BigDecimal currentPnL;
 	private BigDecimal currentPnLPercentage;
@@ -33,11 +33,11 @@ public class TradeMetrics {
 	public void setCurrentRiskReward(BigDecimal currentRiskReward) {
 		this.currentRiskReward = currentRiskReward;
 	}
-	public BigDecimal getOriginalRiskRewad() {
-		return originalRiskRewad;
+	public BigDecimal getOriginalRiskReward() {
+		return originalRiskReward;
 	}
-	public void setOriginalRiskRewad(BigDecimal originalRiskRewad) {
-		this.originalRiskRewad = originalRiskRewad;
+	public void setOriginalRiskReward(BigDecimal originalRiskReward) {
+		this.originalRiskReward = originalRiskReward;
 	}
 	
 

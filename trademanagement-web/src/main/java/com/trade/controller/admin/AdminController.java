@@ -165,6 +165,7 @@ public class AdminController {
 		try {
 			String instrumentName = request.getParameter("instrumentName");
 			String googleCodeId = request.getParameter("google_code_id");
+			String google_exchange_id = request.getParameter("google_exchange_id");
 			String ccyId = request.getParameter("ccyId");
 			if(!"".equals(instrumentName)){
 				instrumentList = instrumentService.getByName(new Instrument(), "name", instrumentName);
@@ -177,6 +178,7 @@ public class AdminController {
 						instrument.setCcy(ccy);
 						instrument.setName(instrumentName);
 						instrument.setGoogle_code_id(googleCodeId);
+						instrument.setGoogle_exchange_id(google_exchange_id);
 						instrument.setLastupdtdate(new Date());
 						instrument.setUpdatedby(Integer.parseInt(request.getSession().getAttribute("loggedUserId").toString()));
 						instrumentService.add(instrument);
@@ -204,6 +206,8 @@ public class AdminController {
 				String instrumentName = request.getParameter("instrumentName");
 				String ccyId = request.getParameter("ccyId");
 				String googleCodeId = request.getParameter("google_code_id");
+				String google_exchange_id = request.getParameter("google_exchange_id");
+				
 				String instrumentId = "".equals(request.getParameter("instrumentId"))?"":request.getParameter("instrumentId");
 				
 				if(!"".equals(instrumentId)){
@@ -219,6 +223,7 @@ public class AdminController {
 							instrument.setCcy(ccy);
 							instrument.setName(instrumentName);
 							instrument.setGoogle_code_id(googleCodeId);
+							instrument.setGoogle_exchange_id(google_exchange_id);
 							instrument.setLastupdtdate(new Date());
 							instrument.setUpdatedby(Integer.parseInt(request.getSession().getAttribute("loggedUserId").toString()));
 							instrumentService.update(instrument);

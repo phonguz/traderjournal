@@ -23,7 +23,7 @@ public class TradeBean {
 	private String closetradedate;
 	private String closeprice;
 	private String stoploss;
-	private String tp;
+	private String targetprice;
 	private String entrycoms;
 	private String exitcoms;
 	private String entryfees;
@@ -50,7 +50,7 @@ public class TradeBean {
 		closetradedate = "";
 		closeprice = "";
 		stoploss = "";
-		tp = "";
+		targetprice = "";
 		entrycoms = "";
 		exitcoms = "";
 		entryfees = "";
@@ -134,11 +134,11 @@ public class TradeBean {
 	public void setStoploss(String stoploss) {
 		this.stoploss = stoploss;
 	}
-	public String getTp() {
-		return tp;
+	public String getTargetprice() {
+		return targetprice;
 	}
-	public void setTp(String tp) {
-		this.tp = tp;
+	public void setTargetprice(String targetprice) {
+		this.targetprice = targetprice;
 	}
 	public String getEntrycoms() {
 		return entrycoms;
