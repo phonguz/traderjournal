@@ -1,5 +1,22 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<script type="text/javascript" src="//www.gstatic.com/authtoolkit/js/gitkit.js"></script>
+<link type="text/css" rel="stylesheet" href="//www.gstatic.com/authtoolkit/css/gitkit.css" />
+<script type="text/javascript">
+  var config = {
+      apiKey: 'AIzaSyCpwjbEUKXq58_tF1uGf3lkXSPax2rL6PU',
+      signInSuccessUrl: 'http://trade.raaskop.com/trademanagement-web/trade',
+      idps: ["google"],
+      oobActionUrl: 'http://trade.raaskop.com/trademanagement-web/forgotPassword',
+      siteName: 'this site'
+  };
+  // The HTTP POST body should be escaped by the server to prevent XSS
+  window.google.identitytoolkit.start(
+      '#gitkitWidgetDiv', // accepts any CSS selector
+      config,
+      'JAVASCRIPT_ESCAPED_POST_BODY');
+</script>
 <%-- <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -93,8 +110,11 @@
 		</div>
 	</div>
 </form>
+
     </div> <!-- /container -->
     </div>
+    
+    <div id="gitkitWidgetDiv"></div>
  <!--  </body>
 </html> -->
 <script type="text/javascript">
