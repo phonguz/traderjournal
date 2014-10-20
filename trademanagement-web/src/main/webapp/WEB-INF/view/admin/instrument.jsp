@@ -51,6 +51,14 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-5 control-label">Google Exchange Id (Finance.google.com)</label>
+							<div class="col-sm-4">
+								<input type="text" size="100" class="form-control" id="google_exchange_id" name="google_exchange_id" 
+								placeholder="Enter google exchange id" title="Enter Alphanumeric of length 3 to 20" required>
+							
+							</div>
+						</div>
+						<div class="form-group">
 						<div class="col-sm-5"></div>
 							<div class="col-sm-3">
 								<button type="submit" class="btn btn-primary" name="save" id="save">Save</button>
@@ -67,6 +75,7 @@
 							<th>Instrument Name</th>
 							<th>Currency Name</th>
 							<th>Google Code Id</th>
+							<th>Google Exchange Id</th>
 							<th>Last</th>
 							<th><i class="fa fa-edit fa-2x"></i></th>
 							<th><i class="fa fa-trash-o fa-2x"></i></th>
@@ -76,7 +85,8 @@
 								<td class="wrapword" name="instrumentName" id="instrumentName" value="${instrument.name}">${instrument.name}</td>
 								<td name="instrumentName" id="instrumentName" value="${instrument.ccy.name}">${instrument.ccy.name}</td>
 								<td name="google_code_id" id="google_code_id" value="${instrument.google_code_id}">${instrument.google_code_id}</td>
-								<td><a id="editInstrument" name="editInstrument"  onclick="editInstrument('${instrument.id}','${instrument.name}','${instrument.ccy.id}','${instrument.google_code_id}');" style="cursor: pointer;" title="Edit Instrument"><i class="fa fa-edit fa-2x"></i></a>
+								<td name="google_exchange_id" id="google_exchange_id" value="${instrument.google_exchange_id}">${instrument.google_exchange_id}</td>
+								<td><a id="editInstrument" name="editInstrument"  onclick="editInstrument('${instrument.id}','${instrument.name}','${instrument.ccy.id}','${instrument.google_code_id}','${instrument.google_exchange_id} }');" style="cursor: pointer;" title="Edit Instrument"><i class="fa fa-edit fa-2x"></i></a>
 								<input type="hidden" value="${instrument.id}" name="instrumentId" id="instrumentId"></td>
 								<td><a class="delete_icon btn" style="cursor: pointer;" id="${instrument.id},${instrument.name}" title="Delete Instrument"><i class="fa fa-trash-o fa-2x"></i></a></td>
 							</tr>
@@ -115,11 +125,13 @@ $('.delete_icon').click(function() {
         }]
     });
 });
-function editInstrument(id, name, ccyId,googleCodeID){
+function editInstrument(id, name, ccyId,googleCodeID,google_exchange_id){
 	$("#instrumentName").val(name);
 	$("#instrumentId").val(id);
 	$("#ccyId").val(ccyId);
 	$("#google_code_id").val(googleCodeID);
+	$("#google_exchange_id").val(google_exchange_id);
+	
 	
 	$("#update").css("display","");
 	$("#save").css("display","none");

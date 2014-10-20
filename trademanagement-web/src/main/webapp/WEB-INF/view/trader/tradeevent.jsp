@@ -54,6 +54,7 @@
 				<th class="header" style="background-color: #3B5998">Stop loss</th>
 				<th class="header" style="background-color: #3B5998">Open date</th>
 				<th class="header" style="background-color: #3B5998">Close date</th>
+				<th class="header" style="background-color: #3B5998">Last Price</th>
 				<!-- <th class="header" style="background-color:#3B5998"><label class="add_delete"><a href="#"><img src="/trademanagement-web/resources/images/add_white.png" alt=""></a><a class="delete_icon" href="#"><img src="/trademanagement-web/resources/images/delete_white.png" alt="delete_icon"></a></label></th> -->
 				<!-- <th class="header" style="background-color: #3B5998"><label class="add_delete"><i class="fa fa-edit fa-2x"></i>&nbsp;&nbsp;<i class="fa fa-trash-o fa-2x"></i></label></th>
 				<th class="header" style="background-color: #3B5998;"><div style="text-align: center;">Event</div></th>
@@ -76,6 +77,7 @@
 			<td class="gray_table"><c:out value="${opendate}" /></td>
 			<fmt:formatDate value="${tradeObj.closetradedate}" pattern="MM/dd/yyyy" var="closedate" />
 			<td><c:out value="${closedate}" /></td>
+			<td><c:out value="${metricObject.lastPrice}" /></td>
 			<%-- <td>
 				<label class="add_delete"> <a onclick="onEdit(${trades.id});" class="btn"><img src="/trademanagement-web/resources/images/edit.png" alt=""></a>
 					<a onclick="onEdit(${tradeObj.id});" class="btn" title="Edit Trade"><i class="fa fa-edit fa-2x"></i></a> <a class="delete_icon btn" onclick="onDel(${trades.id});"><img src="/trademanagement-web/resources/images/delete.png" alt=""></a>
@@ -91,6 +93,27 @@
 	</tbody>
 </table>
 </div>
+<div><h5>TradeMetrics</h5></div>
+<table class="table table-bordered table-hover table-striped datatable">
+		<thead>
+			<tr>
+				
+				<th class="header" style="background-color: #3B5998">Original R/R</th>
+				<th class="header" style="background-color: #3B5998">Current R/R</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+		<tr>
+			
+			<td class="gray_table"><c:out value="${tradeObj.getAccounts().getName()}" /></td>
+			<td><c:out value="${tradeObj.getInstrument().getName()}" /></td>
+			
+		</tr>
+	</tbody>
+</table>
+</div>
+
   <div id="horizontalTab">
     <ul class="resp-tabs-list">
       <li>Trade Event</li>      

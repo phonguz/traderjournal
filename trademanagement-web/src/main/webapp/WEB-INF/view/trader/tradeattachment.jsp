@@ -37,7 +37,7 @@
 	<div class="alert alert-success">${SUCCESS_MSG}</div>
 </c:if>
 <div>
-<div><h5>Trade</h5></div>
+<div></div>
 <div class="tradeDiv">
 <table class="table table-bordered table-hover table-striped datatable">
 		<thead>
@@ -51,8 +51,15 @@
 				<th class="header" style="background-color: #3B5998">Open price</th>
 				<th class="header" style="background-color: #3B5998">Close price</th>
 				<th class="header" style="background-color: #3B5998">Stop loss</th>
+				<th class="header" style="background-color: #3B5998">Target Price</th>
 				<th class="header" style="background-color: #3B5998">Open date</th>
 				<th class="header" style="background-color: #3B5998">Close date</th>
+				<th class="header" style="background-color: #3B5998">Last Price</th>
+				<th class="header" style="background-color: #3B5998">Pnl</th>
+				<th class="header" style="background-color: #3B5998">PnL %</th>
+				<th class="header" style="background-color: #3B5998">Original R/R</th>
+				<th class="header" style="background-color: #3B5998">Current R/R</th>
+				
 				<!-- <th class="header" style="background-color:#3B5998"><label class="add_delete"><a href="#"><img src="/trademanagement-web/resources/images/add_white.png" alt=""></a><a class="delete_icon" href="#"><img src="/trademanagement-web/resources/images/delete_white.png" alt="delete_icon"></a></label></th> -->
 				<!-- <th class="header" style="background-color: #3B5998"><label class="add_delete"><i class="fa fa-edit fa-2x"></i>&nbsp;&nbsp;<i class="fa fa-trash-o fa-2x"></i></label></th>
 				<th class="header" style="background-color: #3B5998;"><div style="text-align: center;">Event</div></th>
@@ -71,10 +78,17 @@
 			<td><c:out value="${tradeObj.openprice}" /></td>
 			<td class="gray_table"><c:out value="${tradeObj.closeprice}" /></td>
 			<td><c:out value="${tradeObj.stoploss}" /></td>
+			<td><c:out value="${tradeObj.tp}" /></td>
 			<fmt:formatDate value="${tradeObj.opentradedate}" pattern="MM/dd/yyyy" var="opendate" />
 			<td class="gray_table"><c:out value="${opendate}" /></td>
 			<fmt:formatDate value="${tradeObj.closetradedate}" pattern="MM/dd/yyyy" var="closedate" />
 			<td><c:out value="${closedate}" /></td>
+				
+			<td ><fmt:formatNumber type="NUMBER" minFractionDigits="2" maxFractionDigits="2" value="${metricObject.lastPrice}" /></td>
+			<td ><fmt:formatNumber type="NUMBER" minFractionDigits="2" maxFractionDigits="2" value="${metricObject.currentPnL}" /></td>
+			<td ><fmt:formatNumber type="PERCENT" minFractionDigits="2" maxFractionDigits="2" value="${metricObject.currentPnLPercentage}" /></td>
+			<td ><fmt:formatNumber type="NUMBER" minFractionDigits="2" maxFractionDigits="2" value="${metricObject.originalRiskReward}" /></td>
+			
 			<%-- <td>
 				<label class="add_delete"> <a onclick="onEdit(${trades.id});" class="btn"><img src="/trademanagement-web/resources/images/edit.png" alt=""></a>
 					<a onclick="onEdit(${tradeObj.id});" class="btn" title="Edit Trade"><i class="fa fa-edit fa-2x"></i></a> <a class="delete_icon btn" onclick="onDel(${trades.id});"><img src="/trademanagement-web/resources/images/delete.png" alt=""></a>
@@ -89,12 +103,17 @@
 		</tr>
 	</tbody>
 </table>
+
 </div>
 </div>
   <div id="horizontalTab">
 		<ul class="resp-tabs-list">
      	 <li class="resp-tab-item resp-tab-active">Trade Events</li>      
     	</ul>
+    	<img style="float:right;" src="<c:out value='${pageContext.request.contextPath}'/>/resources/images/chart.jpg" id="chartHoverOver" onmouseover="showGoogleChart();" onmouseout="hideGoogleChart();" name="chartHoverOver" width="30" height="30"/>
+    <div id="currentGoogleChart" name="currentGoogleChart" style="display: none; position: absolute; z-index: 200; left: 100; top: 100; width: 400; height: 400">
+    <img src="https://www.google.com/finance/getchart?<c:out value="${instrumentGoogleChartId}" />&p=20Y&i=86400" />
+    </div>
     <label style="margin-top:8px; margin-left:10% !important;"><i class="fa fa-info-circle fa-2x"></i>   Click on description of event to see attachment.</label>
     <a class="btn_blue btn" style="float:right;" onclick="onCreateEvent();">Create new Event </a>
     <div class="clr"></div>
@@ -327,6 +346,17 @@
 	</div> -->
 </div>
 <script type="text/javascript">
+function showGoogleChart(){
+
+	$('#currentGoogleChart').css({  'display': 'block'});
+};
+function hideGoogleChart(){
+
+	$('#currentGoogleChart').css({  'display': 'none'});
+};
+
+	   
+
 $('.delete_icon').click(function() {
 	var ids = this.name;
 	var refIds = ${refId};
@@ -362,6 +392,11 @@ $(document).ready(function() {
 	}
 	window.setTimeout("loadPagination()",50);
 });
+$(document).ready(function() {
+	$("currentGoogleChart").css('display','none');
+});
+
+
 function sendAjax(id) {
 	clearForm();
 	var tempid= id;

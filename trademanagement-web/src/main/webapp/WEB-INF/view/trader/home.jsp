@@ -104,6 +104,12 @@
 			        <form:errors path="stoploss" element="div" cssClass="alert alert-danger"></form:errors>
                   	<div class="clearfix"></div>
                 </div>
+                <div class="form_row">
+                	<form:label for="targetprice" class="name_txt" path="targetprice">Target Price</form:label>
+					<form:input type="text" class="add_name" id="targetprice" name="targetprice" path="targetprice" required="required"></form:input>
+			        <form:errors path="targetprice" element="div" cssClass="alert alert-danger"></form:errors>
+                  	<div class="clearfix"></div>
+                </div>
                 <div id="sugg_quantity" class="form_row" style="display:none;">
                 	<label class="name_txt">Suggested Quantity</label>
                 	<input class="form-control add_name" disabled="disabled" type="text" id="sug_quantity" value="">                  				        
