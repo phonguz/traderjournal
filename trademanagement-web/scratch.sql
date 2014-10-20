@@ -1,1 +1,1 @@
-alter table instrument add column google_finance_code varchar(20);
+alter table instrument add column google_exchange_id varchar(20);
